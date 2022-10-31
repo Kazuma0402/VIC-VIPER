@@ -3,9 +3,7 @@
 
 enum SCENE_ID
 {
-	SCENE_ID_TITLE = 0,
-	SCENE_ID_PLAY,
-	SCENE_ID_CLEAR
+	SCENE_ID_PLAY = 0,
 };
 
 
