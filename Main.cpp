@@ -5,9 +5,9 @@
 #pragma comment(lib, "winmm.lib")
 
 //定数宣言
-LPCWSTR WIN_CLASS_NAME = L"SampleGame";  //ウィンドウクラス名
-const int WINDOW_WIDTH = 800;			//ウィンドウの幅
-const int WINDOW_HEIGHT = 600;			//ウィンドウの高さ
+LPCWSTR WIN_CLASS_NAME = L"VIC-VIPER";  //ウィンドウクラス名
+const int WINDOW_WIDTH = 1920;			//ウィンドウの幅
+const int WINDOW_HEIGHT = 1280;			//ウィンドウの高さ
 
 
 //プロトタイプ宣言
@@ -21,12 +21,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	WNDCLASSEX wc;
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
 	wc.hInstance = hInstance;                   //インスタンスハンドル
-	wc.lpszClassName = WIN_CLASS_NAME;            //ウィンドウクラス名
+	wc.lpszClassName = WIN_CLASS_NAME;          //ウィンドウクラス名
 	wc.lpfnWndProc = WndProc;                   //ウィンドウプロシージャ
 	wc.style = CS_VREDRAW | CS_HREDRAW;         //スタイル（デフォルト）
 	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); //アイコン
 	wc.hIconSm = LoadIcon(NULL, IDI_WINLOGO);   //小さいアイコン
-	wc.hCursor = LoadCursorFromFileA("Assets/noellecursor_normal.ani");   //マウスカーソル
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);   //マウスカーソル
 	wc.lpszMenuName = NULL;                     //メニュー（なし）
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
@@ -43,7 +43,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,     //ウィンドウクラス名
-		L"サンプルゲーム",  //タイトルバーに表示する内容
+		L"VIC-VIPER",  //タイトルバーに表示する内容
 		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,      //表示位置左（おまかせ）
 		CW_USEDEFAULT,      //表示位置上（おまかせ）
