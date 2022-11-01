@@ -1,13 +1,16 @@
 //インクルード
 #include <Windows.h>
-#include <stdlib.h>
+#include "Engine/RootJob.h"
 
 #pragma comment(lib, "winmm.lib")
 
 //定数宣言
 LPCWSTR WIN_CLASS_NAME = L"VIC-VIPER";  //ウィンドウクラス名
-const int WINDOW_WIDTH = 1920;			//ウィンドウの幅
-const int WINDOW_HEIGHT = 1280;			//ウィンドウの高さ
+
+//プロトタイプ宣言
+const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);			//ウィンドウの幅
+const int WINDOW_HEIGHT = GetSystemMetrics(SM_CYSCREEN);		//ウィンドウの高さ
+
 
 
 //プロトタイプ宣言
@@ -58,6 +61,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
 	CoInitialize(nullptr);
+
+	RootJob* pRootJob = new RootJob;
+	pRootJob->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;

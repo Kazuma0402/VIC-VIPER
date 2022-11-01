@@ -1,7 +1,7 @@
 #include "RootJob.h"
 #include "SceneManager.h"
 
-RootJob::RootJob(GameObject* parent) : GameObject(parent, "Rootjob")
+RootJob::RootJob() : GameObject(nullptr, "Rootjob")
 {
 }
 

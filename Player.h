@@ -4,6 +4,7 @@
 //◆◆◆を管理するクラス
 class Player : public GameObject
 {
+    int hModel_;
 
 public:
     //コンストラクタ
