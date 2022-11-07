@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "Model.h"
+#include "../PlayScene.h"
 
 //コンストラクタ
 SceneManager::SceneManager(GameObject* parent)
@@ -17,7 +18,7 @@ void SceneManager::Initialize()
 	//最初のシーンを準備
 	currentSceneID_ = SCENE_ID_EDIT;
 	nextSceneID_ = currentSceneID_;
-	//Instantiate<EditScene>(this);
+	Instantiate<PlayScene>(this);
 }
 
 //更新
@@ -38,7 +39,7 @@ void SceneManager::Update()
         //次のシーンを作成
         switch (nextSceneID_)
         {
-        //case SCENE_ID_TITLE: Instantiate<TitleScene>(this); break;
+        case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
         }
 
         currentSceneID_ = nextSceneID_;

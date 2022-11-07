@@ -1,5 +1,12 @@
 //インクルード
 #include <Windows.h>
+#include <stdlib.h>
+#include "Engine/Direct3D.h"
+#include "Engine/Camera.h"
+#include "Engine/Transform.h"
+#include "Engine/Input.h"
+#include "Engine/RootJob.h"
+#include "Engine/Model.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -10,11 +17,10 @@ LPCWSTR WIN_CLASS_NAME = L"VIC-VIPER";  //ウィンドウクラス名
 const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);			//ウィンドウの幅
 const int WINDOW_HEIGHT = GetSystemMetrics(SM_CYSCREEN);		//ウィンドウの高さ
 
-
-
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
+RootJob* pRootJob;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -59,7 +65,27 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	//ウィンドウを表示
 	ShowWindow(hWnd, nCmdShow);
+
+	//COMの初期化
 	CoInitialize(nullptr);
+
+	//Direct3D初期化
+	HRESULT hr;
+	hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
+	if (FAILED(hr))
+	{
+		PostQuitMessage(0);
+	}
+
+	//DirectInputの初期化
+	Input::Initialize(hWnd);
+
+	//カメラ初期化
+	Camera::Initialize();
+
+	//RootJob初期化
+	pRootJob = new RootJob(nullptr);
+	pRootJob->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -80,15 +106,31 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			timeBeginPeriod(1);
 
 			//入力情報の更新
+			Input::Update();
+			pRootJob->UpdateSub();
 
 			//ゲームの処理
+			Direct3D::BeginDraw();
+			pRootJob->DrawSub();
 
 			//アップデート
+			Camera::Update();
 
 			//終了
+			Direct3D::EndDraw();
 			timeEndPeriod(1);
 		}
 	}
+
+	Model::Release();
+	pRootJob->Release();
+	Direct3D::Release();
+	Input::Release();
+
+	SAFE_DELETE(pRootJob);
+
+	CoUninitialize();
+
 	return 0;
 }
 
