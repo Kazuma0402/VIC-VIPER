@@ -14,10 +14,6 @@ namespace Direct3D
 	ID3D11Texture2D* pDepthStencil;			//深度ステンシル
 	ID3D11DepthStencilView* pDepthStencilView;		//深度ステンシルビュー
 
-	int scrWidth = 0;
-	int scrHeight = 0;
-
-
 	struct SHADER_BUNDLE
 	{
 		ID3D11VertexShader* pVertexShader = nullptr;	//頂点シェーダー
@@ -25,7 +21,9 @@ namespace Direct3D
 		ID3D11InputLayout* pVertexLayout = nullptr;	//頂点インプットレイアウト
 		ID3D11RasterizerState* pRasterizerState = nullptr;	//ラスタライザー
 	};
-	SHADER_BUNDLE shaderBundle[2];
+	SHADER_BUNDLE shaderBundle[SHADER_MAX];
+
+	int scrWidth, scrHeight;
 }
 
 
@@ -33,6 +31,11 @@ namespace Direct3D
 //初期化
 HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 {
+	scrWidth = winW;
+	scrHeight = winH;
+
+	HRESULT hr;
+
 	///////////////////////////いろいろ準備するための設定///////////////////////////////
 	
 	//いろいろな設定項目をまとめた構造体
@@ -130,7 +133,6 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 
 
 	//シェーダー準備
-	HRESULT hr;
 	hr = InitShader();
 	if (FAILED(hr))
 	{

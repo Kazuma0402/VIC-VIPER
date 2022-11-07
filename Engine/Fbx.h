@@ -4,7 +4,6 @@
 #include <fbxsdk.h>
 #include <string>
 #include "Transform.h"
-//#include "Texture.h"
 
 
 #pragma comment(lib, "LibFbxSDK-MT.lib")
@@ -12,6 +11,14 @@
 #pragma comment(lib, "zlib-MT.lib")
 
 class Texture;
+struct RayCastData
+{
+	XMFLOAT3 start;
+	XMFLOAT3 dir;
+	BOOL hit;
+	float dist;
+
+};
 
 class Fbx
 {
@@ -36,6 +43,10 @@ class Fbx
 		XMVECTOR normal;
 	};
 
+	VERTEX * pVertices_;
+
+	int** ppIndex_;
+
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数
 	int materialCount_;	//マテリアルの個数
@@ -55,6 +66,8 @@ public:
 	HRESULT Load(std::string fileName);
 	void    Draw(Transform& transform);
 	void    Release();
+
+	void RayCast(RayCastData& rayData);
 
 private:
 	void InitVertex(fbxsdk::FbxMesh* pMesh);

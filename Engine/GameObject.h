@@ -34,6 +34,8 @@ public:
 	virtual void Release(void) = 0;	//ƒˆ‰¼‘zŠÖ”
 	void ReleaseSub();
 
+	XMMATRIX GetWorldMatrix();
+
 	void KillMe();
 
 	void SetPosition(XMFLOAT3 position);

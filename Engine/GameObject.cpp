@@ -69,6 +69,11 @@ void GameObject::ReleaseSub()
 
 }
 
+XMMATRIX GameObject::GetWorldMatrix()
+{
+	return transform_.GetWorldMatrix();
+}
+
 void GameObject::KillMe()
 {
 	dead_ = true;

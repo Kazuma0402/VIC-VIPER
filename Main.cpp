@@ -1,6 +1,5 @@
 //インクルード
 #include <Windows.h>
-#include "Engine/RootJob.h"
 
 #pragma comment(lib, "winmm.lib")
 
@@ -62,15 +61,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	ShowWindow(hWnd, nCmdShow);
 	CoInitialize(nullptr);
 
-	RootJob* pRootJob = new RootJob;
-	pRootJob->Initialize();
-
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
 	while (msg.message != WM_QUIT)
 	{
-
 
 		//メッセージあり
 		if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))

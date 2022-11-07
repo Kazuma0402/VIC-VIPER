@@ -5,7 +5,7 @@
 class RootJob : public GameObject
 {
 public:
-	RootJob();
+	RootJob(GameObject* parente);
 	~RootJob();
 
 	void Initialize() override;

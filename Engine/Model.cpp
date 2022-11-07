@@ -13,8 +13,7 @@ namespace Model
 		Transform transform;
 		std::string fileName;
 	};
-
-	std::vector<ModelData*>	models;
+	std::vector<ModelData*>	modelList;
 }
 
 //ロード
@@ -25,11 +24,11 @@ int Model::Load(std::string fileName)
 	pData->fileName = fileName;
 
 	pData->pFbx = nullptr;
-	for (int i = 0; i < models.size(); i++)
+	for (int i = 0; i < modelList.size(); i++)
 	{
-		if (models[i]->fileName == fileName)
+		if (modelList[i]->fileName == fileName)
 		{
-			pData->pFbx = models[i]->pFbx;
+			pData->pFbx = modelList[i]->pFbx;
 			break;
 		}
 	}
@@ -40,35 +39,35 @@ int Model::Load(std::string fileName)
 		pData->pFbx->Load(fileName);
 	}
 
-	models.push_back(pData);
-	return models.size() - 1;
+	modelList.push_back(pData);
+	return modelList.size() - 1;
 }
 
 
 //トランスフォームをセット
 void Model::SetTransform(int hModel, Transform transform)
 {
-	models[hModel]->transform = transform;
+	modelList[hModel]->transform = transform;
 }
 
 
 //描画
 void Model::Draw(int hModel)
 {
-	models[hModel]->pFbx->Draw(models[hModel]->transform);
+	modelList[hModel]->pFbx->Draw(modelList[hModel]->transform);
 }
 
 
 //
 void Model::Release()
 {
-	for (int i = 0; i < models.size(); i++)
+	for (int i = 0; i < modelList.size(); i++)
 	{
 		bool isExist = false;
 
-		for (int j = i + 1; j < models.size(); j++)
+		for (int j = i + 1; j < modelList.size(); j++)
 		{
-			if (models[i]->pFbx == models[j]->pFbx)
+			if (modelList[i]->pFbx == modelList[j]->pFbx)
 			{
 				isExist = true;
 				break;
@@ -77,12 +76,26 @@ void Model::Release()
 
 		if (!isExist)
 		{
-			SAFE_DELETE(models[i]->pFbx);
+			SAFE_DELETE(modelList[i]->pFbx);
 		}
 
-		SAFE_DELETE(models[i]);
+		SAFE_DELETE(modelList[i]);
 	}
 
-	models.clear();
+	modelList.clear();
+}
 
+void Model::RayCast(int hModel_, RayCastData& rayData)
+{
+	XMFLOAT3 TarGet = { rayData.start.x + rayData.dir.x , rayData.start.y + rayData.dir.y, rayData.start.z + rayData.dir.z };
+	XMMATRIX matInv = XMMatrixInverse(nullptr, modelList[hModel_]->transform.GetWorldMatrix()); //引数のモデルのワールド行列の逆行列
+	XMVECTOR moveStart = XMLoadFloat3(&rayData.start);
+	XMVECTOR InvDir = XMLoadFloat3(&rayData.dir);
+
+	moveStart = XMVector3TransformCoord(moveStart, matInv);
+	InvDir = XMVector3TransformCoord(InvDir, matInv);
+	InvDir = InvDir - moveStart;
+	XMStoreFloat3(&rayData.start, moveStart);
+	XMStoreFloat3(&rayData.dir, InvDir);
+	modelList[hModel_]->pFbx->RayCast(rayData);
 }
