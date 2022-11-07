@@ -10,7 +10,7 @@ PlayScene::PlayScene(GameObject* parent)
 //‰Šú‰»
 void PlayScene::Initialize()
 {
-	hPict_ = Image::Load("Shinwa.jpg");
+	hPict_ = Image::Load("Assets/Shinwa.jpg");
 	assert(hPict_ >= 0);
 }
 
