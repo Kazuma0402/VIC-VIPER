@@ -51,7 +51,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,     //ウィンドウクラス名
-		L"VIC-VIPER",  //タイトルバーに表示する内容
+		L"VIC-VIPER",		//タイトルバーに表示する内容
 		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,      //表示位置左（おまかせ）
 		CW_USEDEFAULT,      //表示位置上（おまかせ）
@@ -98,6 +98,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+			if (Input::IsKeyDown(DIK_ESCAPE))
+			{
+				PostQuitMessage(0);
+			}
 		}
 		//メッセージなし
 		else
