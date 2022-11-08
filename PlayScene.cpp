@@ -11,23 +11,17 @@ PlayScene::PlayScene(GameObject* parent)
 //‰Šú‰»
 void PlayScene::Initialize()
 {
-
-	hPict_ = Image::Load("Assets/Shinwa.jpg");
-	assert(hPict_ >= 0);
-
 	Instantiate<Player>(this);
 }
 
 //XV
 void PlayScene::Update()
-{
+{	
 }
 
 //•`‰æ
 void PlayScene::Draw()
 {
-	/*Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);*/
 }
 
 //ŠJ•ú
