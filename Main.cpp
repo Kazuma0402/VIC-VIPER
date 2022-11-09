@@ -18,6 +18,7 @@ const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);			//ウィンドウの幅
 const int WINDOW_HEIGHT = GetSystemMetrics(SM_CYSCREEN);		//ウィンドウの高さ
 
 //プロトタイプ宣言
+HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 RootJob* pRootJob;
@@ -25,49 +26,11 @@ RootJob* pRootJob;
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
-	//ウィンドウクラス（設計図）を作成
-	WNDCLASSEX wc;
-	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
-	wc.hInstance = hInstance;                   //インスタンスハンドル
-	wc.lpszClassName = WIN_CLASS_NAME;          //ウィンドウクラス名
-	wc.lpfnWndProc = WndProc;                   //ウィンドウプロシージャ
-	wc.style = CS_VREDRAW | CS_HREDRAW;         //スタイル（デフォルト）
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION); //アイコン
-	wc.hIconSm = LoadIcon(NULL, IDI_WINLOGO);   //小さいアイコン
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);   //マウスカーソル
-	wc.lpszMenuName = NULL;                     //メニュー（なし）
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
-
-	RegisterClassEx(&wc); //クラスを登録
-
-	//ウィンドウサイズの計算
-	RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
-	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
-	int winW = winRect.right - winRect.left;     //ウィンドウ幅
-	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
-
-	//ウィンドウを作成
-	HWND hWnd = CreateWindow(
-		WIN_CLASS_NAME,     //ウィンドウクラス名
-		L"VIC-VIPER",		//タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
-		CW_USEDEFAULT,      //表示位置左（おまかせ）
-		CW_USEDEFAULT,      //表示位置上（おまかせ）
-		winW,				//ウィンドウ幅
-		winH,				//ウィンドウ高さ
-		NULL,				//親ウインドウ（なし）
-		NULL,               //メニュー（なし）
-		hInstance,          //インスタンス
-		NULL                //パラメータ（なし）
-	);
-
-	//ウィンドウを表示
-	ShowWindow(hWnd, nCmdShow);
-
 	//COMの初期化
 	CoInitialize(nullptr);
+
+	//ウィンドウを作成
+	HWND hWnd = InitApp(hInstance, WINDOW_WIDTH, WINDOW_HEIGHT, nCmdShow);
 
 	//Direct3D初期化
 	HRESULT hr;
@@ -138,6 +101,53 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	return 0;
 }
 
+//ウィンドウの作成
+HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow)
+{
+	//ウィンドウクラス（設計図）を作成
+	WNDCLASSEX wc;
+	wc.cbSize = sizeof(WNDCLASSEX);                     //この構造体のサイズ
+	wc.hInstance = hInstance;                           //インスタンスハンドル
+	wc.lpszClassName = WIN_CLASS_NAME;                  //ウィンドウクラス名
+	wc.lpfnWndProc = WndProc;                           //ウィンドウプロシージャ
+	wc.style = CS_VREDRAW | CS_HREDRAW;                 //スタイル（デフォルト）
+	wc.hIcon = LoadIcon(nullptr, IDI_APPLICATION);      //アイコン
+	wc.hIconSm = LoadIcon(nullptr, IDI_WINLOGO);        //小さいアイコン
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);			//マウスカーソル
+	wc.lpszMenuName = nullptr;                          //メニュー（なし）
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);    //背景（白）
+	RegisterClassEx(&wc);
+
+	//ウィンドウサイズの計算
+	RECT winRect = { 0, 0, screenWidth, screenHeight };
+	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+	int winW = winRect.right - winRect.left;     //ウィンドウ幅
+	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
+
+	//ウィンドウを作成
+	HWND hWnd = CreateWindow(
+		WIN_CLASS_NAME,     //ウィンドウクラス名
+		L"VIC-VIPER",		//タイトルバーに表示する内容
+		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
+		CW_USEDEFAULT,      //表示位置左（おまかせ）
+		CW_USEDEFAULT,      //表示位置上（おまかせ）
+		winW,				//ウィンドウ幅
+		winH,				//ウィンドウ高さ
+		NULL,				//親ウインドウ（なし）
+		NULL,               //メニュー（なし）
+		hInstance,          //インスタンス
+		NULL                //パラメータ（なし）
+	);
+
+	SetWindowLong(hWnd, GWL_STYLE, 0); // Without 1 point border = white rectangle
+
+	//ウィンドウを表示
+	ShowWindow(hWnd, nCmdShow);
+
+	return hWnd;
+}
 
 //ウィンドウプロシージャ（何かあった時によばれる関数）
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)

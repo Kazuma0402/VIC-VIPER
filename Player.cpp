@@ -18,7 +18,7 @@ Player::~Player()
 //‰Šú‰»
 void Player::Initialize()
 {
-	hPict_ = Image::Load("Assets/Gradius.png");
+	hPict_ = Image::Load("Assets/VICVIPER.png");
 	assert(hPict_ >= 0);
 }
 
