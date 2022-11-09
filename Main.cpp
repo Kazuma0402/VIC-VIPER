@@ -1,54 +1,52 @@
 //インクルード
 #include <Windows.h>
 #include <stdlib.h>
-#include "Engine/Direct3D.h"
-#include "Engine/Camera.h"
-#include "Engine/Transform.h"
-#include "Engine/Input.h"
-#include "Engine/RootJob.h"
+#include <assert.h>
+#include "Engine/global.h"
+#include "Engine/RootObject.h"
 #include "Engine/Model.h"
+#include "Engine/Image.h"
+#include "Engine/Camera.h"
+#include "Engine/Input.h"
+#include "Engine/Audio.h"
 
 #pragma comment(lib, "winmm.lib")
 
 //定数宣言
-LPCWSTR WIN_CLASS_NAME = L"VIC-VIPER";  //ウィンドウクラス名
-
-//プロトタイプ宣言
-const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);	//ウィンドウの幅
-const int WINDOW_HEIGHT = GetSystemMetrics(SM_CXSCREEN);		//ウィンドウの高さ
+const char* WIN_CLASS_NAME = "VIC-VIPER";  //ウィンドウクラス名
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-RootJob* pRootJob;
-
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
 {
-	//COMの初期化
-	CoInitialize(nullptr);
+	SetCurrentDirectory("Assets");
+
+	//初期化ファイル（setup.ini）から必要な情報を取得
+	int screenWidth = GetPrivateProfileInt("SCREEN", "Width", 800, ".\\setup.ini");		//スクリーンの幅
+	int screenHeight = GetPrivateProfileInt("SCREEN", "Height", 600, ".\\setup.ini");	//スクリーンの高さ
 
 	//ウィンドウを作成
-	HWND hWnd = InitApp(hInstance, WINDOW_WIDTH, WINDOW_HEIGHT, nCmdShow);
+	HWND hWnd = InitApp(hInstance, screenWidth, screenHeight, nCmdShow);
 
-	//Direct3D初期化
-	HRESULT hr;
-	hr = Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd);
-	if (FAILED(hr))
-	{
-		PostQuitMessage(0);
-	}
+	//Direct3D準備
+	Direct3D::Initialize(hWnd, screenWidth, screenHeight);
 
-	//DirectInputの初期化
-	Input::Initialize(hWnd);
-
-	//カメラ初期化
+	//カメラを準備
 	Camera::Initialize();
 
-	//RootJob初期化
-	pRootJob = new RootJob(nullptr);
-	pRootJob->Initialize();
+	//入力処理（キーボード、マウス、コントローラー）の準備
+	Input::Initialize(hWnd);
+
+	//オーディオ（効果音）の準備
+	Audio::Initialize();
+
+	//ルートオブジェクト準備
+	//すべてのゲームオブジェクトの親となるオブジェクト
+	RootObject* pRootObject = new RootObject;
+	pRootObject->Initialize();
 
 	//メッセージループ（何か起きるのを待つ）
 	MSG msg;
@@ -74,11 +72,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 			//入力情報の更新
 			Input::Update();
-			pRootJob->UpdateSub();
+			pRootObject->UpdateSub();
 
 			//ゲームの処理
 			Direct3D::BeginDraw();
-			pRootJob->DrawSub();
+			pRootObject->DrawSub();
 
 			//アップデート
 			Camera::Update();
@@ -89,14 +87,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 
-	Model::Release();
-	pRootJob->Release();
+	//いろんな開放
+	Audio::Release();
+	Model::AllRelease();
+	Image::AllRelease();
+	pRootObject->ReleaseSub();
+	SAFE_DELETE(pRootObject);
 	Direct3D::Release();
-	Input::Release();
-
-	SAFE_DELETE(pRootJob);
-
-	CoUninitialize();
 
 	return 0;
 }
@@ -122,23 +119,25 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 
 	//ウィンドウサイズの計算
 	RECT winRect = { 0, 0, screenWidth, screenHeight };
-	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
-	int winW = winRect.right - winRect.left;     //ウィンドウ幅
-	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
+	AdjustWindowRect(&winRect, WS_MAXIMIZEBOX, FALSE);
+
+	//タイトルバーに表示する内容
+	char caption[64];
+	GetPrivateProfileString("SCREEN", "Caption", "***", caption, 64, ".\\setup.ini");
 
 	//ウィンドウを作成
 	HWND hWnd = CreateWindow(
-		WIN_CLASS_NAME,     //ウィンドウクラス名
-		L"VIC-VIPER",		//タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW,//スタイル（普通のウィンドウ）
-		CW_USEDEFAULT,      //表示位置左（おまかせ）
-		CW_USEDEFAULT,      //表示位置上（おまかせ）
-		winW,				//ウィンドウ幅
-		winH,				//ウィンドウ高さ
-		NULL,				//親ウインドウ（なし）
-		NULL,               //メニュー（なし）
-		hInstance,          //インスタンス
-		NULL                //パラメータ（なし）
+		WIN_CLASS_NAME,						//ウィンドウクラス名
+		caption,							//タイトルバーに表示する内容
+		WS_MAXIMIZEBOX,						//スタイル（普通のウィンドウ）
+		CW_USEDEFAULT,						//表示位置左（おまかせ）
+		CW_USEDEFAULT,						//表示位置上（おまかせ）
+		winRect.right - winRect.left,		//ウィンドウ幅
+		winRect.bottom - winRect.top,		//ウィンドウ高さ
+		NULL,								//親ウインドウ（なし）
+		NULL,								//メニュー（なし）
+		hInstance,							//インスタンス
+		NULL								//パラメータ（なし）
 	);
 
 	SetWindowLong(hWnd, GWL_STYLE, 0); // Without 1 point border = white rectangle

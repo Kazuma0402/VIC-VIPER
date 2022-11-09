@@ -1,5 +1,5 @@
+#include "Global.h"
 #include "Image.h"
-#include "Direct3D.h"
 
 //3D画像を管理する
 namespace Image
@@ -35,12 +35,7 @@ namespace Image
 		if (isExist == false)
 		{
 			pData->pSprite = new Sprite;
-
-			wchar_t wtext[FILENAME_MAX];
-			size_t ret;
-			mbstowcs_s(&ret, wtext, fileName.c_str(), strlen(fileName.c_str()));
-
-			if (FAILED(pData->pSprite->Initialize(wtext)))
+			if (FAILED(pData->pSprite->Load(fileName)))
 			{
 				//開けなかった
 				SAFE_DELETE(pData->pSprite);
@@ -69,6 +64,9 @@ namespace Image
 		//画像番号割り振り
 		int handle = (int)_datas.size() - 1;
 
+		//切り抜き範囲をリセット
+		ResetRect(handle);
+
 		return handle;
 	}
 
@@ -82,7 +80,7 @@ namespace Image
 			return;
 		}
 		_datas[handle]->transform.Calclation();
-		_datas[handle]->pSprite->Draw(_datas[handle]->transform);
+		_datas[handle]->pSprite->Draw(_datas[handle]->transform, _datas[handle]->rect, _datas[handle]->alpha);
 	}
 
 
@@ -116,6 +114,8 @@ namespace Image
 		SAFE_DELETE(_datas[handle]);
 	}
 
+
+
 	//全ての画像を解放
 	void AllRelease()
 	{
@@ -125,6 +125,50 @@ namespace Image
 		}
 		_datas.clear();
 	}
+
+
+	//切り抜き範囲の設定
+	void SetRect(int handle, int x, int y, int width, int height)
+	{
+		if (handle < 0 || handle >= _datas.size())
+		{
+			return;
+		}
+
+		_datas[handle]->rect.left = x;
+		_datas[handle]->rect.top = y;
+		_datas[handle]->rect.right = width;
+		_datas[handle]->rect.bottom = height;
+	}
+
+
+	//切り抜き範囲をリセット（画像全体を表示する）
+	void ResetRect(int handle)
+	{
+		if (handle < 0 || handle >= _datas.size())
+		{
+			return;
+		}
+
+		XMFLOAT3 size = _datas[handle]->pSprite->GetTextureSize();
+
+		_datas[handle]->rect.left = 0;
+		_datas[handle]->rect.top = 0;
+		_datas[handle]->rect.right = (long)size.x;
+		_datas[handle]->rect.bottom = (long)size.y;
+
+	}
+
+	//アルファ値設定
+	void SetAlpha(int handle, int alpha)
+	{
+		if (handle < 0 || handle >= _datas.size())
+		{
+			return;
+		}
+		_datas[handle]->alpha = (float)alpha / 255.0f;
+	}
+
 
 	//ワールド行列を設定
 	void SetTransform(int handle, Transform& transform)

@@ -1,4 +1,4 @@
-ï»¿#pragma once
+#pragma once
 #define DIRECTINPUT_VERSION 0x0800
 #include <dInput.h>
 #include <DirectXMath.h>
@@ -12,103 +12,103 @@
 using namespace DirectX;
 
 //-----------------------------------------------------------
-//DirectInputã‚’ä½¿ã£ãŸã‚­ãƒ¼ãƒœãƒ¼ãƒ‰å…¥åŠ›å‡¦ç†
+//DirectInput‚ðŽg‚Á‚½ƒL[ƒ{[ƒh“ü—Íˆ—
 //-----------------------------------------------------------
 namespace Input
 {
-	//åˆæœŸåŒ–
-	//å¼•æ•°ï¼šhWnd	ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+	//‰Šú‰»
+	//ˆø”FhWnd	ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
 	void Initialize(HWND hWnd);
 
-	//æ›´æ–°
+	//XV
 	void Update();
 
 
-	///////////////////////////ã€€ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã€€//////////////////////////////////
-	//ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼škeyCode	èª¿ã¹ãŸã„ã‚­ãƒ¼ã®ã‚³ãƒ¼ãƒ‰
-	//æˆ»å€¤ï¼šæŠ¼ã•ã‚Œã¦ã„ã‚Œã°true
+	///////////////////////////@ƒL[ƒ{[ƒh@//////////////////////////////////
+	//ƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©’²‚×‚é
+	//ˆø”FkeyCode	’²‚×‚½‚¢ƒL[‚ÌƒR[ƒh
+	//–ß’lF‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Îtrue
 	bool IsKey(int keyCode);
 
-	//ã‚­ãƒ¼ã‚’ä»ŠæŠ¼ã—ãŸã‹èª¿ã¹ã‚‹ï¼ˆæŠ¼ã—ã£ã±ãªã—ã¯ç„¡åŠ¹ï¼‰
-	//å¼•æ•°ï¼škeyCode	èª¿ã¹ãŸã„ã‚­ãƒ¼ã®ã‚³ãƒ¼ãƒ‰
-	//æˆ»å€¤ï¼šæŠ¼ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒL[‚ð¡‰Ÿ‚µ‚½‚©’²‚×‚éi‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Í–³Œøj
+	//ˆø”FkeyCode	’²‚×‚½‚¢ƒL[‚ÌƒR[ƒh
+	//–ß’lF‰Ÿ‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsKeyDown(int keyCode);
 
-	//ã‚­ãƒ¼ã‚’ä»Šæ”¾ã—ãŸã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼škeyCode	èª¿ã¹ãŸã„ã‚­ãƒ¼ã®ã‚³ãƒ¼ãƒ‰
-	//æˆ»å€¤ï¼šæ”¾ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒL[‚ð¡•ú‚µ‚½‚©’²‚×‚é
+	//ˆø”FkeyCode	’²‚×‚½‚¢ƒL[‚ÌƒR[ƒh
+	//–ß’lF•ú‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsKeyUp(int keyCode);
 
 
-	///////////////////////////ã€€ãƒžã‚¦ã‚¹ã€€//////////////////////////////////
-	//ãƒžã‚¦ã‚¹ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæŠ¼ã•ã‚Œã¦ã„ã‚Œã°true
+	///////////////////////////@ƒ}ƒEƒX@//////////////////////////////////
+	//ƒ}ƒEƒX‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©’²‚×‚é
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Îtrue
 	bool IsMouseButton(int buttonCode);
 
-	//ãƒžã‚¦ã‚¹ã®ãƒœã‚¿ãƒ³ã‚’ä»ŠæŠ¼ã—ãŸã‹èª¿ã¹ã‚‹ï¼ˆæŠ¼ã—ã£ã±ãªã—ã¯ç„¡åŠ¹ï¼‰
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæŠ¼ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒ}ƒEƒX‚Ìƒ{ƒ^ƒ“‚ð¡‰Ÿ‚µ‚½‚©’²‚×‚éi‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Í–³Œøj
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF‰Ÿ‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsMouseButtonDown(int buttonCode);
 
-	//ãƒžã‚¦ã‚¹ã®ãƒœã‚¿ãƒ³ã‚’ä»Šæ”¾ã—ãŸã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæ”¾ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒ}ƒEƒX‚Ìƒ{ƒ^ƒ“‚ð¡•ú‚µ‚½‚©’²‚×‚é
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF•ú‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsMouseButtonUp(int buttonCode);
 
 
-	//ãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’å–å¾—
-	//æˆ»å€¤ï¼šãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®
+	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ðŽæ“¾
+	//–ß’lFƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÊ’u
 	XMFLOAT3 GetMousePosition();
 
-	//ãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®ã‚’ã‚»ãƒƒãƒˆ
-	//å¼•æ•°ï¼šãƒžã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã®ä½ç½®
+	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ðƒZƒbƒg
+	//ˆø”Fƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ÌˆÊ’u
 	void SetMousePosition(int x, int y);
 
-	//ãã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®ãƒžã‚¦ã‚¹ã®ç§»å‹•é‡ã‚’å–å¾—
-	//æˆ»å€¤ï¼šX,Y ãƒžã‚¦ã‚¹ã®ç§»å‹•é‡ã€€ï¼ã€€Z,ãƒ›ã‚¤ãƒ¼ãƒ«ã®å›žè»¢é‡
+	//‚»‚ÌƒtƒŒ[ƒ€‚Å‚Ìƒ}ƒEƒX‚ÌˆÚ“®—Ê‚ðŽæ“¾
+	//–ß’lFX,Y ƒ}ƒEƒX‚ÌˆÚ“®—Ê@^@Z,ƒzƒC[ƒ‹‚Ì‰ñ“]—Ê
 	XMFLOAT3 GetMouseMove();
 
 
-	///////////////////////////ã€€ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã€€//////////////////////////////////
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæŠ¼ã•ã‚Œã¦ã„ã‚Œã°true
+	///////////////////////////@ƒRƒ“ƒgƒ[ƒ‰[@//////////////////////////////////
+	//ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚é‚©’²‚×‚é
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Îtrue
 	bool IsPadButton(int buttonCode, int padID = 0);
 
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ã‚’ä»ŠæŠ¼ã—ãŸã‹èª¿ã¹ã‚‹ï¼ˆæŠ¼ã—ã£ã±ãªã—ã¯ç„¡åŠ¹ï¼‰
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæŠ¼ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚ð¡‰Ÿ‚µ‚½‚©’²‚×‚éi‰Ÿ‚µ‚Á‚Ï‚È‚µ‚Í–³Œøj
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF‰Ÿ‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsPadButtonDown(int buttonCode, int padID = 0);
 
-	//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®ãƒœã‚¿ãƒ³ã‚’ä»Šæ”¾ã—ãŸã‹èª¿ã¹ã‚‹
-	//å¼•æ•°ï¼šbuttonCode	èª¿ã¹ãŸã„ãƒœã‚¿ãƒ³ã®ç•ªå·
-	//æˆ»å€¤ï¼šæ”¾ã—ãŸçž¬é–“ã ã£ãŸã‚‰true
+	//ƒRƒ“ƒgƒ[ƒ‰[‚Ìƒ{ƒ^ƒ“‚ð¡•ú‚µ‚½‚©’²‚×‚é
+	//ˆø”FbuttonCode	’²‚×‚½‚¢ƒ{ƒ^ƒ“‚Ì”Ô†
+	//–ß’lF•ú‚µ‚½uŠÔ‚¾‚Á‚½‚çtrue
 	bool IsPadButtonUp(int buttonCode, int padID = 0);
 
-	//å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å‚¾ãã‚’å–å¾—
-	//æˆ»å€¤:å‚¾ãå…·åˆï¼ˆ-1ã€œ1ï¼‰
+	//¶ƒXƒeƒBƒbƒN‚ÌŒX‚«‚ðŽæ“¾
+	//–ß’l:ŒX‚«‹ï‡i-1`1j
 	XMFLOAT3 GetPadStickL(int padID = 0);
 
-	//å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å‚¾ãã‚’å–å¾—
-	//æˆ»å€¤:å‚¾ãå…·åˆï¼ˆ-1ã€œ1ï¼‰
+	//‰EƒXƒeƒBƒbƒN‚ÌŒX‚«‚ðŽæ“¾
+	//–ß’l:ŒX‚«‹ï‡i-1`1j
 	XMFLOAT3 GetPadStickR(int padID = 0);
 
-	//å·¦ãƒˆãƒªã‚¬ãƒ¼ã®æŠ¼ã—è¾¼ã¿å…·åˆã‚’å–å¾—
-	//æˆ»å€¤:æŠ¼ã—è¾¼ã¿å…·åˆï¼ˆ0ã€œ1ï¼‰
+	//¶ƒgƒŠƒK[‚Ì‰Ÿ‚µž‚Ý‹ï‡‚ðŽæ“¾
+	//–ß’l:‰Ÿ‚µž‚Ý‹ï‡i0`1j
 	float		GetPadTrrigerL(int padID = 0);
 
-	//å³ãƒˆãƒªã‚¬ãƒ¼ã®æŠ¼ã—è¾¼ã¿å…·åˆã‚’å–å¾—
-	//æˆ»å€¤:æŠ¼ã—è¾¼ã¿å…·åˆï¼ˆ0ã€œ1ï¼‰
+	//‰EƒgƒŠƒK[‚Ì‰Ÿ‚µž‚Ý‹ï‡‚ðŽæ“¾
+	//–ß’l:‰Ÿ‚µž‚Ý‹ï‡i0`1j
 	float		GetPadTrrigerR(int padID = 0);
 
-	//æŒ¯å‹•ã•ã›ã‚‹
+	//U“®‚³‚¹‚é
 	void SetPadVibration(int l, int r, int padID = 0);
 
 
 
 
-	//é–‹æ”¾
+	//ŠJ•ú
 	void Release();
 };

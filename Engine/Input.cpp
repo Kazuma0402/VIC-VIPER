@@ -1,5 +1,5 @@
 #include "Input.h"
-#include "GameObject.h"
+#include "Global.h"
 
 namespace Input
 {

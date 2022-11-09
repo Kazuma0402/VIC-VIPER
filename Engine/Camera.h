@@ -1,8 +1,5 @@
 #pragma once
-#include "Direct3D.h"
-#include <DirectXMath.h>
-
-using namespace DirectX;
+#include "GameObject.h"
 
 //-----------------------------------------------------------
 //カメラ
@@ -16,10 +13,16 @@ namespace Camera
 	void Update();
 
 	//視点（カメラの位置）を設定
-	void SetPosition(XMVECTOR position);
+	void SetPosition(XMFLOAT3 position);
 
 	//焦点（見る位置）を設定
-	void SetTarget(XMVECTOR target);
+	void SetTarget(XMFLOAT3 target);
+
+	//位置を取得
+	XMFLOAT3 GetPosition();
+
+	//焦点を取得
+	XMFLOAT3 GetTarget();
 
 	//ビュー行列を取得
 	XMMATRIX GetViewMatrix();

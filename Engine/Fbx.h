@@ -1,78 +1,91 @@
 #pragma once
-
 #include <d3d11.h>
 #include <fbxsdk.h>
+#include <vector>
 #include <string>
 #include "Transform.h"
 
+class FbxParts;
 
-#pragma comment(lib, "LibFbxSDK-MT.lib")
-#pragma comment(lib, "LibXml2-MT.lib")
-#pragma comment(lib, "zlib-MT.lib")
-
-class Texture;
+//レイキャスト用構造体
 struct RayCastData
 {
-	XMFLOAT3 start;
-	XMFLOAT3 dir;
-	BOOL hit;
-	float dist;
+	XMFLOAT3	start;	//レイ発射位置
+	XMFLOAT3	dir;	//レイの向きベクトル
+	float       dist;	//衝突点までの距離
+	BOOL        hit;	//レイが当たったか
+	XMFLOAT3 normal;	//法線
 
+	RayCastData() { dist = 99999.0f; }
 };
 
+//-----------------------------------------------------------
+//　FBXファイルを扱うクラス
+//　ほとんどの処理は各パーツごとにFbxPartsクラスで行う
+//-----------------------------------------------------------
 class Fbx
 {
+	//FbxPartクラスをフレンドクラスにする
+	//FbxPartのprivateな関数にもアクセス可
+	friend class FbxParts;
 
-	//マテリアル
-	struct MATERIAL
-	{
-		Texture* pTexture;
-		XMFLOAT4	diffuse;
-	};
 
-	struct CONSTANT_BUFFER
-	{
-		XMMATRIX	matWVP;
-		XMMATRIX	matNormal;
-	};
 
-	struct VERTEX
-	{
-		XMVECTOR position;
-		XMVECTOR uv;
-		XMVECTOR normal;
-	};
+	//モデルの各パーツ（複数あるかも）
+	std::vector<FbxParts*>	parts_;
 
-	VERTEX * pVertices_;
+	//FBXファイルを扱う機能の本体
+	FbxManager* pFbxManager_;
 
-	int** ppIndex_;
+	//FBXファイルのシーン（Mayaで作ったすべての物体）を扱う
+	FbxScene*	pFbxScene_;
 
-	int vertexCount_;	//頂点数
-	int polygonCount_;	//ポリゴン数
-	int materialCount_;	//マテリアルの個数
 
-	ID3D11Buffer *pVertexBuffer_;
-	ID3D11Buffer **pIndexBuffer_;
-	ID3D11Buffer *pConstantBuffer_;
+	// アニメーションのフレームレート
+	FbxTime::EMode	_frameRate;
 
-	MATERIAL* pMaterialList_;
+	//アニメーション速度
+	float			_animSpeed;
 
-	int* indexCount_;
+	//アニメーションの最初と最後のフレーム
+	int _startFrame, _endFrame;
+
+
+
+
+
+	//ノードの中身を調べる
+	//引数：pNode		調べるノード
+	//引数：pPartsList	パーツのリスト
+	void CheckNode(FbxNode* pNode, std::vector<FbxParts*> *pPartsList);
+
+
+
 
 public:
-
 	Fbx();
 	~Fbx();
-	HRESULT Load(std::string fileName);
-	void    Draw(Transform& transform);
+
+	//ロード
+	//引数：fileName	ファイル名
+	//戻値：成功したかどうか
+	virtual HRESULT Load(std::string fileName);
+
+	//描画
+	//引数：World	ワールド行列
+	void    Draw(Transform& transform, int frame);
+
+	//解放
 	void    Release();
 
-	void RayCast(RayCastData& rayData);
+	//任意のボーンの位置を取得
+	//引数：boneName	取得したいボーンの位置
+	//戻値：ボーンの位置
+	XMFLOAT3 GetBonePosition(std::string boneName);
 
-private:
-	void InitVertex(fbxsdk::FbxMesh* pMesh);
-	void InitIndex(fbxsdk::FbxMesh* pMesh);
-	void IntConstantBuffer();
-	void InitMaterial(fbxsdk::FbxNode* pNode);
+	//レイキャスト（レイを飛ばして当たり判定）
+	//引数：data	必要なものをまとめたデータ
+	void RayCast(RayCastData *data);
 
 };
+

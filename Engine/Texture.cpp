@@ -1,55 +1,48 @@
-#include"Texture.h"
-#include <wincodec.h>
-#include"Direct3D.h"
+#include "Texture.h"
+#include "Direct3D.h"
+#include "Global.h"
 
-#pragma comment( lib, "WindowsCodecs.lib" )
-
-
-Texture::Texture()
+Texture::Texture():
+	pSampleLinear_(nullptr), pTextureSRV_(nullptr), size_(XMFLOAT3(0,0,0))
 {
-
 }
 
 
 Texture::~Texture()
 {
-
+	SAFE_RELEASE(pSampleLinear_);
+	SAFE_RELEASE(pTextureSRV_);
 }
 
-
-HRESULT Texture::Load(LPCWSTR fileName)
+HRESULT Texture::Load(std::string fileName)
 {
-	HRESULT hr;
+	wchar_t wtext[FILENAME_MAX];
+	size_t ret;
+	mbstowcs_s(&ret, wtext, fileName.c_str(), fileName.length());
 
-	IWICImagingFactory* pFactory = nullptr;
-	IWICBitmapDecoder* pDecoder = nullptr;
-	IWICBitmapFrameDecode* pFrame = nullptr;
-	IWICFormatConverter* pFormatConverter = nullptr;
-	CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, reinterpret_cast<void**>(&pFactory));
-	hr = pFactory->CreateDecoderFromFilename(fileName, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecoder);
-	if (FAILED(hr))
+
+	// テクスチャを読み込む
+	CoInitialize(NULL);
+	IWICImagingFactory *pFactory = NULL;
+	IWICBitmapDecoder *pDecoder = NULL;
+	IWICBitmapFrameDecode* pFrame = NULL;
+	IWICFormatConverter* pFormatConverter = NULL;
+	CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, reinterpret_cast<void **>(&pFactory));
+	HRESULT hr = pFactory->CreateDecoderFromFilename(wtext, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecoder);
+	if(FAILED(hr))
 	{
-		return E_FAIL;
+		return hr;
 	}
-
-	hr = pDecoder->GetFrame(0, &pFrame);
-	if (FAILED(hr))
-	{
-		return E_FAIL;
-	}
-
+	pDecoder->GetFrame(0, &pFrame);
 	pFactory->CreateFormatConverter(&pFormatConverter);
 	pFormatConverter->Initialize(pFrame, GUID_WICPixelFormat32bppRGBA, WICBitmapDitherTypeNone, NULL, 1.0f, WICBitmapPaletteTypeMedianCut);
-
-	
-
-	//
 	UINT imgWidth;
 	UINT imgHeight;
 	pFormatConverter->GetSize(&imgWidth, &imgHeight);
+	size_ = XMFLOAT3((float)imgWidth, (float)imgHeight, 0);
 
-	//テクスチャを作成
-	ID3D11Texture2D* pTexture;
+	// テクスチャの設定
+	ID3D11Texture2D*	pTexture;			// テクスチャデータ
 	D3D11_TEXTURE2D_DESC texdec;
 	texdec.Width = imgWidth;
 	texdec.Height = imgHeight;
@@ -62,53 +55,32 @@ HRESULT Texture::Load(LPCWSTR fileName)
 	texdec.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	texdec.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	texdec.MiscFlags = 0;
-	Direct3D::pDevice->CreateTexture2D(&texdec, nullptr, &pTexture);
+	Direct3D::pDevice_->CreateTexture2D(&texdec, NULL, &pTexture);
 
-	//テクスチャをコンテキストに渡す
+	// テクスチャを送る
 	D3D11_MAPPED_SUBRESOURCE hMappedres;
-	Direct3D::pContext->Map(pTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &hMappedres);
-	pFormatConverter->CopyPixels(nullptr, imgWidth * 4, imgWidth * imgHeight * 4, (BYTE*)hMappedres.pData);
-	Direct3D::pContext->Unmap(pTexture, 0);
+	Direct3D::pContext_->Map(pTexture, 0, D3D11_MAP_WRITE_DISCARD, 0, &hMappedres);
+	pFormatConverter->CopyPixels(NULL, imgWidth * 4, imgWidth * imgHeight * 4, (BYTE*)hMappedres.pData);
+	Direct3D::pContext_->Unmap(pTexture, 0);
 
-	//サンプラー作成
+
+	// シェーダリソースビュー(テクスチャ用)の設定
+	D3D11_SHADER_RESOURCE_VIEW_DESC srv = {};
+	srv.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srv.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srv.Texture2D.MipLevels = 1;
+	Direct3D::pDevice_->CreateShaderResourceView(pTexture, &srv, &pTextureSRV_);
+
+
+	// テクスチャー用サンプラー作成
 	D3D11_SAMPLER_DESC  SamDesc;
 	ZeroMemory(&SamDesc, sizeof(D3D11_SAMPLER_DESC));
 	SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
 	SamDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	SamDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	SamDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	hr = Direct3D::pDevice->CreateSamplerState(&SamDesc, &pSampler_);
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, L"a", L"a", MB_OK);
+	Direct3D::pDevice_->CreateSamplerState(&SamDesc, &pSampleLinear_);
 
-		return hr;
-	}
-
-	//シェーダーリソースビュー作成
-	D3D11_SHADER_RESOURCE_VIEW_DESC srv = {};
-	srv.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	srv.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	srv.Texture2D.MipLevels = 1;
-	hr = Direct3D::pDevice->CreateShaderResourceView(pTexture, &srv, &pSRV_);
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, L"b", L"b", MB_OK);
-
-		return hr;
-	}
-
-	pTexture->Release();
 
 	return S_OK;
-
 }
-
-
-void Texture::Release()
-{
-	SAFE_RELEASE(pSampler_);
-	SAFE_RELEASE(pSRV_);
-}
-
-

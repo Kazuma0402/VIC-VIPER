@@ -1,16 +1,14 @@
-#include "SceneManager.h"
-#include "Model.h"
-#include "../TitleScene.h"
+#include "sceneManager.h"
 #include "../PlayScene.h"
+#include "../TitleScene.h"
+#include "Model.h"
+#include "Image.h"
+#include "Audio.h"
 
 
 //コンストラクタ
-SceneManager::SceneManager(GameObject* parent)
+SceneManager::SceneManager(GameObject * parent)
 	: GameObject(parent, "SceneManager")
-{
-}
-
-SceneManager::~SceneManager()
 {
 }
 
@@ -26,27 +24,26 @@ void SceneManager::Initialize()
 //更新
 void SceneManager::Update()
 {
-    //次のシーンが現在のシーンと違う ＝ シーンを切り替えなければならない
-    if (currentSceneID_ != nextSceneID_)
-    {
-        //そのシーンのオブジェクトを全削除
-        auto scene = childList_.begin();
-        (*scene)->ReleaseSub();
-        SAFE_DELETE(*scene);
-        childList_.clear();
+	//次のシーンが現在のシーンと違う　＝　シーンを切り替えなければならない
+	if (currentSceneID_ != nextSceneID_)
+	{
+		//そのシーンのオブジェクトを全削除
+		KillAllChildren();
 
-        //ロードしたデータを全削除
-        Model::Release();
+		//ロードしたデータを全削除
+		Audio::Release();
+		Model::AllRelease();
+		Image::AllRelease();
 
-        //次のシーンを作成
-        switch (nextSceneID_)
-        {
-        case SCENE_ID_TITLE: Instantiate<PlayScene>(this); break;
-        case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
-        }
+		//次のシーンを作成
+		switch (nextSceneID_)
+		{
+		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
 
-        currentSceneID_ = nextSceneID_;
-    }
+		}
+		Audio::Initialize();
+		currentSceneID_ = nextSceneID_;
+	}
 }
 
 //描画
@@ -59,7 +56,8 @@ void SceneManager::Release()
 {
 }
 
+//シーン切り替え（実際に切り替わるのはこの次のフレーム）
 void SceneManager::ChangeScene(SCENE_ID next)
 {
-    nextSceneID_ = next;
+	nextSceneID_ = next;
 }
