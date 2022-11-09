@@ -14,8 +14,8 @@
 LPCWSTR WIN_CLASS_NAME = L"VIC-VIPER";  //ウィンドウクラス名
 
 //プロトタイプ宣言
-const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);			//ウィンドウの幅
-const int WINDOW_HEIGHT = GetSystemMetrics(SM_CYSCREEN);		//ウィンドウの高さ
+const int WINDOW_WIDTH = GetSystemMetrics(SM_CXSCREEN);	//ウィンドウの幅
+const int WINDOW_HEIGHT = GetSystemMetrics(SM_CXSCREEN);		//ウィンドウの高さ
 
 //プロトタイプ宣言
 HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdShow);

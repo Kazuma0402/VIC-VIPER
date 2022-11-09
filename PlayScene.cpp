@@ -1,5 +1,6 @@
 #include "PlayScene.h"
 #include "Engine/Image.h"
+#include "Engine/Input.h"
 #include "Player.h"
 
 //コンストラクタ
@@ -17,6 +18,10 @@ void PlayScene::Initialize()
 //更新
 void PlayScene::Update()
 {	
+	if (Input::IsKeyDown(DIK_ESCAPE))
+	{
+		PostQuitMessage(0);
+	}
 }
 
 //描画
