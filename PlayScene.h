@@ -1,11 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
 
+#define SCROLL_SPEED 0.001f;
 
 //PlaySceneシーンを管理するクラス
 class PlayScene : public GameObject
 {
-	int hPict_;
+	int hPict_[2];
+	
+	Transform trans_;
 
 public:
 	//コンストラクタ
