@@ -7,6 +7,8 @@ class Enemy : public GameObject
     //画像
     int hPict_;
 
+    int time = 0;
+
 public:
     //コンストラクタ
     Enemy(GameObject* parent);

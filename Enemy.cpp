@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Bullet.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -54,7 +55,6 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
-
 	if (pTarget->GetObjectName() == "Bullet")
 	{
 		KillMe();
