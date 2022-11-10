@@ -3,8 +3,6 @@
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 
-#define SPEED 0.001f;		//プレイヤーの加速度
-
 //コンストラクタ
 Player::Player(GameObject* parent)
 	:GameObject(parent, "Player"), hPict_(-1)
@@ -47,6 +45,83 @@ void Player::Update()
 		transform_.position_.x -= SPEED;
 	}
 
+	//画面外に出ない
+	if (transform_.position_.x > 0.92f)
+	{
+		if (transform_.position_.y > 0.92f)
+		{
+			transform_.position_.x = 0.92f;
+			transform_.position_.y = 0.92f;
+		}
+		else if (transform_.position_.y < -0.92f)
+		{
+			transform_.position_.x = 0.92f;
+			transform_.position_.y = -0.92f;
+		}
+		else
+		{
+			transform_.position_.x = 0.92f;
+		}
+		
+	}
+	else if (transform_.position_.x < -0.92f)
+	{
+		if (transform_.position_.y > 0.92f)
+		{
+			transform_.position_.x = -0.92f;
+			transform_.position_.y = 0.92f;
+		}
+		
+		else if (transform_.position_.y < -0.92f)
+		{
+			transform_.position_.x = -0.92f;
+			transform_.position_.y = -0.92f;
+		}
+		else
+		{
+			transform_.position_.x = -0.92f;
+		}
+
+	}
+	else if (transform_.position_.y > 0.92f)
+	{
+		if (transform_.position_.x > 0.92f)
+		{
+			transform_.position_.x = 0.92f;
+			transform_.position_.y = 0.92f;
+		}
+
+		else if (transform_.position_.x < -0.92f)
+		{
+			transform_.position_.x = -0.92f;
+			transform_.position_.y = 0.92f;
+		}
+		else
+		{
+			transform_.position_.y = 0.92f;
+		}
+
+	}
+	else if (transform_.position_.y < -0.92f)
+	{
+		if (transform_.position_.x > 0.92f)
+		{
+			transform_.position_.x = 0.92f;
+			transform_.position_.y = -0.92f;
+		}
+
+		else if (transform_.position_.x < -0.92f)
+		{
+			transform_.position_.x = -0.92f;
+			transform_.position_.y = -0.92f;
+		}
+		else
+		{
+			transform_.position_.y = -0.92f;
+		}
+
+	}
+	
 }
 
 //描画

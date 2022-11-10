@@ -1,5 +1,8 @@
 #pragma once
+#include <vector>
 #include "Engine/GameObject.h"
+
+#define SPEED 0.001f;		//プレイヤーの加速度
 
 //プレイヤーを管理するクラス
 class Player : public GameObject
@@ -9,6 +12,9 @@ class Player : public GameObject
 
     //生きてるかどうか
     bool life;
+
+    //画面外にですかの判定
+    bool safe = true;
 
 public:
     //コンストラクタ
