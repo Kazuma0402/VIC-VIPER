@@ -2,6 +2,7 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Player.h"
+#include "Enemy.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -19,7 +20,9 @@ void PlayScene::Initialize()
 
 	trans_.position_.x = 2;
 
+	Instantiate<Enemy>(this);
 	Instantiate<Player>(this);
+
 
 	
 }

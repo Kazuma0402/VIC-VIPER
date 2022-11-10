@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Bullet.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -20,6 +21,7 @@ void Player::Initialize()
 	hPict_ = Image::Load("VICVIPER.png");
 	assert(hPict_ >= 0);
 
+	//プレイヤーの大きさ
 	transform_.scale_.x = 0.3f;
 	transform_.scale_.y = 0.3f;
 }
@@ -43,6 +45,13 @@ void Player::Update()
 	if (Input::IsKey(DIK_A))
 	{
 		transform_.position_.x -= SPEED;
+	}
+
+	//スペースキーが押されるたび
+	if (Input::IsKeyDown(DIK_SPACE))
+	{
+		Bullet* pBullet = Instantiate<Bullet>(GetParent());
+		pBullet->SetPosition(transform_.position_);
 	}
 
 	//画面外に出ない

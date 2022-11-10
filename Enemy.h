@@ -1,20 +1,18 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-#define SPEED 0.001f;		//プレイヤーの加速度
-
 //プレイヤーを管理するクラス
-class Player : public GameObject
+class Enemy : public GameObject
 {
     //画像
     int hPict_;
 
 public:
     //コンストラクタ
-    Player(GameObject* parent);
+    Enemy(GameObject* parent);
 
     //デストラクタ
-    ~Player();
+    ~Enemy();
 
     //初期化
     void Initialize() override;
@@ -27,5 +25,8 @@ public:
 
     //開放
     void Release() override;
+
+    //当たり判定
+    void OnCollision(GameObject* pTarget);
 };
 

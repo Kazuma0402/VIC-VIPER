@@ -1,20 +1,18 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-#define SPEED 0.001f;		//プレイヤーの加速度
-
 //プレイヤーを管理するクラス
-class Player : public GameObject
+class Bullet : public GameObject
 {
     //画像
     int hPict_;
 
 public:
     //コンストラクタ
-    Player(GameObject* parent);
+    Bullet(GameObject* parent);
 
     //デストラクタ
-    ~Player();
+    ~Bullet();
 
     //初期化
     void Initialize() override;
