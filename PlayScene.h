@@ -6,7 +6,10 @@ class PlayScene : public GameObject
 {
 	//‰æ‘œ—p‚Ì”z—ñ
 	int hPict_[2];
-	
+
+	int time = 0;
+	int count = 0;
+
 	Transform trans_;
 
 public:

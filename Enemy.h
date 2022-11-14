@@ -5,9 +5,11 @@
 class Enemy : public GameObject
 {
     //画像
-    int hPict_;
+    int hPict_[4];
 
-    int time = 0;
+    int count = 0;
+
+    Transform trans;
 
 public:
     //コンストラクタ

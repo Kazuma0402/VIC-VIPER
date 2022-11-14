@@ -37,25 +37,25 @@ void Player::Update()
 	//移動操作
 	if (Input::IsKey(DIK_W))
 	{
-		transform_.position_.y += 0.0005f;
+		transform_.position_.y += 0.01f;
 	}
 	if (Input::IsKey(DIK_S))
 	{
-		transform_.position_.y -= 0.0005f;
+		transform_.position_.y -= 0.01f;
 	}
 	if (Input::IsKey(DIK_D))
 	{
-		transform_.position_.x += 0.0005f;
+		transform_.position_.x += 0.01f;
 	}
 	if (Input::IsKey(DIK_A))
 	{
-		transform_.position_.x -= 0.0005f;
+		transform_.position_.x -= 0.01f;
 	}
 
 	//射撃
 	time++;
 
-	if (time >= 500)
+	if (time >= 10)
 	{
 		//スペースキーが押している間
 		if (Input::IsKey(DIK_SPACE))

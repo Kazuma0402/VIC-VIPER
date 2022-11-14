@@ -29,7 +29,7 @@ void Bullet::Initialize()
 //XV
 void Bullet::Update()
 {
-	transform_.position_.x += 0.003f;
+	transform_.position_.x += 0.06f;
 
 	if (transform_.position_.x >= 0.95f)
 	{

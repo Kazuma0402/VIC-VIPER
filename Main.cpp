@@ -67,8 +67,30 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		//メッセージなし
 		else
 		{
-			//開始
 			timeBeginPeriod(1);
+
+			static DWORD countFps = 0;
+			static DWORD startTime = timeGetTime();
+			DWORD nowTime = timeGetTime();
+			static DWORD lastUpdateTime = nowTime;
+
+			if (nowTime - startTime >= 1000)
+			{
+				char str[16];
+				wsprintf(str, "%u", countFps);
+				SetWindowText(hWnd, str);
+
+				countFps = 0;
+				startTime = nowTime;
+			}
+
+			if ((nowTime - lastUpdateTime) * 60 <= 1000.0f)
+			{
+				continue;
+			}
+			lastUpdateTime = nowTime;
+
+			countFps++;
 
 			//入力情報の更新
 			Input::Update();

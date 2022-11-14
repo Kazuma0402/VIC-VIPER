@@ -7,7 +7,7 @@
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Enemy::Enemy(GameObject* parent)
-	:GameObject(parent, "Enemy"), hPict_(-1)
+	:GameObject(parent, "Enemy")
 {
 }
 
@@ -19,24 +19,36 @@ Enemy::~Enemy()
 //‰Šú‰»
 void Enemy::Initialize()
 {
-	hPict_ = Image::Load("Enemy.png");
-	assert(hPict_ >= 0);
+	//“G‚P
+	hPict_[0] = Image::Load("Enemy.png");
+	assert(hPict_[0] >= 0);
 
+	//“G‚P
 	//‰ŠúˆÊ’u
-	transform_.position_.x = 0.46;
-
+	transform_.position_.x = 0.8f;
+	transform_.position_.y = 0.5f;
+	
 	//“G‚Ì‘å‚«‚³
-	transform_.scale_.x = 0.3f;
-	transform_.scale_.y = 0.3f;
+	transform_.scale_.x = 0.5f;
+	transform_.scale_.y = 0.5f;
 
 	//“–‚½‚è”»’èiŠÛj
-	SphereCollider* collision = new SphereCollider(XMFLOAT3( 0.0f, 0.0f, 0.0f), 0.05f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3( 0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
+	
+	
 }
 
 //XV
 void Enemy::Update()
 {
+	//ˆÚ“®‘¬“x
+	transform_.position_.x -= 0.01f;
+
+	if (count == 4)
+	{
+		transform_.position_.y = (float)(rand() % 180 - 90) / 100;
+	}
 	////ŠÔ‚Ì‰ÁZ
 	//time++;
 
@@ -54,8 +66,8 @@ void Enemy::Update()
 //•`‰æ
 void Enemy::Draw()
 {
-	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
+	Image::SetTransform(hPict_[0], transform_);
+	Image::Draw(hPict_[0]);
 }
 
 //ŠJ•ú
@@ -71,5 +83,6 @@ void Enemy::OnCollision(GameObject* pTarget)
 	{
 		KillMe();
 		pTarget->KillMe();
+		count++;
 	}
 }
