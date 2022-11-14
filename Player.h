@@ -7,6 +7,9 @@ class Player : public GameObject
     //画像
     int hPict_;
 
+    //射撃のクールタイム用
+    int time = 0;
+
 public:
     //コンストラクタ
     Player(GameObject* parent);

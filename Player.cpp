@@ -52,12 +52,21 @@ void Player::Update()
 		transform_.position_.x -= 0.0005f;
 	}
 
-	//スペースキーが押されるたび
-	if (Input::IsKeyDown(DIK_SPACE))
+	//射撃
+	time++;
+
+	if (time >= 500)
 	{
-		Bullet* pBullet = Instantiate<Bullet>(GetParent());
-		pBullet->SetPosition(transform_.position_);
+		//スペースキーが押している間
+		if (Input::IsKey(DIK_SPACE))
+		{
+			Bullet* pBullet = Instantiate<Bullet>(GetParent());
+			pBullet->SetPosition(transform_.position_);
+
+			time = 0;
+		}
 	}
+	
 
 	//画面外に出ない
 	if (transform_.position_.x > 0.92f)

@@ -4,6 +4,7 @@
 //PlaySceneシーンを管理するクラス
 class PlayScene : public GameObject
 {
+	//画像用の配列
 	int hPict_[2];
 	
 	Transform trans_;
