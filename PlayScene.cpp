@@ -31,8 +31,8 @@ void PlayScene::Initialize()
 void PlayScene::Update()
 {	
 	//背景のスクロール
-	transform_.position_.x -= SCROLL_SPEED;
-	trans_.position_.x -= SCROLL_SPEED;
+	transform_.position_.x -= 0.0002f;
+	trans_.position_.x -= 0.0002f;
 
 	//一枚目の描画が終わったら二枚目の後ろに戻る
 	if (transform_.position_.x < -2)

@@ -4,6 +4,8 @@
 #include <d3dcompiler.h>
 #include <wincodec.h>
 #include "string"
+#include "vector"
+#include "transform.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")

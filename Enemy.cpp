@@ -1,5 +1,5 @@
 #include "Enemy.h"
-#include "Bullet.h"
+#include "EnemyBullet.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -37,6 +37,18 @@ void Enemy::Initialize()
 //更新
 void Enemy::Update()
 {
+	////時間の加算
+	//time++;
+
+	////一定時間で球を発射
+	//if (time >= 1000)
+	//{
+	//	EnemyBullet* pEnemyBullet = Instantiate<EnemyBullet>(GetParent());
+	//	pEnemyBullet->SetPosition(transform_.position_);
+
+	//	//カウント時間のリセット
+	//	time = 0;
+	//}
 }
 
 //描画

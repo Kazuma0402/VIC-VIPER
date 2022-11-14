@@ -48,15 +48,15 @@ namespace Image
 		}
 
 
-		//g‚Á‚Ä‚È‚¢”Ô†‚ª–³‚¢‚©’T‚·
-		for (int i = 0; i < _datas.size(); i++)
-		{
-			if (_datas[i] == nullptr)
-			{
-				_datas[i] = pData;
-				return i;
-			}
-		}
+		////g‚Á‚Ä‚È‚¢”Ô†‚ª–³‚¢‚©’T‚·
+		//for (int i = 0; i < _datas.size(); i++)
+		//{
+		//	if (_datas[i] == nullptr)
+		//	{
+		//		_datas[i] = pData;
+		//		return i;
+		//	}
+		//}
 
 		//V‚½‚É’Ç‰Á
 		_datas.push_back(pData);

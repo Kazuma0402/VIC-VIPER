@@ -32,7 +32,7 @@ void SceneManager::Update()
 
 		//ロードしたデータを全削除
 		Audio::Release();
-		Model::AllRelease();
+		Model::/*All*/Release();
 		Image::AllRelease();
 
 		//次のシーンを作成

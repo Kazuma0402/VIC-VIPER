@@ -2,17 +2,17 @@
 #include "Engine/GameObject.h"
 
 //プレイヤーを管理するクラス
-class Player : public GameObject
+class EnemyBullet : public GameObject
 {
     //画像
     int hPict_;
 
 public:
     //コンストラクタ
-    Player(GameObject* parent);
+    EnemyBullet(GameObject* parent);
 
     //デストラクタ
-    ~Player();
+    ~EnemyBullet();
 
     //初期化
     void Initialize() override;
@@ -25,8 +25,5 @@ public:
 
     //開放
     void Release() override;
-
-    //当たり判定
-    void OnCollision(GameObject* pTarget);
 };
 

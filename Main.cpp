@@ -89,7 +89,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	//‚¢‚ë‚ñ‚ÈŠJ•ú
 	Audio::Release();
-	Model::AllRelease();
+	Model::/*All*/Release();
 	Image::AllRelease();
 	pRootObject->ReleaseSub();
 	SAFE_DELETE(pRootObject);
