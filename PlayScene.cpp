@@ -3,6 +3,7 @@
 #include "Engine/Input.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Enemy2.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -56,8 +57,14 @@ void PlayScene::Update()
 	if (time >= 15 && count < 4)
 	{
 		Instantiate<Enemy>(this);
+		Instantiate<Enemy2>(this);
 		time = 0;
 		count++;
+	}
+	if (time >= 240 && count  >= 4)
+	{
+		time = 0;
+		count = 0;
 	}
 }
 
@@ -67,6 +74,7 @@ void PlayScene::Draw()
 	//一枚目
 	Image::SetTransform(hPict_[0], transform_);
 	Image::Draw(hPict_[0]);
+
 	//二枚目
 	Image::SetTransform(hPict_[1], trans_);
 	Image::Draw(hPict_[1]);
