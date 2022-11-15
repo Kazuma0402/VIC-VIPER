@@ -6,14 +6,19 @@ class PlayScene : public GameObject
 {
 	//画像用の配列
 	int hPict_[2];
+	Transform trans_;
 
+	//敵の出現
 	int time = 0;
 	int count = 0;
 
-	//残機(continue)
-	int con = 3;
+	//残機
+	int life = 3;
+	int con = 0;
+	int hPictCon_[3];
+	Transform transcon_;
 
-	Transform trans_;
+	
 
 public:
 	//コンストラクタ

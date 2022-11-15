@@ -1,6 +1,7 @@
 #include "ResultScene.h"
 #include "Engine/SceneManager.h"
 #include "Engine/Image.h"
+#include "Engine/Input.h"
 
 //コンストラクタ
 ResultScene::ResultScene(GameObject* parent)
@@ -18,6 +19,11 @@ void ResultScene::Initialize()
 //更新
 void ResultScene::Update()
 {
+	if (Input::IsKeyDown(DIK_RETURN))
+	{
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_PLAY);
+	}
 }
 
 //描画

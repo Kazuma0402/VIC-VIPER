@@ -35,8 +35,7 @@ void Enemy::Initialize()
 	//当たり判定（丸）
 	SphereCollider* collision = new SphereCollider(XMFLOAT3( 0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
-	
-	
+
 }
 
 //更新
