@@ -4,6 +4,7 @@
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
+#include "Score.h";
 
 //コンストラクタ
 Enemy2::Enemy2(GameObject* parent)
@@ -79,5 +80,8 @@ void Enemy2::OnCollision(GameObject* pTarget)
 	{
 		KillMe();
 		pTarget->KillMe();
+
+		Score* pScore = (Score*)FindObject("Score");
+		pScore->Addition();
 	}
 }

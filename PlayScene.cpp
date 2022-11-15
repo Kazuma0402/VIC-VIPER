@@ -2,6 +2,7 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
+#include "Score.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Enemy2.h"
@@ -40,6 +41,7 @@ void PlayScene::Initialize()
 	transcon_.scale_.y = 0.15;
 	
 	//プレイヤーの表示
+	Instantiate<Score>(this);
 	Instantiate<Player>(this);
 
 }
