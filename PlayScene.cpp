@@ -120,9 +120,9 @@ void PlayScene::Draw()
 	Image::Draw(hPict_[1]);
 
 	//Žc‹@‚Ì•\Ž¦
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 3; i++)
 	{
-		transcon_.position_.x = -0.08f * i - 0.6f;
+		transcon_.position_.x = -0.065f * i - 0.6f;
 		Image::SetTransform(hPictCon_[i - 1], transcon_);
 		Image::Draw(hPictCon_[i - 1]);
 	}

@@ -6,16 +6,20 @@ class PlayScene : public GameObject
 {
 	//画像用の配列
 	int hPict_[2];
-	Transform trans_;
+	int hPictCon_[2];
 
 	//敵の出現
 	int time = 0;
 	int count = 0;
 
 	//残機
-	int life = 3;
+	int life = 2;
+
+	//死んだ回数
 	int con = 0;
-	int hPictCon_[3];
+
+	//画像の描画位置用
+	Transform trans_;
 	Transform transcon_;
 
 	
