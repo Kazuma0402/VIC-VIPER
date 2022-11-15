@@ -3,6 +3,7 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
+#include "Engine/SceneManager.h"
 
 //コンストラクタ
 Player::Player(GameObject* parent)
@@ -139,9 +140,8 @@ void Player::Update()
 		{
 			transform_.position_.y = -0.92f;
 		}
-
 	}
-	
+
 }
 
 //描画

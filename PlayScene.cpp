@@ -1,6 +1,7 @@
 #include "PlayScene.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
+#include "Engine/SceneManager.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Enemy2.h"
@@ -53,6 +54,7 @@ void PlayScene::Update()
 		PostQuitMessage(0);
 	}
 
+	//一定時間で敵を出現させる
 	time++;
 	if (time >= 15 && count < 4)
 	{
@@ -61,10 +63,25 @@ void PlayScene::Update()
 		time = 0;
 		count++;
 	}
-	if (time >= 240 && count  >= 4)
+	if (time >= 210 && count  >= 4)
 	{
 		time = 0;
 		count = 0;
+	}
+
+	//もしプレイヤーがなければ
+	if (FindObject("Player") == NULL)
+	{
+		con--;
+		if (con > 0)
+		{
+			Instantiate<Player>(this);
+		}
+		else
+		{
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_RESULT);
+		}
 	}
 }
 

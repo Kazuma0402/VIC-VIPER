@@ -1,24 +1,16 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-//PlaySceneシーンを管理するクラス
-class PlayScene : public GameObject
+//ResultSceneシーンを管理するクラス
+class ResultScene : public GameObject
 {
-	//画像用の配列
-	int hPict_[2];
-
-	int time = 0;
-	int count = 0;
-
-	//残機(continue)
-	int con = 3;
-
-	Transform trans_;
+	//画像用
+	int hPict_;
 
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	PlayScene(GameObject* parent);
+	ResultScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
