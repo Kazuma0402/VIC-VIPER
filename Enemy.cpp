@@ -43,20 +43,8 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 	//移動速度
-	transform_.position_.x -= 0.01f;
+	transform_.position_.x -= 0.008f;
 
-	////時間の加算
-	//time++;
-
-	////一定時間で球を発射
-	//if (time >= 1000)
-	//{
-	//	EnemyBullet* pEnemyBullet = Instantiate<EnemyBullet>(GetParent());
-	//	pEnemyBullet->SetPosition(transform_.position_);
-
-	//	//カウント時間のリセット
-	//	time = 0;
-	//}
 }
 
 //描画

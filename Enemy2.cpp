@@ -26,7 +26,7 @@ void Enemy2::Initialize()
 
 	//敵１
 	//初期位置
-	transform_.position_.x = 1.8f;
+	transform_.position_.x = 2.2f;
 	transform_.position_.y = -0.4f;
 
 	//敵の大きさ
@@ -44,20 +44,7 @@ void Enemy2::Initialize()
 void Enemy2::Update()
 {
 	//移動速度
-	transform_.position_.x -= 0.01f;
-
-	////時間の加算
-	//time++;
-
-	////一定時間で球を発射
-	//if (time >= 1000)
-	//{
-	//	EnemyBullet* pEnemyBullet = Instantiate<EnemyBullet>(GetParent());
-	//	pEnemyBullet->SetPosition(transform_.position_);
-
-	//	//カウント時間のリセット
-	//	time = 0;
-	//}
+	transform_.position_.x -= 0.008f;
 }
 
 //描画

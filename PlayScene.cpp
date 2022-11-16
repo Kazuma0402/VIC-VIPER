@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Enemy2.h"
+#include "Item.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -75,7 +76,7 @@ void PlayScene::Update()
 
 	//一定時間で敵を出現させる
 	time++;
-	if (time >= 15 && count < 4)
+	if (time >= 20 && count < 4)
 	{
 		Instantiate<Enemy>(this);
 		Instantiate<Enemy2>(this);
