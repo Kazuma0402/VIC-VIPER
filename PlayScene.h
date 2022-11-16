@@ -12,6 +12,7 @@ class PlayScene : public GameObject
 	int time = 0;
 	int count = 0;
 
+
 	//Žc‹@
 	int life = 2;
 

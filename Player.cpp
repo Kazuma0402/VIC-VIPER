@@ -160,7 +160,7 @@ void Player::Release()
 void Player::OnCollision(GameObject* pTarget)
 {
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
-	if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "EnemyBullet")
+	if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Enemy2" || pTarget->GetObjectName() == "EnemyBullet")
 	{
 		KillMe();
 		pTarget->KillMe();

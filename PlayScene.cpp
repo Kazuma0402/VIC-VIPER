@@ -88,6 +88,7 @@ void PlayScene::Update()
 		count = 0;
 	}
 
+
 	//‚à‚µƒvƒŒƒCƒ„[‚ª‚È‚¯‚ê‚Î
 	if (FindObject("Player") == NULL)
 	{

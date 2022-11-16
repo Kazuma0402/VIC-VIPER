@@ -174,9 +174,12 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	switch (msg)
-	{
+	{	
 	case WM_DESTROY:
 		PostQuitMessage(0);  //プログラム終了
+		return 0;
+	case WM_CREATE:
+		ShowCursor(FALSE);	//マウスカーソルの非表示
 		return 0;
 	}
 	return DefWindowProc(hWnd, msg, wParam, lParam);

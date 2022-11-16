@@ -8,7 +8,7 @@
 
 //コンストラクタ
 Enemy2::Enemy2(GameObject* parent)
-	:GameObject(parent, "Enemy")
+	:GameObject(parent, "Enemy2")
 {
 }
 

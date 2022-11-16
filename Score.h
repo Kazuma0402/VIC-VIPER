@@ -12,6 +12,12 @@ class Score : public GameObject
 	//スコア加算用
 	int count = 0;
 
+	//スコアの位
+	int Hundred;				//１００の位
+	int Thousand;				//１０００の位
+	int TenThousand;			//１００００の位
+	int OneHundredThousand;		//１０００００の位
+
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト
@@ -29,7 +35,10 @@ public:
 	//開放
 	void Release() override;
 
-	//スコアの加算
+	//スコアの加算(+100)
 	void Addition();
+
+	//スコアの加算(+1000)
+	void Addition2();
 };
 

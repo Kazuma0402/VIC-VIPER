@@ -77,13 +77,75 @@ void Score::Release()
 void Score::Addition()
 {
 	count++;
+	
+	//スコアが増え始めたら１０の位に０を表示
+	if (count > 0)
+	{
+		hScore_[1] = hPict_[1];
+	}
+
+	//各位に数値の代入
+	Hundred = count % 10;
+	Thousand = ((count % 1000) % 100) / 10;
+	TenThousand = (count % 1000) / 100;
+	OneHundredThousand = count / 1000;
+	
+	//画像データの１が０のため＋１の処理
+	if (count >= 1)
+	{
+		Hundred++;
+	}
 	if (count >= 10)
 	{
-		count = 2;
-		hScore_[1] = hPict_[count];
+		Thousand++;
 	}
-	else
+	if (count >= 100)
 	{
-		hScore_[1] = hPict_[count];
+		TenThousand++;
 	}
+	if (count >= 1000)
+	{
+		OneHundredThousand++;
+	}
+
+	//代入した数値データをもとにスコアの表示の変更
+	hScore_[2] = hPict_[Hundred];
+	hScore_[3] = hPict_[Thousand];
+	hScore_[4] = hPict_[TenThousand];
+	hScore_[5] = hPict_[OneHundredThousand];
+}
+
+void Score::Addition2()
+{
+	count = count + 10;
+
+	//スコアが増え始めたら１０の位に０を表示
+	if (count > 0)
+	{
+		hScore_[1] = hPict_[1];
+	}
+	//各位に数値の代入
+	Thousand = ((count % 1000) % 100) / 10;
+	TenThousand = (count % 1000) / 100;
+	OneHundredThousand = count / 1000;
+
+	//画像データの１が０のため＋１の処理
+	if (count >= 10)
+	{
+		Thousand++;
+	}
+	if (count >= 100)
+	{
+		TenThousand++;
+	}
+	if (count >= 1000)
+	{
+		OneHundredThousand++;
+	}
+
+	//代入した数値データをもとにスコアの表示の変更
+	hScore_[2] = hPict_[Hundred];
+	hScore_[3] = hPict_[Thousand];
+	hScore_[4] = hPict_[TenThousand];
+	hScore_[5] = hPict_[OneHundredThousand];
 }

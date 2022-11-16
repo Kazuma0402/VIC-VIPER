@@ -26,7 +26,7 @@ void Enemy::Initialize()
 
 	//“G‚P
 	//‰ŠúˆÊ’u
-	transform_.position_.x = 0.8f;
+	transform_.position_.x = 1.0f;
 	transform_.position_.y = 0.4f;
 	
 	//“G‚Ì‘å‚«‚³
