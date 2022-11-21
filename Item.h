@@ -5,7 +5,11 @@
 class Item : public GameObject
 {
     //画像
-    int hPict_[5];
+    int hPict_[6];
+    int hPictSelect_[6];
+
+    //画像のカウント用
+    int count = 0;
 
 public:
     //コンストラクタ
@@ -28,5 +32,8 @@ public:
 
     //当たり判定
     void OnCollision(GameObject* pTarget);
+
+    //アイテムを取った時
+    void GetItem();
 };
 

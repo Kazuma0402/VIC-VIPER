@@ -44,6 +44,7 @@ void PlayScene::Initialize()
 	//プレイヤーの表示
 	Instantiate<Score>(this);
 	Instantiate<Player>(this);
+	Instantiate<Item>(this);
 
 }
 

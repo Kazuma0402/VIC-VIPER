@@ -77,10 +77,10 @@ void Player::Update()
 			transform_.position_.x = 0.92f;
 			transform_.position_.y = 0.80f;
 		}
-		else if (transform_.position_.y < -0.92f)
+		else if (transform_.position_.y < -0.80f)
 		{
 			transform_.position_.x = 0.92f;
-			transform_.position_.y = -0.92f;
+			transform_.position_.y = -0.80f;
 		}
 		else
 		{
@@ -95,10 +95,10 @@ void Player::Update()
 			transform_.position_.x = -0.92f;
 			transform_.position_.y = 0.80f;
 		}
-		else if (transform_.position_.y < -0.92f)
+		else if (transform_.position_.y < -0.80f)
 		{
 			transform_.position_.x = -0.92f;
-			transform_.position_.y = -0.92f;
+			transform_.position_.y = -0.80f;
 		}
 		else
 		{
@@ -124,21 +124,21 @@ void Player::Update()
 		}
 
 	}
-	else if (transform_.position_.y < -0.92f)
+	else if (transform_.position_.y < -0.80f)
 	{
 		if (transform_.position_.x > 0.92f)
 		{
 			transform_.position_.x = 0.92f;
-			transform_.position_.y = -0.92f;
+			transform_.position_.y = -0.80f;
 		}
 		else if (transform_.position_.x < -0.92f)
 		{
 			transform_.position_.x = -0.92f;
-			transform_.position_.y = -0.92f;
+			transform_.position_.y = -0.80f;
 		}
 		else
 		{
-			transform_.position_.y = -0.92f;
+			transform_.position_.y = -0.80f;
 		}
 	}
 
