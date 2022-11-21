@@ -8,7 +8,7 @@
 
 //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Enemy::Enemy(GameObject* parent)
-	:GameObject(parent, "Enemy")
+	:GameObject(parent, "Enemy"),hPict_(-1)
 {
 }
 
@@ -20,16 +20,15 @@ Enemy::~Enemy()
 //‰Šú‰»
 void Enemy::Initialize()
 {
-	//“G‚P
+	//‰æ‘œ‚Ìƒ[ƒh
 	hPict_ = Image::Load("Enemy.png");
 	assert(hPict_ >= 0);
 
-	//“G‚P
 	//‰ŠúˆÊ’u
 	transform_.position_.x = 1.0f;
 	transform_.position_.y = 0.4f;
 	
-	//“G‚Ì‘å‚«‚³
+	//‘å‚«‚³
 	transform_.scale_.x = 0.5f;
 	transform_.scale_.y = 0.5f;
 
@@ -43,8 +42,7 @@ void Enemy::Initialize()
 void Enemy::Update()
 {
 	//ˆÚ“®‘¬“x
-	transform_.position_.x -= 0.008f;
-
+	transform_.position_.x -= 0.01f;
 }
 
 //•`‰æ
@@ -65,9 +63,12 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
 	if (pTarget->GetObjectName() == "Bullet")
 	{
+		//“G‚ªÁ‚¦‚é
 		KillMe();
+		//’e‚ªÁ‚¦‚é
 		pTarget->KillMe();
 
+		//“G‚ð“|‚µ‚½‚çƒXƒRƒA‰ÁŽZ
 		Score* pScore = (Score*)FindObject("Score");
 		pScore->Addition();
 	}

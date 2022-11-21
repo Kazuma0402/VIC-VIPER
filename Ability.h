@@ -2,17 +2,20 @@
 #include "Engine/GameObject.h"
 
 //プレイヤーを管理するクラス
-class Enemy : public GameObject
+class Ability : public GameObject
 {
     //画像
-    int hPict_;
+    int hPict_[6];
+    int hPictSelect_[6];
 
+    //画像の表示
+    int count;
 public:
     //コンストラクタ
-    Enemy(GameObject* parent);
+    Ability(GameObject* parent);
 
     //デストラクタ
-    ~Enemy();
+    ~Ability();
 
     //初期化
     void Initialize() override;
@@ -26,8 +29,7 @@ public:
     //開放
     void Release() override;
 
-    //当たり判定
-    void OnCollision(GameObject* pTarget);
-
+    //カウントの加算
+    void Addition();
 };
 

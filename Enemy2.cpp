@@ -44,7 +44,7 @@ void Enemy2::Initialize()
 void Enemy2::Update()
 {
 	//ˆÚ“®‘¬“x
-	transform_.position_.x -= 0.008f;
+	transform_.position_.x -= 0.01f;
 }
 
 //•`‰æ
@@ -65,9 +65,12 @@ void Enemy2::OnCollision(GameObject* pTarget)
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
 	if (pTarget->GetObjectName() == "Bullet")
 	{
+		//“G‚ªÁ‚¦‚é
 		KillMe();
+		//’e‚ªÁ‚¦‚é
 		pTarget->KillMe();
 
+		//“G‚ð“|‚µ‚½‚çƒXƒRƒA‚Ì‰ÁŽZ
 		Score* pScore = (Score*)FindObject("Score");
 		pScore->Addition();
 	}

@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Enemy2.h"
+#include "Ability.h"
 #include "Item.h"
 
 //コンストラクタ
@@ -44,7 +45,7 @@ void PlayScene::Initialize()
 	//プレイヤーの表示
 	Instantiate<Score>(this);
 	Instantiate<Player>(this);
-	Instantiate<Item>(this);
+	Instantiate<Ability>(this);
 
 }
 
@@ -77,13 +78,14 @@ void PlayScene::Update()
 
 	//一定時間で敵を出現させる
 	time++;
-	if (time >= 20 && count < 4)
+	if (time >= 15 && count < 4)
 	{
 		Instantiate<Enemy>(this);
 		Instantiate<Enemy2>(this);
 		time = 0;
 		count++;
 	}
+	
 	if (time >= 210 && count  >= 4)
 	{
 		time = 0;
