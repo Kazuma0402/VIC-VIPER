@@ -5,7 +5,7 @@
 class Item : public GameObject
 {
     //画像
-    int hPict_;
+    int hPict_[5];
 
 public:
     //コンストラクタ

@@ -16,9 +16,16 @@ Item::~Item()
 //‰Šú‰»
 void Item::Initialize()
 {
+	std::string fileName[] = {
+		"SPEEDUP.png",
+	};
 	//‰æ‘œ‚Ìƒ[ƒh
-	hPict_ = Image::Load("Point.png");
-	assert(hPict_ >= 0);
+	for (int i = 0; i < 5; i++)
+	{
+		hPict_[i] = Image::Load(fileName);
+		assert(hPict_[i] >= 0);
+	}
+	
 
 	//‘å‚«‚³
 	transform_.scale_.y = 1.2f;
