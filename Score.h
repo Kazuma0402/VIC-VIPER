@@ -1,8 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-
-//TitleSceneシーンを管理するクラス
 class Score : public GameObject
 {
 	//画像用配列

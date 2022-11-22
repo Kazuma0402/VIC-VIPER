@@ -2,12 +2,10 @@
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
-#include "Score.h"
 #include "Player.h"
-#include "Enemy.h"
-#include "Enemy2.h"
+#include "Stage.h"
+#include "Score.h"
 #include "Ability.h"
-#include "Item.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -42,9 +40,10 @@ void PlayScene::Initialize()
 	transcon_.scale_.x = 0.15;
 	transcon_.scale_.y = 0.15;
 	
-	//プレイヤーの表示
-	Instantiate<Score>(this);
+	//表示
 	Instantiate<Player>(this);
+	Instantiate<Stage>(this);
+	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 
 }
@@ -75,23 +74,6 @@ void PlayScene::Update()
 	{
 		PostQuitMessage(0);
 	}
-
-	//一定時間で敵を出現させる
-	time++;
-	if (time >= 15 && count < 4)
-	{
-		Instantiate<Enemy>(this);
-		Instantiate<Enemy2>(this);
-		time = 0;
-		count++;
-	}
-	
-	if (time >= 210 && count  >= 4)
-	{
-		time = 0;
-		count = 0;
-	}
-
 
 	//もしプレイヤーがなければ
 	if (FindObject("Player") == NULL)

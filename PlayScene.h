@@ -8,10 +8,6 @@ class PlayScene : public GameObject
 	int hPict_[2];
 	int hPictCon_[2];
 
-	//“G‚ÌoŒ»
-	int time = 0;
-	int count = 0;
-
 	//“G‚Ì“|‚µ‚½‰ñ”‚Ì•Û
 	int KillCount = 1;
 	
