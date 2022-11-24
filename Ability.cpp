@@ -65,6 +65,8 @@ void Ability::Update()
 		break;
 	case 2:
 		hPict_[1] = hPictSelect_[1];
+		hPict_[0] = Image::Load("SPEEDUP.png");
+		assert(hPict_[0] >= 0);
 		break;
 	case 3:
 		hPict_[2] = hPictSelect_[2];
@@ -102,4 +104,9 @@ void Ability::Release()
 void Ability::Addition()
 {
 	count++;
+
+	if (count > 6)
+	{
+		count = 1;
+	}
 }

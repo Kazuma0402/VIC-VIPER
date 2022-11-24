@@ -23,7 +23,7 @@ void Item::Initialize()
 
 	//‰ŠúˆÊ’u
 	transform_.position_.x = 0.5f;
-	transform_.position_.y = 0.4f;
+	transform_.position_.y = -0.4f;
 
 	//“–‚½‚è”»’èiŠÛj
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);

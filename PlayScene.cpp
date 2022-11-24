@@ -7,6 +7,7 @@
 #include "Score.h"
 #include "Ability.h"
 #include "Life.h"
+#include "Item.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -34,7 +35,6 @@ void PlayScene::Initialize()
 	Instantiate<Life>(this);
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
-	
 
 }
 
@@ -52,6 +52,7 @@ void PlayScene::Update()
 		Image::SetTransform(hPict_[0], transform_);
 		Image::Draw(hPict_[0]);
 	}
+
 	//二枚目の描画が終わったら一枚目の後ろに戻る
 	if (trans_.position_.x < -1.95)
 	{
@@ -61,10 +62,10 @@ void PlayScene::Update()
 	}
 
 	time++;
-	if (time >= 20)
+	if (time % 300 == 0)
 	{
+		Instantiate<Item>(this);
 		Instantiate<Enemy>(this);
-		time = 0;
 	}
 
 	//もしプレイヤーがなければ

@@ -5,6 +5,7 @@
 #include "Engine/Camera.h"
 #include "Engine/SphereCollider.h"
 #include "Score.h"
+#include "PlayScene.h"
 
 //コンストラクタ
 Enemy::Enemy(GameObject* parent)
@@ -65,6 +66,7 @@ void Enemy::OnCollision(GameObject* pTarget)
 	{
 		//敵が消える
 		KillMe();
+
 		//弾が消える
 		pTarget->KillMe();
 
