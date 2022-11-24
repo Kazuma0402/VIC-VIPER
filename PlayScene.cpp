@@ -3,9 +3,10 @@
 #include "Engine/Input.h"
 #include "Engine/SceneManager.h"
 #include "Player.h"
-#include "Stage.h"
+#include "Enemy.h"
 #include "Score.h"
 #include "Ability.h"
+#include "Life.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -26,25 +27,14 @@ void PlayScene::Initialize()
 	//二枚目の背景の初期位置
 	trans_.position_.x = 1.95;
 
-	//残機の表示
-	std::string fileName = "VICVIPER.png";
-	for (int i = 0; i < 3; i++)
-	{
-		hPictCon_[i] = Image::Load(fileName);
-	}
-
-	//残機の初期位置
-	transcon_.position_.x = -0.7f;
-	transcon_.position_.y = 0.92f;
-	//残機の表示の大きさ
-	transcon_.scale_.x = 0.15;
-	transcon_.scale_.y = 0.15;
 	
 	//表示
-	Instantiate<Player>(this);
-	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
+	Instantiate<Life>(this);
+	Instantiate<Player>(this);
+	Instantiate<Enemy>(this);
+	
 
 }
 
@@ -70,30 +60,25 @@ void PlayScene::Update()
 		Image::Draw(hPict_[1]);
 	}
 
-	if (Input::IsKeyDown(DIK_ESCAPE))
+	time++;
+	if (time >= 20)
 	{
-		PostQuitMessage(0);
+		Instantiate<Enemy>(this);
+		time = 0;
 	}
 
 	//もしプレイヤーがなければ
 	if (FindObject("Player") == NULL)
 	{
-		//残機の表示を消す
-		hPictCon_[con] = NULL;
+		//残機判定に行く
+		Life* pLife = (Life*)FindObject("Life");
+		pLife->Stock();
+	}
 
-		//残機があるなら表示
-		if (life > 0)
-		{
-			Instantiate<Player>(this);
-			life--;
-			con++;
-		}
-		//残機がないなら結果画面
-		else
-		{
-			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-			pSceneManager->ChangeScene(SCENE_ID_RESULT);
-		}
+	//ESCキーで強制終了
+	if (Input::IsKeyDown(DIK_ESCAPE))
+	{
+		PostQuitMessage(0);
 	}
 }
 
@@ -107,18 +92,15 @@ void PlayScene::Draw()
 	//二枚目
 	Image::SetTransform(hPict_[1], trans_);
 	Image::Draw(hPict_[1]);
-
-	//残機の表示
-	for (int i = 1; i < 3; i++)
-	{
-		transcon_.position_.x = -0.065f * i - 0.6f;
-		Image::SetTransform(hPictCon_[i - 1], transcon_);
-		Image::Draw(hPictCon_[i - 1]);
-	}
-	
 }
 
 //開放
 void PlayScene::Release()
 {
+}
+
+//プレイヤーの表示
+void PlayScene::Appearance()
+{
+	Instantiate<Player>(this);
 }

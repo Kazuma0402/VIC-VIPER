@@ -6,22 +6,11 @@ class PlayScene : public GameObject
 {
 	//画像用の配列
 	int hPict_[2];
-	int hPictCon_[2];
 
-	//敵の倒した回数の保持
-	int KillCount = 1;
-	
-	//残機
-	int life = 2;
-
-	//死んだ回数
-	int con = 0;
+	int time = 0;
 
 	//画像の描画位置用
 	Transform trans_;
-	Transform transcon_;
-
-	
 
 public:
 	//コンストラクタ
@@ -39,5 +28,8 @@ public:
 
 	//開放
 	void Release() override;
+
+	//プレイヤーの表示
+	void Appearance();
 };
 

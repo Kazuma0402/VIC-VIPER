@@ -59,10 +59,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			if (Input::IsKeyDown(DIK_ESCAPE))
-			{
-				PostQuitMessage(0);
-			}
+
 		}
 		//メッセージなし
 		else
