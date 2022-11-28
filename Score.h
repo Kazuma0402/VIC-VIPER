@@ -39,4 +39,3 @@ public:
 	//ƒXƒRƒA‚Ì‰ÁZ(+1000)
 	void Addition2();
 };
-

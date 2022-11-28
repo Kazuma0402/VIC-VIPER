@@ -58,6 +58,7 @@ void Ability::Initialize()
 //更新
 void Ability::Update()
 {
+	//アビリティの点灯
 	switch (count)
 	{
 	case 1:

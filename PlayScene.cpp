@@ -62,9 +62,8 @@ void PlayScene::Update()
 	}
 
 	time++;
-	if (time % 300 == 0)
+	if (time % 100 == 0)
 	{
-		Instantiate<Item>(this);
 		Instantiate<Enemy>(this);
 	}
 

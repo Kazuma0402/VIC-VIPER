@@ -8,6 +8,7 @@ class PlayScene : public GameObject
 	int hPict_[2];
 
 	int time = 0;
+	int count = 0;
 
 	//‰æ‘œ‚Ì•`‰æˆÊ’u—p
 	Transform trans_;
