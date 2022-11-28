@@ -172,5 +172,5 @@ void Player::OnCollision(GameObject* pTarget)
 //スピードアップ
 void Player::SpeedUp()
 {
-	speed += 0.01f;
+	speed += 0.005f;
 }

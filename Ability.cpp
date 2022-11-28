@@ -63,20 +63,6 @@ void Ability::Update()
 	//アビリティの点灯
 	switch (count)
 	{
-	case 0:
-		////アビリティの点灯なし
-		//hPict_[0] = Image::Load("SPEEDUP.png");
-		//assert(hPict_[0] >= 0);
-		//hPict_[1] = Image::Load("MISSILE.png");
-		//assert(hPict_[0] >= 0);
-		//hPict_[2] = Image::Load("DOUBLE.png");
-		//assert(hPict_[0] >= 0);
-		//hPict_[3] = Image::Load("LASER.png");
-		//assert(hPict_[0] >= 0);
-		//hPict_[4] = Image::Load("OPTION.png");
-		//assert(hPict_[0] >= 0);
-		//hPict_[5] = Image::Load("HATENA.png");
-		//assert(hPict_[0] >= 0);
 	case 1:
 		hPict_[0] = hPictSelect_[0];
 
@@ -94,8 +80,8 @@ void Ability::Update()
 			count = 0;
 
 			//アビリティの点灯を消す
-			hPict_[0] = Image::Load("SPEED.png");
-			assert(hPict_[0] >= 0);
+			hPict_[0] = Image::Load("SPEEDUP.png");
+			assert(hPict_[0] >= 0);;
 		}
 
 		break;
