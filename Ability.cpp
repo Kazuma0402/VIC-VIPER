@@ -62,23 +62,45 @@ void Ability::Update()
 	{
 	case 1:
 		hPict_[0] = hPictSelect_[0];
+
+		//ひとつ前の点灯を戻す
+		hPict_[5] = Image::Load("HATENA.png");
+		assert(hPict_[0] >= 0);
 		break;
 	case 2:
 		hPict_[1] = hPictSelect_[1];
+
+		//ひとつ前の点灯を戻す
 		hPict_[0] = Image::Load("SPEEDUP.png");
 		assert(hPict_[0] >= 0);
 		break;
 	case 3:
 		hPict_[2] = hPictSelect_[2];
+
+		//ひとつ前の点灯を戻す
+		hPict_[1] = Image::Load("MISSILE.png");
+		assert(hPict_[0] >= 0);
 		break;
 	case 4:
 		hPict_[3] = hPictSelect_[3];
+
+		//ひとつ前の点灯を戻す
+		hPict_[2] = Image::Load("DOUBLE.png");
+		assert(hPict_[0] >= 0);
 		break;
 	case 5:
 		hPict_[4] = hPictSelect_[4];
+
+		//ひとつ前の点灯を戻す
+		hPict_[3] = Image::Load("LASER.png");
+		assert(hPict_[0] >= 0);
 		break;
 	case 6:
 		hPict_[5] = hPictSelect_[5];
+
+		//ひとつ前の点灯を戻す
+		hPict_[4] = Image::Load("OPTION.png");
+		assert(hPict_[0] >= 0);
 		break;
 	}
 }
@@ -105,7 +127,8 @@ void Ability::Addition()
 {
 	count++;
 
-	if (count > 6)
+	//7以上ならcountを1に戻す
+	if (count >= 7)
 	{
 		count = 1;
 	}
