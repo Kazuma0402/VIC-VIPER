@@ -1,5 +1,7 @@
 #include "Ability.h"
+#include "Player.h"
 #include "Engine/Image.h"
+#include "Engine/Input.h"
 
 //コンストラクタ
 Ability::Ability(GameObject* parent)
@@ -61,12 +63,41 @@ void Ability::Update()
 	//アビリティの点灯
 	switch (count)
 	{
+	case 0:
+		////アビリティの点灯なし
+		//hPict_[0] = Image::Load("SPEEDUP.png");
+		//assert(hPict_[0] >= 0);
+		//hPict_[1] = Image::Load("MISSILE.png");
+		//assert(hPict_[0] >= 0);
+		//hPict_[2] = Image::Load("DOUBLE.png");
+		//assert(hPict_[0] >= 0);
+		//hPict_[3] = Image::Load("LASER.png");
+		//assert(hPict_[0] >= 0);
+		//hPict_[4] = Image::Load("OPTION.png");
+		//assert(hPict_[0] >= 0);
+		//hPict_[5] = Image::Load("HATENA.png");
+		//assert(hPict_[0] >= 0);
 	case 1:
 		hPict_[0] = hPictSelect_[0];
 
 		//ひとつ前の点灯を戻す
 		hPict_[5] = Image::Load("HATENA.png");
 		assert(hPict_[0] >= 0);
+
+		//Lを押したらスピードアップ
+		if (Input::IsKeyDown(DIK_L))
+		{
+			Player* pPlayer = (Player*)FindObject("Player");
+			pPlayer->SpeedUp();
+
+			//countを戻す
+			count = 0;
+
+			//アビリティの点灯を消す
+			hPict_[0] = Image::Load("SPEED.png");
+			assert(hPict_[0] >= 0);
+		}
+
 		break;
 	case 2:
 		hPict_[1] = hPictSelect_[1];

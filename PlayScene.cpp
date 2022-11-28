@@ -61,10 +61,15 @@ void PlayScene::Update()
 		Image::Draw(hPict_[1]);
 	}
 
-	time++;
-	if (time % 100 == 0)
+	if (FindObject("Enemy") == NULL)
 	{
 		Instantiate<Enemy>(this);
+		count++;
+	}
+	if (count >= 1 && count % 5 == 0)
+	{
+		Instantiate<Item>(this);
+		count = 0;
 	}
 
 	//‚à‚µƒvƒŒƒCƒ„[‚ª‚È‚¯‚ê‚Î

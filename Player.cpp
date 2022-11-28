@@ -30,6 +30,9 @@ void Player::Initialize()
 	//当たり判定
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.0f, 0, 0), 0.08f);
 	AddCollider(collision);
+
+	//機体の初期スピード
+	speed = 0.01f;
 }
 
 //更新
@@ -38,19 +41,19 @@ void Player::Update()
 	//移動操作
 	if (Input::IsKey(DIK_W))
 	{
-		transform_.position_.y += SPEED;
+		transform_.position_.y += speed;
 	}
 	if (Input::IsKey(DIK_S))
 	{
-		transform_.position_.y -= SPEED;
+		transform_.position_.y -= speed;
 	}
 	if (Input::IsKey(DIK_D))
 	{
-		transform_.position_.x += SPEED;
+		transform_.position_.x += speed;
 	}
 	if (Input::IsKey(DIK_A))
 	{
-		transform_.position_.x -= SPEED;
+		transform_.position_.x -= speed;
 	}
 
 	//射撃
@@ -141,7 +144,6 @@ void Player::Update()
 			transform_.position_.y = -0.80f;
 		}
 	}
-
 }
 
 //描画
@@ -165,4 +167,10 @@ void Player::OnCollision(GameObject* pTarget)
 		KillMe();
 		pTarget->KillMe();
 	}
+}
+
+//スピードアップ
+void Player::SpeedUp()
+{
+	speed += 0.01f;
 }

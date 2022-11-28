@@ -44,6 +44,11 @@ void Enemy::Update()
 {
 	//ˆÚ“®‘¬“x
 	transform_.position_.x -= 0.01f;
+
+	if (transform_.position_.x <= -1.00f)
+	{
+		KillMe();
+	}
 }
 
 //•`‰æ

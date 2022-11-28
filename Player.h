@@ -1,13 +1,14 @@
 #pragma once
 #include "Engine/GameObject.h"
 
-#define SPEED 0.01f;
-
 //プレイヤーを管理するクラス
 class Player : public GameObject
 {
     //画像
     int hPict_;
+
+    //機体のスピード
+    float speed;
 
     //射撃のクールタイム用
     int time = 0;
@@ -33,5 +34,7 @@ public:
 
     //当たり判定
     void OnCollision(GameObject* pTarget);
+
+    void SpeedUp();
 };
 

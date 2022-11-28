@@ -7,6 +7,7 @@ class Ability : public GameObject
     //‰æ‘œ
     int hPict_[6];
     int hPictSelect_[6];
+    std::string fileName[6];
 
     //‰æ‘œ‚Ì•\Ž¦
     int count;
