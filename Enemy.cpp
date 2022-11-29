@@ -80,3 +80,9 @@ void Enemy::OnCollision(GameObject* pTarget)
 		pScore->Addition();
 	}
 }
+
+void Enemy::GetPosition(float x, float y)
+{
+	x = transform_.position_.x;
+	y = transform_.position_.y;
+}

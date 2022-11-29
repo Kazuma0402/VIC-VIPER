@@ -21,19 +21,21 @@ void Item::Initialize()
 	hPict_ = Image::Load("Point.png");
 	assert(hPict_ >= 0);
 
-	//初期位置
-	transform_.position_.x = 0.5f;
-	transform_.position_.y = -0.4f;
+	////初期位置
+	//transform_.position_.x = 0.5f;
+	//transform_.position_.y = -0.4f;
 
 	//当たり判定（丸）
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
+
 
 }
 
 //更新
 void Item::Update()
 {
+	transform_.position_.x += 0.005f;
 }
 
 //描画

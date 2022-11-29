@@ -138,7 +138,7 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 
 	//ウィンドウサイズの計算
 	RECT winRect = { 0, 0, screenWidth, screenHeight };
-	AdjustWindowRect(&winRect, WS_MAXIMIZE, FALSE);
+	AdjustWindowRect(&winRect, WS_OVERLAPPED, FALSE);
 
 	//タイトルバーに表示する内容
 	char caption[64];
@@ -148,7 +148,7 @@ HWND InitApp(HINSTANCE hInstance, int screenWidth, int screenHeight, int nCmdSho
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,						//ウィンドウクラス名
 		caption,							//タイトルバーに表示する内容
-		WS_MAXIMIZE,						//スタイル（普通のウィンドウ）
+		WS_OVERLAPPED,						//スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,						//表示位置左（おまかせ）
 		CW_USEDEFAULT,						//表示位置上（おまかせ）
 		winRect.right - winRect.left,		//ウィンドウ幅
