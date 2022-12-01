@@ -35,7 +35,6 @@ void Item::Initialize()
 //XV
 void Item::Update()
 {
-	transform_.position_.x += 0.005f;
 }
 
 //•`‰æ

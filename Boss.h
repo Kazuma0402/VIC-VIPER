@@ -2,21 +2,17 @@
 #include "Engine/GameObject.h"
 
 //プレイヤーを管理するクラス
-class Enemy : public GameObject
+class Boss : public GameObject
 {
     //画像
     int hPict_;
 
-    int wavePoint;
-
-    //死んだ数
-    int KillCount;
 public:
     //コンストラクタ
-    Enemy(GameObject* parent);
+    Boss(GameObject* parent);
 
     //デストラクタ
-    ~Enemy();
+    ~Boss();
 
     //初期化
     void Initialize() override;
@@ -33,6 +29,5 @@ public:
     //当たり判定
     void OnCollision(GameObject* pTarget);
 
-    void KillCountpuls();
 };
 

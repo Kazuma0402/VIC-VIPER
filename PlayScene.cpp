@@ -35,7 +35,6 @@ void PlayScene::Initialize()
 	Instantiate<Life>(this);
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
-
 }
 
 //更新
@@ -60,16 +59,19 @@ void PlayScene::Update()
 		Image::SetTransform(hPict_[1], trans_);
 		Image::Draw(hPict_[1]);
 	}
-
+	//もし敵がいなければ
 	if (FindObject("Enemy") == NULL)
 	{
 		Instantiate<Enemy>(this);
 		count++;
-	}
-	if (count >= 1 && count % 5 == 0)
-	{
-		Instantiate<Item>(this);
-		count = 0;
+
+		if (count >= 5)
+		{
+			Instantiate<Item>(this);
+			count = 0;
+		}
+		/*Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+		pEnemy->KillCountpuls();*/
 	}
 
 	//もしプレイヤーがなければ
@@ -105,7 +107,13 @@ void PlayScene::Release()
 }
 
 //プレイヤーの表示
-void PlayScene::Appearance()
+void PlayScene::AppearancePlayer()
 {
 	Instantiate<Player>(this);
+}
+
+//アイテムの表示
+void PlayScene::AppearanceItem()
+{
+	Instantiate<Item>(this);
 }

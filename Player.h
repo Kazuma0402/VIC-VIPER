@@ -11,7 +11,12 @@ class Player : public GameObject
     float speed;
 
     //射撃のクールタイム用
-    int time = 0;
+    int time;
+    //ミサイルのクールタイム用
+    int time2;
+
+    //アビリティの有無
+    bool missile;
 
 public:
     //コンストラクタ
@@ -35,6 +40,11 @@ public:
     //当たり判定
     void OnCollision(GameObject* pTarget);
 
+    //↓アビリティの開放↓
+    //スピードアップ
     void SpeedUp();
+
+    //ミサイルの発射
+    void ShotMissile();
 };
 

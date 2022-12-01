@@ -91,6 +91,21 @@ void Ability::Update()
 		//ひとつ前の点灯を戻す
 		hPict_[0] = Image::Load("SPEEDUP.png");
 		assert(hPict_[0] >= 0);
+
+		//Lを押したらミサイルの発射可能
+		if (Input::IsKeyDown(DIK_L))
+		{
+			Player* pPlayer = (Player*)FindObject("Player");
+			pPlayer->ShotMissile();
+
+			//countを戻す
+			count = 0;
+
+			//アビリティの点灯を消す
+			hPict_[1] = Image::Load("MISSILE.png");
+			assert(hPict_[1] >= 0);;
+		}
+
 		break;
 	case 3:
 		hPict_[2] = hPictSelect_[2];

@@ -27,7 +27,7 @@ void Enemy::Initialize()
 
 	//初期位置
 	transform_.position_.x = 1.0f;
-	transform_.position_.y = 0.4f;
+	transform_.position_.y = (rand() % 180 - 90) / 100;
 	
 	//大きさ
 	transform_.scale_.x = 0.5f;
@@ -37,13 +37,37 @@ void Enemy::Initialize()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3( 0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
 
+	//ウェーブポイントの初期化
+	wavePoint = 0;
+
+	//キルカウントの初期化
+	KillCount = 0;
 }
 
 //更新
 void Enemy::Update()
 {
 	//移動速度
-	transform_.position_.x -= 0.01f;
+	transform_.position_.x -= 0.005f;
+	
+	if (wavePoint == 0)
+	{
+		transform_.position_.y -= 0.01f;
+
+		if (transform_.position_.y <= -0.5f)
+		{
+			wavePoint = 1;
+		}
+	}
+	if (wavePoint == 1)
+	{
+		transform_.position_.y += 0.01f;
+
+		if (transform_.position_.y >= 0.5f)
+		{
+			wavePoint = 0;
+		}
+	}
 
 	if (transform_.position_.x <= -1.00f)
 	{
@@ -78,11 +102,21 @@ void Enemy::OnCollision(GameObject* pTarget)
 		//敵を倒したらスコア加算
 		Score* pScore = (Score*)FindObject("Score");
 		pScore->Addition();
+
 	}
 }
 
-void Enemy::GetPosition(float x, float y)
+void Enemy::KillCountpuls()
 {
-	x = transform_.position_.x;
-	y = transform_.position_.y;
+	//キルカウントの加算
+	KillCount++;
+
+	if (KillCount >= 5)
+	{
+		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+		pPlayScene->AppearanceItem();
+
+		KillCount == 0;
+	}
 }
+

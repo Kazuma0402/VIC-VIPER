@@ -31,6 +31,9 @@ public:
 	void Release() override;
 
 	//プレイヤーの表示
-	void Appearance();
+	void AppearancePlayer();
+
+	//アイテムの表示
+	void AppearanceItem();
 };
 

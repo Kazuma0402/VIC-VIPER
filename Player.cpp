@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Bullet.h"
+#include "Missile.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -33,12 +34,19 @@ void Player::Initialize()
 
 	//機体の初期スピード
 	speed = 0.01f;
+
+	//クールタイムの初期化
+	time = 0;
+	time2 = 0;
+
+	//アビリティの初期化
+	missile = false;
 }
 
 //更新
 void Player::Update()
 {
-	//移動操作
+	//移動操作について
 	if (Input::IsKey(DIK_W))
 	{
 		transform_.position_.y += speed;
@@ -55,22 +63,6 @@ void Player::Update()
 	{
 		transform_.position_.x -= speed;
 	}
-
-	//射撃
-	time++;
-
-	if (time >= 10)
-	{
-		//スペースキーが押している間
-		if (Input::IsKey(DIK_SPACE))
-		{
-			Bullet* pBullet = Instantiate<Bullet>(GetParent());
-			pBullet->SetPosition(transform_.position_);
-
-			time = 0;
-		}
-	}
-	
 
 	//画面外に出ない
 	if (transform_.position_.x > 0.92f)
@@ -144,6 +136,38 @@ void Player::Update()
 			transform_.position_.y = -0.80f;
 		}
 	}
+
+	//射撃について
+	time++;
+	time2++;
+
+	if (time >= 10)
+	{
+		//スペースキーが押している間
+		if (Input::IsKey(DIK_SPACE))
+		{
+			Bullet* pBullet = Instantiate<Bullet>(GetParent());
+			pBullet->SetPosition(transform_.position_);
+
+			time = 0;
+		}
+	}
+
+	//ミサイルの発射
+	if(missile == true)
+	{
+		if (time2 >= 60)
+		{
+			//スペースキーが押している間
+			if (Input::IsKey(DIK_SPACE))
+			{
+				Missile* pMissile = Instantiate<Missile>(GetParent());
+				pMissile->SetPosition(transform_.position_);
+
+				time2 = 0;
+			}
+		}
+	}
 }
 
 //描画
@@ -169,8 +193,19 @@ void Player::OnCollision(GameObject* pTarget)
 	}
 }
 
+//アビリティの開放
+
+//一番目
 //スピードアップ
 void Player::SpeedUp()
 {
 	speed += 0.005f;
 }
+
+//二番目
+//ミサイルの発射
+void Player::ShotMissile()
+{
+	missile = true;
+}
+

@@ -72,7 +72,7 @@ void Life::Stock()
 
 		//プレイヤーの表示
 		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
-		pPlayScene->Appearance();
+		pPlayScene->AppearancePlayer();
 	}
 	//残機がないなら結果画面
 	else
