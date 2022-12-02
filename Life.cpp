@@ -1,4 +1,5 @@
 #include "Life.h"
+#include "Ability.h"
 #include "Engine/Image.h"
 #include "Engine/SceneManager.h"
 #include "PlayScene.h"
@@ -73,10 +74,20 @@ void Life::Stock()
 		//プレイヤーの表示
 		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
 		pPlayScene->AppearancePlayer();
+
+		//-----アビリティクラスについて-----
+		Ability* pAbility = (Ability*)FindObject("Ability");
+
+		//アビリティの点灯の初期化
+		pAbility->CountReset();
+
+		//アビリティの使用回数の復活
+		pAbility->AbilityCountHeel();
 	}
 	//残機がないなら結果画面
 	else
 	{
+		//ゲーム結果画面への遷移
 		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
 		pSceneManager->ChangeScene(SCENE_ID_RESULT);
 	}

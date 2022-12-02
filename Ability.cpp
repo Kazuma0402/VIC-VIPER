@@ -55,6 +55,9 @@ void Ability::Initialize()
 	//大きさ
 	transform_.scale_.x = 0.5f;
 	transform_.scale_.y = 0.8f;
+
+	//アビリティの使用回数の初期化
+	AbilityCountMissile = 1;
 }
 
 //更新
@@ -64,6 +67,7 @@ void Ability::Update()
 	switch (count)
 	{
 	case 1:
+		//該当アビリティの点灯
 		hPict_[0] = hPictSelect_[0];
 
 		//ひとつ前の点灯を戻す
@@ -86,35 +90,73 @@ void Ability::Update()
 
 		break;
 	case 2:
-		hPict_[1] = hPictSelect_[1];
-
 		//ひとつ前の点灯を戻す
 		hPict_[0] = Image::Load("SPEEDUP.png");
 		assert(hPict_[0] >= 0);
 
-		//Lを押したらミサイルの発射可能
-		if (Input::IsKeyDown(DIK_L))
+		//アビリティの使用回数がまだあるなら
+		if (AbilityCountMissile > 0)
 		{
-			Player* pPlayer = (Player*)FindObject("Player");
-			pPlayer->ShotMissile();
+			//該当アビリティの点灯
+			hPict_[1] = hPictSelect_[1];
 
-			//countを戻す
-			count = 0;
+			//Lを押したらミサイルの発射可能
+			if (Input::IsKeyDown(DIK_L))
+			{
+				//ミサイルが打てるようにする
+				Player* pPlayer = (Player*)FindObject("Player");
+				pPlayer->ShotMissile();
 
-			//アビリティの点灯を消す
-			hPict_[1] = Image::Load("MISSILE.png");
-			assert(hPict_[1] >= 0);;
+				//countを戻す
+				count = 0;
+
+				//アビリティの使用回数を１減らす
+				AbilityCountMissile--;
+				
+				//アビリティがまだ使えるのであれば
+				if (AbilityCountMissile > 0)
+				{
+					//アビリティの点灯を消す
+					hPict_[1] = Image::Load("MISSILE.png");
+					assert(hPict_[1] >= 0);
+				}
+				//アビリティが使えないのであれば
+				else
+				{
+					//アビリティの表記の変更
+					hPict_[1] = Image::Load("NULL.png");
+					assert(hPict_[1] >= 0);
+				}
+				
+			}
+		}
+		else
+		{
+			count++;
 		}
 
 		break;
 	case 3:
+		//該当アビリティの点灯
 		hPict_[2] = hPictSelect_[2];
 
-		//ひとつ前の点灯を戻す
-		hPict_[1] = Image::Load("MISSILE.png");
-		assert(hPict_[0] >= 0);
+		//一個前のアビリティの使用回数があれば表示
+		if (AbilityCountMissile > 0)
+		{
+			//ひとつ前の点灯を戻す
+			hPict_[1] = Image::Load("MISSILE.png");
+			assert(hPict_[0] >= 0);
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[1] = Image::Load("NULL.png");
+			assert(hPict_[1] >= 0);
+		}
+		
 		break;
 	case 4:
+		//該当アビリティの点灯
 		hPict_[3] = hPictSelect_[3];
 
 		//ひとつ前の点灯を戻す
@@ -122,6 +164,7 @@ void Ability::Update()
 		assert(hPict_[0] >= 0);
 		break;
 	case 5:
+		//該当アビリティの点灯
 		hPict_[4] = hPictSelect_[4];
 
 		//ひとつ前の点灯を戻す
@@ -129,6 +172,7 @@ void Ability::Update()
 		assert(hPict_[0] >= 0);
 		break;
 	case 6:
+		//該当アビリティの点灯
 		hPict_[5] = hPictSelect_[5];
 
 		//ひとつ前の点灯を戻す
@@ -165,4 +209,16 @@ void Ability::Addition()
 	{
 		count = 1;
 	}
+}
+
+//復活した際のアビティの点灯の初期化
+void Ability::CountReset()
+{
+	count = 1;
+}
+
+//復活した際のアビリティの使用回数の復活
+void Ability::AbilityCountHeel()
+{
+	AbilityCountMissile = 1;
 }

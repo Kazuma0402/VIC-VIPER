@@ -11,6 +11,9 @@ class Ability : public GameObject
 
     //画像の表示
     int count;
+
+    //アビリティの使用回数
+    int AbilityCountMissile;       //ミサイルの使用回数
 public:
     //コンストラクタ
     Ability(GameObject* parent);
@@ -32,5 +35,11 @@ public:
 
     //カウントの加算
     void Addition();
+
+    //復活した際のアビリティの点灯の初期化
+    void CountReset();
+
+    //復活した際のアビリティの使用回数の回復
+    void AbilityCountHeel();
 };
 
