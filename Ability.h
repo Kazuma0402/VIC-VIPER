@@ -13,7 +13,8 @@ class Ability : public GameObject
     int count;
 
     //アビリティの使用回数
-    int AbilityCountMissile;       //ミサイルの使用回数
+    int AbilityCountMissile;        //ミサイルの使用回数
+    int AbilityCountDouble;         //ダブルショットの使用回数
 public:
     //コンストラクタ
     Ability(GameObject* parent);

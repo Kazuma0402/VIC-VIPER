@@ -14,9 +14,12 @@ class Player : public GameObject
     int time;
     //ミサイルのクールタイム用
     int time2;
+    //二方向発射のクールタイム用
+    int time3;
 
     //アビリティの有無
     bool missile;
+    bool double_;
 
 public:
     //コンストラクタ
@@ -46,5 +49,8 @@ public:
 
     //ミサイルの発射
     void ShotMissile();
+
+    //弾が二方向へ発射
+    void ShotDouble();
 };
 

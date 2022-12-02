@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Missile.h"
+#include "Double.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -41,6 +42,7 @@ void Player::Initialize()
 
 	//アビリティの初期化
 	missile = false;
+	double_ = false;
 }
 
 //更新
@@ -140,6 +142,7 @@ void Player::Update()
 	//射撃について
 	time++;
 	time2++;
+	time3++;
 
 	if (time >= 10)
 	{
@@ -168,6 +171,22 @@ void Player::Update()
 			}
 		}
 	}
+
+	//ミサイルの発射
+	if (double_ == true)
+	{
+		if (time3 >= 10)
+		{
+			//スペースキーが押している間
+			if (Input::IsKey(DIK_SPACE))
+			{
+				Double* pDouble = Instantiate<Double>(GetParent());
+				pDouble->SetPosition(transform_.position_);
+
+				time3 = 0;
+			}
+		}
+	}
 }
 
 //描画
@@ -186,7 +205,7 @@ void Player::Release()
 void Player::OnCollision(GameObject* pTarget)
 {
 	//当たったときの処理
-	if (pTarget->GetObjectName() == "Enemy" || pTarget->GetObjectName() == "Enemy2" || pTarget->GetObjectName() == "EnemyBullet")
+	if (pTarget->GetObjectName() == "Enemy")
 	{
 		KillMe();
 		pTarget->KillMe();
@@ -207,5 +226,12 @@ void Player::SpeedUp()
 void Player::ShotMissile()
 {
 	missile = true;
+}
+
+//三番目
+//弾が二方向へ発射
+void Player::ShotDouble()
+{
+	double_ = true;
 }
 

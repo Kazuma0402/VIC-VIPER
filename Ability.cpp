@@ -69,6 +69,7 @@ void Ability::Initialize()
 
 	//アビリティの使用回数の初期化
 	AbilityCountMissile = 1;
+	AbilityCountDouble = 1;
 }
 
 //更新
@@ -135,8 +136,7 @@ void Ability::Update()
 				else
 				{
 					//アビリティの表記の変更
-					hPict_[1] = Image::Load("NULL.png");
-					assert(hPict_[1] >= 0);
+					hPict_[1] = hPictNull_[0];
 				}
 				
 			}
@@ -149,30 +149,75 @@ void Ability::Update()
 
 		break;
 	case 3:
-		//該当アビリティの点灯
-		hPict_[2] = hPictSelect_[2];
+		//アビリティの使用回数があれば
+		if (AbilityCountDouble > 0)
+		{
+			//該当アビリティの点灯
+			hPict_[2] = hPictSelect_[2];
 
+			//Lを押したらミサイルの発射可能
+			if (Input::IsKeyDown(DIK_L))
+			{
+				//二方向に弾が打てるようにする
+				Player* pPlayer = (Player*)FindObject("Player");
+				pPlayer->ShotDouble();
+
+				//countを戻す
+				count = 0;
+
+				//アビリティの使用回数を１減らす
+				AbilityCountDouble--;
+
+				//アビリティがまだ使えるのであれば
+				if (AbilityCountDouble > 0)
+				{
+					//アビリティの点灯を消す
+					hPict_[2] = Image::Load("DOUBLE.png");
+					assert(hPict_[2] >= 0);
+				}
+				//アビリティが使えないのであれば
+				else
+				{
+					//アビリティの表記の変更
+					hPict_[2] = hPictNull_[0];
+				}
+			}
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[2] = hPictNull_[1];
+		}
+		
 		//一個前のアビリティの使用回数があれば表示
 		if (AbilityCountMissile > 0)
 		{
 			//ひとつ前の点灯を戻す
 			hPict_[1] = Image::Load("MISSILE.png");
-			assert(hPict_[0] >= 0);
+			assert(hPict_[1] >= 0);
 		}
 		else
 		{
 			//アビリティの表記の変更
 			hPict_[1] = hPictNull_[0];
 		}
-		
 		break;
 	case 4:
 		//該当アビリティの点灯
 		hPict_[3] = hPictSelect_[3];
 
-		//ひとつ前の点灯を戻す
-		hPict_[2] = Image::Load("DOUBLE.png");
-		assert(hPict_[0] >= 0);
+		//一個前のアビリティの使用回数があれば表示
+		if (AbilityCountDouble > 0)
+		{
+			//ひとつ前の点灯を戻す
+			hPict_[2] = Image::Load("DOUBLE.png");
+			assert(hPict_[2] >= 0);
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[2] = hPictNull_[0];
+		}
 		break;
 	case 5:
 		//該当アビリティの点灯
@@ -232,4 +277,5 @@ void Ability::CountReset()
 void Ability::AbilityCountHeel()
 {
 	AbilityCountMissile = 1;
+	AbilityCountDouble = 1;
 }
