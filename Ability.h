@@ -5,9 +5,9 @@
 class Ability : public GameObject
 {
     //画像
-    int hPict_[6];
-    int hPictSelect_[6];
-    std::string fileName[6];
+    int hPict_[6];              //表示画像
+    int hPictSelect_[6];        //選択中の画像
+    int hPictNull_[2];          //使用回数のない時の画像
 
     //画像の表示
     int count;

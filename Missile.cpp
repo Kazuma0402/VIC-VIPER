@@ -44,6 +44,12 @@ void Missile::Update()
 {
 	transform_.position_.x += 0.01f;
 	transform_.position_.y -= 0.03f;
+
+	//ˆê’è”ˆÈãs‚­‚ÆÁ‚¦‚é
+	if (transform_.position_.x >= 0.95f || transform_.position_.y <= -0.95f)
+	{
+		KillMe();
+	}
 }
 
 //•`‰æ

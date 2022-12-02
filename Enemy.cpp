@@ -91,7 +91,7 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//当たったときの処理
-	if (pTarget->GetObjectName() == "Bullet")
+	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "Missile")
 	{
 		//敵が消える
 		KillMe();
@@ -111,11 +111,14 @@ void Enemy::KillCountpuls()
 	//キルカウントの加算
 	KillCount++;
 
+	//切るカウントが一定数以上ならアイテムの表示
 	if (KillCount >= 5)
 	{
+		//アイテムの表示
 		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
 		pPlayScene->AppearanceItem();
 
+		//キルカウントのリセット
 		KillCount == 0;
 	}
 }

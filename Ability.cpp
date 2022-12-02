@@ -36,6 +36,11 @@ void Ability::Initialize()
 		"HATENA_SELECT.png",
 	};
 
+	std::string fileName3[] = {
+		"NULL.png",
+		"NULL_SELECT.png",
+	};
+
 	//画像のロード
 	for (int i = 0; i < 6; i++)
 	{
@@ -47,6 +52,12 @@ void Ability::Initialize()
 	{
 		hPictSelect_[i] = Image::Load(fileName2[i]);
 		assert(hPictSelect_[i] >= 0);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		hPictNull_[i] = Image::Load(fileName3[i]);
+		assert(hPictNull_[i] >= 0);
 	}
 
 	//初期位置
@@ -132,7 +143,8 @@ void Ability::Update()
 		}
 		else
 		{
-			count++;
+			//該当アビリティの点灯
+			hPict_[1] = hPictNull_[1];
 		}
 
 		break;
@@ -150,8 +162,7 @@ void Ability::Update()
 		else
 		{
 			//アビリティの表記の変更
-			hPict_[1] = Image::Load("NULL.png");
-			assert(hPict_[1] >= 0);
+			hPict_[1] = hPictNull_[0];
 		}
 		
 		break;
