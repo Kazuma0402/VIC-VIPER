@@ -67,9 +67,12 @@ void Ability::Initialize()
 	transform_.scale_.x = 0.5f;
 	transform_.scale_.y = 0.8f;
 
-	//アビリティの使用回数の初期化
-	AbilityCountMissile = 1;
-	AbilityCountDouble = 1;
+	//アビリティの使用判定の初期化
+	//true = 使用可　false = 使用不可
+	AbilityMissile = true;
+	AbilityDouble = true;
+	AbilityLaser = true;
+
 }
 
 //更新
@@ -107,7 +110,7 @@ void Ability::Update()
 		assert(hPict_[0] >= 0);
 
 		//アビリティの使用回数がまだあるなら
-		if (AbilityCountMissile > 0)
+		if (AbilityMissile == true)
 		{
 			//該当アビリティの点灯
 			hPict_[1] = hPictSelect_[1];
@@ -122,23 +125,15 @@ void Ability::Update()
 				//countを戻す
 				count = 0;
 
-				//アビリティの使用回数を１減らす
-				AbilityCountMissile--;
+				//アビリティの使用をできなくする
+				AbilityMissile = false;
 				
-				//アビリティがまだ使えるのであれば
-				if (AbilityCountMissile > 0)
-				{
-					//アビリティの点灯を消す
-					hPict_[1] = Image::Load("MISSILE.png");
-					assert(hPict_[1] >= 0);
-				}
 				//アビリティが使えないのであれば
-				else
+				if (AbilityMissile == false)
 				{
 					//アビリティの表記の変更
 					hPict_[1] = hPictNull_[0];
 				}
-				
 			}
 		}
 		else
@@ -149,8 +144,8 @@ void Ability::Update()
 
 		break;
 	case 3:
-		//アビリティの使用回数があれば
-		if (AbilityCountDouble > 0)
+		//アビリティの使用が可能であれば
+		if (AbilityDouble == true)
 		{
 			//該当アビリティの点灯
 			hPict_[2] = hPictSelect_[2];
@@ -165,22 +160,22 @@ void Ability::Update()
 				//countを戻す
 				count = 0;
 
-				//アビリティの使用回数を１減らす
-				AbilityCountDouble--;
+				//アビリティの使用をできなくする
+				AbilityDouble = false;
 
-				//アビリティがまだ使えるのであれば
-				if (AbilityCountDouble > 0)
-				{
-					//アビリティの点灯を消す
-					hPict_[2] = Image::Load("DOUBLE.png");
-					assert(hPict_[2] >= 0);
-				}
 				//アビリティが使えないのであれば
-				else
+				if (AbilityDouble == false)
 				{
 					//アビリティの表記の変更
 					hPict_[2] = hPictNull_[0];
 				}
+
+				//レーザーの使用をできるようにする
+				AbilityLaser = true;
+
+				//レーザーの表示を戻す
+				hPict_[3] = Image::Load("LASER.png");
+				assert(hPict_[1] >= 0);
 			}
 		}
 		else
@@ -190,7 +185,7 @@ void Ability::Update()
 		}
 		
 		//一個前のアビリティの使用回数があれば表示
-		if (AbilityCountMissile > 0)
+		if (AbilityMissile == true)
 		{
 			//ひとつ前の点灯を戻す
 			hPict_[1] = Image::Load("MISSILE.png");
@@ -203,14 +198,52 @@ void Ability::Update()
 		}
 		break;
 	case 4:
-		//該当アビリティの点灯
-		hPict_[3] = hPictSelect_[3];
+		//アビリティの使用が可能であれば
+		if (AbilityLaser == true)
+		{
+			//該当アビリティの点灯
+			hPict_[3] = hPictSelect_[3];
+
+			//Lを押したらミサイルの発射可能
+			if (Input::IsKeyDown(DIK_L))
+			{
+				//二方向に弾が打てるようにする
+				Player* pPlayer = (Player*)FindObject("Player");
+				pPlayer->ShotLaser();
+
+				//countを戻す
+				count = 0;
+
+				//アビリティの使用をできなくする
+				AbilityLaser = false;
+
+				//アビリティが使えないのであれば
+				if (AbilityLaser == false)
+				{
+					//アビリティの表記の変更
+					hPict_[3] = hPictNull_[0];
+				}
+
+				//ダブルの使用をできるようにする
+				AbilityDouble = true;
+
+				//ダブルの表示を戻す
+				hPict_[2] = Image::Load("Double.png");
+				assert(hPict_[1] >= 0);
+				
+			}
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[3] = hPictNull_[1];
+		}
 
 		//一個前のアビリティの使用回数があれば表示
-		if (AbilityCountDouble > 0)
+		if (AbilityDouble == true)
 		{
 			//ひとつ前の点灯を戻す
-			hPict_[2] = Image::Load("DOUBLE.png");
+			hPict_[2] = Image::Load("Double.png");
 			assert(hPict_[2] >= 0);
 		}
 		else
@@ -273,9 +306,9 @@ void Ability::CountReset()
 	count = 1;
 }
 
-//復活した際のアビリティの使用回数の復活
-void Ability::AbilityCountHeel()
+//復活した際のアビリティ使用の復活
+void Ability::AbilityHeel()
 {
-	AbilityCountMissile = 1;
-	AbilityCountDouble = 1;
+	AbilityMissile = true;
+	AbilityDouble = true;
 }

@@ -2,6 +2,8 @@
 #include "Bullet.h"
 #include "Missile.h"
 #include "Double.h"
+#include "Laser.h"
+
 #include "Engine/Image.h"
 #include "Engine/Input.h"
 #include "Engine/Camera.h"
@@ -36,13 +38,19 @@ void Player::Initialize()
 	//機体の初期スピード
 	speed = 0.01f;
 
+	//レーザーの出る位置の補正
+	trans_.position_.x = 0.45f;
+
 	//クールタイムの初期化
 	time = 0;
 	time2 = 0;
+	time3 = 0;
+	time4 = 0;
 
 	//アビリティの初期化
-	missile = false;
+	missile_ = false;
 	double_ = false;
+	laser_ = false;
 }
 
 //更新
@@ -52,18 +60,30 @@ void Player::Update()
 	if (Input::IsKey(DIK_W))
 	{
 		transform_.position_.y += speed;
+
+		//レーザーの出る位置の補正
+		trans_.position_.y += speed;
 	}
 	if (Input::IsKey(DIK_S))
 	{
 		transform_.position_.y -= speed;
+
+		//レーザーの出る位置の補正
+		trans_.position_.y -= speed;
 	}
 	if (Input::IsKey(DIK_D))
 	{
 		transform_.position_.x += speed;
+
+		//レーザーの出る位置の補正
+		trans_.position_.x += speed;
 	}
 	if (Input::IsKey(DIK_A))
 	{
 		transform_.position_.x -= speed;
+
+		//レーザーの出る位置の補正
+		trans_.position_.x -= speed;
 	}
 
 	//画面外に出ない
@@ -83,7 +103,6 @@ void Player::Update()
 		{
 			transform_.position_.x = 0.92f;
 		}
-		
 	}
 	else if (transform_.position_.x < -0.92f)
 	{
@@ -101,7 +120,6 @@ void Player::Update()
 		{
 			transform_.position_.x = -0.92f;
 		}
-
 	}
 	else if (transform_.position_.y > 0.80f)
 	{
@@ -119,7 +137,6 @@ void Player::Update()
 		{
 			transform_.position_.y = 0.80f;
 		}
-
 	}
 	else if (transform_.position_.y < -0.80f)
 	{
@@ -139,25 +156,101 @@ void Player::Update()
 		}
 	}
 
+	//レーザーの位置が画面外にいかないように
+	if (trans_.position_.x > 1.37f)
+	{
+		if (trans_.position_.y > 0.80f)
+		{
+			trans_.position_.x = 1.37f;
+			trans_.position_.y = 0.80f;
+		}
+		else if (trans_.position_.y < -0.80f)
+		{
+			trans_.position_.x = 1.37f;
+			trans_.position_.y = -0.80f;
+		}
+		else
+		{
+			trans_.position_.x = 1.37f;
+		}
+	}
+	else if (trans_.position_.x < -0.47f)
+	{
+		if (trans_.position_.y > 0.80f)
+		{
+			trans_.position_.x = -0.47f;
+			trans_.position_.y = 0.80f;
+		}
+		else if (trans_.position_.y < -0.80f)
+		{
+			trans_.position_.x = -0.47f;
+			trans_.position_.y = -0.80f;
+		}
+		else
+		{
+			trans_.position_.x = -0.47f;
+		}
+	}
+	else if (trans_.position_.y > 0.80f)
+	{
+		if (trans_.position_.x > 0.92f)
+		{
+			trans_.position_.x = 0.92f;
+			trans_.position_.y = 0.80f;
+		}
+		else if (trans_.position_.x < -0.92f)
+		{
+			trans_.position_.x = -0.92f;
+			trans_.position_.y = 0.80f;
+		}
+		else
+		{
+			trans_.position_.y = 0.80f;
+		}
+	}
+	else if (trans_.position_.y < -0.80f)
+	{
+		if (trans_.position_.x > 0.92f)
+		{
+			trans_.position_.x = 0.92f;
+			trans_.position_.y = -0.80f;
+		}
+		else if (trans_.position_.x < -0.92f)
+		{
+			trans_.position_.x = -0.92f;
+			trans_.position_.y = -0.80f;
+		}
+		else
+		{
+			trans_.position_.y = -0.80f;
+		}
+	}
+
 	//射撃について
 	time++;
 	time2++;
 	time3++;
+	time4++;
 
 	if (time >= 10)
 	{
-		//スペースキーが押している間
-		if (Input::IsKey(DIK_SPACE))
+		//レーザーを使用していないなら
+		if (laser_ == false)
 		{
-			Bullet* pBullet = Instantiate<Bullet>(GetParent());
-			pBullet->SetPosition(transform_.position_);
+			//スペースキーが押している間
+			if (Input::IsKey(DIK_SPACE))
+			{
+				Bullet* pBullet = Instantiate<Bullet>(GetParent());
+				pBullet->SetPosition(transform_.position_);
 
-			time = 0;
+				time = 0;
+			}
 		}
+		
 	}
 
 	//ミサイルの発射
-	if(missile == true)
+	if(missile_ == true)
 	{
 		if (time2 >= 60)
 		{
@@ -172,7 +265,7 @@ void Player::Update()
 		}
 	}
 
-	//ミサイルの発射
+	//二方向への発射
 	if (double_ == true)
 	{
 		if (time3 >= 10)
@@ -184,6 +277,22 @@ void Player::Update()
 				pDouble->SetPosition(transform_.position_);
 
 				time3 = 0;
+			}
+		}
+	}
+
+	//レーザーの発射
+	if (laser_ == true)
+	{
+		if (time4 >= 30)
+		{
+			//スペースキーが押している間
+			if (Input::IsKey(DIK_SPACE))
+			{
+				Laser* pLaser = Instantiate<Laser>(GetParent());
+				pLaser->SetPosition(trans_.position_);
+
+				time4 = 0;
 			}
 		}
 	}
@@ -225,13 +334,29 @@ void Player::SpeedUp()
 //ミサイルの発射
 void Player::ShotMissile()
 {
-	missile = true;
+	//ミサイルの使用ができるようにする
+	missile_ = true;
 }
 
 //三番目
 //弾が二方向へ発射
 void Player::ShotDouble()
 {
+	//２方向発射の使用ができるようにする
 	double_ = true;
+
+	//レーザーとの併用がをできなくする
+	laser_ = false;
+}
+
+//四番目
+//弾が二方向へ発射
+void Player::ShotLaser()
+{
+	//レーザーの使用ができるようにする
+	laser_ = true;
+
+	//ダブルとの併用をできなくする
+	double_ = false;
 }
 

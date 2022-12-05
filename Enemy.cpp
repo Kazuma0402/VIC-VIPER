@@ -91,13 +91,25 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
-	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "Missile")
+	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "Missile" || pTarget->GetObjectName() == "Double")
 	{
 		//“G‚ªÁ‚¦‚é
 		KillMe();
 
 		//’e‚ªÁ‚¦‚é
 		pTarget->KillMe();
+
+		//“G‚ğ“|‚µ‚½‚çƒXƒRƒA‰ÁZ
+		Score* pScore = (Score*)FindObject("Score");
+		pScore->Addition();
+
+	}
+
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Laser")
+	{
+		//“G‚ªÁ‚¦‚é
+		KillMe();
 
 		//“G‚ğ“|‚µ‚½‚çƒXƒRƒA‰ÁZ
 		Score* pScore = (Score*)FindObject("Score");

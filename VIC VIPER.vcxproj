@@ -176,6 +176,7 @@
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Missile.cpp" />
@@ -234,6 +235,7 @@
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="Player.h" />

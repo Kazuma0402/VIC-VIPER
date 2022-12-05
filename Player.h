@@ -10,16 +10,22 @@ class Player : public GameObject
     //機体のスピード
     float speed;
 
+    //弾の位置の補正
+    Transform trans_;
+
     //射撃のクールタイム用
     int time;
     //ミサイルのクールタイム用
     int time2;
     //二方向発射のクールタイム用
     int time3;
+    //レーザーのクールタイム用
+    int time4;
 
     //アビリティの有無
-    bool missile;
+    bool missile_;
     bool double_;
+    bool laser_;
 
 public:
     //コンストラクタ
@@ -52,5 +58,8 @@ public:
 
     //弾が二方向へ発射
     void ShotDouble();
+
+    //弾がレーザーに変更
+    void ShotLaser();
 };
 
