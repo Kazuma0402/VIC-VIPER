@@ -27,7 +27,7 @@ void Enemy::Initialize()
 
 	//初期位置
 	transform_.position_.x = 1.0f;
-	transform_.position_.y = (rand() % 180 - 90) / 100;
+	transform_.position_.y = (float)(rand() % 180 - 90) / 100;
 	
 	//大きさ
 	transform_.scale_.x = 0.5f;
@@ -50,6 +50,7 @@ void Enemy::Update()
 	//移動速度
 	transform_.position_.x -= 0.005f;
 	
+	//移動の切り替えw
 	if (wavePoint == 0)
 	{
 		transform_.position_.y -= 0.01f;
@@ -69,6 +70,7 @@ void Enemy::Update()
 		}
 	}
 
+	//一定の位置より先に行くと消える
 	if (transform_.position_.x <= -1.00f)
 	{
 		KillMe();

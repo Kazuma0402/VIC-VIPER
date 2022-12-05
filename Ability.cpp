@@ -257,7 +257,7 @@ void Ability::Update()
 		hPict_[4] = hPictSelect_[4];
 
 		//一個前のアビリティの使用回数があれば表示
-		if (AbilityDouble == true)
+		if (AbilityLaser == true)
 		{
 			//ひとつ前の点灯を戻す
 			hPict_[3] = Image::Load("Laser.png");
@@ -320,6 +320,7 @@ void Ability::AbilityHeel()
 {
 	AbilityMissile = true;
 	AbilityDouble = true;
+	AbilityLaser = true;
 }
 
 //復活した際のアビリティ表示のリセット

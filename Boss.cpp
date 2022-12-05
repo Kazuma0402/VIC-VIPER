@@ -1,10 +1,7 @@
 #include "Boss.h"
 #include "Engine/Image.h"
 #include "Engine/Input.h"
-#include "Engine/Camera.h"
-#include "Engine/SphereCollider.h"
 #include "Score.h"
-#include "PlayScene.h"
 
 //コンストラクタ
 Boss::Boss(GameObject* parent)

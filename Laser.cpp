@@ -28,7 +28,7 @@ void Laser::Initialize()
 //XV
 void Laser::Update()
 {
-	transform_.position_.x += 0.025f;
+	transform_.position_.x += 0.05f;
 
 	if (transform_.position_.x >= 2.0f)
 	{
