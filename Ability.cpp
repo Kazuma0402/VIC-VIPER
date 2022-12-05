@@ -261,7 +261,7 @@ void Ability::Update()
 		{
 			//‚Ð‚Æ‚Â‘O‚Ì“_“”‚ð–ß‚·
 			hPict_[3] = Image::Load("Laser.png");
-			assert(hPict_[2] >= 0);
+			assert(hPict_[3] >= 0);
 		}
 		else
 		{
