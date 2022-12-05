@@ -83,6 +83,9 @@ void Life::Stock()
 
 		//アビリティの使用回数の復活
 		pAbility->AbilityHeel();
+
+		//アビリティ表示のリセット
+		pAbility->AbilityReset();
 	}
 	//残機がないなら結果画面
 	else

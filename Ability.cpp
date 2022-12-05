@@ -256,9 +256,18 @@ void Ability::Update()
 		//該当アビリティの点灯
 		hPict_[4] = hPictSelect_[4];
 
-		//ひとつ前の点灯を戻す
-		hPict_[3] = Image::Load("LASER.png");
-		assert(hPict_[0] >= 0);
+		//一個前のアビリティの使用回数があれば表示
+		if (AbilityDouble == true)
+		{
+			//ひとつ前の点灯を戻す
+			hPict_[3] = Image::Load("Laser.png");
+			assert(hPict_[2] >= 0);
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[3] = hPictNull_[0];
+		}
 		break;
 	case 6:
 		//該当アビリティの点灯
@@ -300,7 +309,7 @@ void Ability::Addition()
 	}
 }
 
-//復活した際のアビティの点灯の初期化
+//復活した際のカウントの初期化
 void Ability::CountReset()
 {
 	count = 1;
@@ -311,4 +320,25 @@ void Ability::AbilityHeel()
 {
 	AbilityMissile = true;
 	AbilityDouble = true;
+}
+
+//復活した際のアビリティ表示のリセット
+void Ability::AbilityReset()
+{
+	//画像データ
+	std::string fileName[] = {
+		"SPEEDUP_SELECT.png",
+		"MISSILE.png",
+		"DOUBLE.png",
+		"LASER.png",
+		"OPTION.png",
+		"HATENA.png",
+	};
+
+	//画像のロード
+	for (int i = 0; i < 6; i++)
+	{
+		hPict_[i] = Image::Load(fileName[i]);
+		assert(hPict_[i] >= 0);
+	}
 }

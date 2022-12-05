@@ -38,10 +38,13 @@ public:
     //カウントの加算
     void Addition();
 
-    //復活した際のアビリティの点灯の初期化
+    //復活した際のカウントの初期化
     void CountReset();
 
     //復活した際のアビリティの使用回数の回復
     void AbilityHeel();
+
+    //復活した際のアビリティ表示のリセット
+    void AbilityReset();
 };
 
