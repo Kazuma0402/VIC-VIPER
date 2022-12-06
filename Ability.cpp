@@ -73,6 +73,8 @@ void Ability::Initialize()
 	AbilityDouble = true;
 	AbilityLaser = true;
 
+	//カウントの初期化
+	count = 0;
 }
 
 //更新

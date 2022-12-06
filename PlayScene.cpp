@@ -1,13 +1,15 @@
 #include "PlayScene.h"
-#include "Engine/Image.h"
-#include "Engine/Input.h"
-#include "Engine/SceneManager.h"
+#include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Score.h"
 #include "Ability.h"
 #include "Life.h"
 #include "Item.h"
+
+#include "Engine/Image.h"
+#include "Engine/Input.h"
+#include "Engine/SceneManager.h"
 
 //コンストラクタ
 PlayScene::PlayScene(GameObject* parent)
@@ -30,11 +32,13 @@ void PlayScene::Initialize()
 
 	
 	//表示
+	Instantiate<Player>(this);
+	Instantiate<Enemy>(this);
+	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 	Instantiate<Life>(this);
-	Instantiate<Player>(this);
-	Instantiate<Enemy>(this);
+
 }
 
 //更新
@@ -70,8 +74,6 @@ void PlayScene::Update()
 			Instantiate<Item>(this);
 			count = 0;
 		}
-		/*Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-		pEnemy->KillCountpuls();*/
 	}
 
 	//もしプレイヤーがなければ
