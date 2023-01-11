@@ -18,7 +18,7 @@ Life::~Life()
 //初期化
 void Life::Initialize()
 {
-	//残機の表示
+	//画像のロード
 	std::string fileName = "Life.png";
 	for (int i = 0; i < 3; i++)
 	{
@@ -40,7 +40,7 @@ void Life::Update()
 void Life::Draw()
 {
 	//残機の表示
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 3; i++)
 	{
 		transform_.position_.x = 0.1f * i - 0.7f;
 		Image::SetTransform(hPictCon_[i - 1], transform_);
