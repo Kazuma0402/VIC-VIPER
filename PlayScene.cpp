@@ -38,7 +38,6 @@ void PlayScene::Initialize()
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 	Instantiate<Life>(this);
-
 }
 
 //XV

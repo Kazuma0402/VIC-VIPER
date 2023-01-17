@@ -2,20 +2,14 @@
 #include "Engine/GameObject.h"
 
 
-//TitleSceneシーンを管理するクラス
-class TitleScene : public GameObject
+//OptionSceneシーンを管理するクラス
+class OptionScene : public GameObject
 {
 	int hPict_;
-	int hPict_2;
-
-	int choice;
-
-	Transform trans_;
-
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
-	TitleScene(GameObject* parent);
+	OptionScene(GameObject* parent);
 
 	//初期化
 	void Initialize() override;
