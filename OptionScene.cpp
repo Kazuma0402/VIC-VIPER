@@ -12,7 +12,7 @@ OptionScene::OptionScene(GameObject* parent)
 //‰Šú‰»
 void OptionScene::Initialize()
 {
-	hPict_ = Image::Load("Title.jpg");
+	hPict_ = Image::Load("Rule.png");
 	assert(hPict_ >= 0);
 }
 
