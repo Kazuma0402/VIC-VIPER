@@ -5,32 +5,58 @@
 
 //コンストラクタ
 OptionScene::OptionScene(GameObject* parent)
-	: GameObject(parent, "OptionScene"), hPict_(-1)
+	: GameObject(parent, "OptionScene"), nowPict_(-1)
 {
 }
 
 //初期化
 void OptionScene::Initialize()
 {
-	hPict_ = Image::Load("Rule.png");
+	//画像のロード
+	hPict_[0] = Image::Load("Rule.png");
 	assert(hPict_ >= 0);
+	hPict_[1] = Image::Load("Rule2.png");
+	assert(hPict_ >= 0);
+	nowPict_ = Image::Load("Rule.png");
+	assert(hPict_ >= 0);
+
+	//
+	push = false;
 }
 
 //更新
 void OptionScene::Update()
 {
-	if (Input::IsKey(DIK_ESCAPE))
+	if (push == false)
 	{
-		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
-		pSceneManager->ChangeScene(SCENE_ID_TITLE);
+		if (Input::IsKey(DIK_RIGHT))
+		{
+			nowPict_ = hPict_[1];
+			push = true;
+		}
 	}
+	
+	if (push == true)
+	{
+		if (Input::IsKey(DIK_LEFT))
+		{
+			nowPict_ = hPict_[0];
+			push = false;
+		}
+		else if (Input::IsKey(DIK_ESCAPE))
+		{
+			SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+			pSceneManager->ChangeScene(SCENE_ID_TITLE);
+		}
+	}
+	
 }
 
 //描画
 void OptionScene::Draw()
 {
-	Image::SetTransform(hPict_, transform_);
-	Image::Draw(hPict_);
+	Image::SetTransform(nowPict_, transform_);
+	Image::Draw(nowPict_);
 }
 
 //開放

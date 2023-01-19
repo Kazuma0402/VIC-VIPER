@@ -5,7 +5,10 @@
 //OptionSceneシーンを管理するクラス
 class OptionScene : public GameObject
 {
-	int hPict_;
+	int hPict_[2];
+	int nowPict_;
+
+	bool push;
 public:
 	//コンストラクタ
 	//引数：parent  親オブジェクト（SceneManager）
