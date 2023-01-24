@@ -72,6 +72,8 @@ void Ability::Initialize()
 	AbilityMissile = true;
 	AbilityDouble = true;
 	AbilityLaser = true;
+	AbilityOption = true;
+	AbilityHatena = true;
 
 	//カウントの初期化
 	count = 0;
@@ -275,9 +277,47 @@ void Ability::Update()
 		//該当アビリティの点灯
 		hPict_[5] = hPictSelect_[5];
 
-		//ひとつ前の点灯を戻す
-		hPict_[4] = Image::Load("OPTION.png");
-		assert(hPict_[0] >= 0);
+		if (AbilityHatena == true)
+		{
+			//Lを押したらハテナ可能
+			if (Input::IsKeyDown(DIK_L))
+			{
+				//二方向に弾が打てるようにする
+				Player* pPlayer = (Player*)FindObject("Player");
+				pPlayer->Change();
+
+				//countを戻す
+				count = 0;
+
+				//アビリティの使用をできなくする
+				AbilityHatena = false;
+
+				//アビリティが使えないのであれば
+				if (AbilityHatena == false)
+				{
+					//アビリティの表記の変更
+					hPict_[5] = hPictNull_[0];
+				}
+			}
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[5] = hPictNull_[1];
+		}
+
+		//一個前のアビリティの使用回数があれば表示
+		if (AbilityOption == true)
+		{
+			//ひとつ前の点灯を戻す
+			hPict_[4] = Image::Load("Option.png");
+			assert(hPict_[4] >= 0);
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[4] = hPictNull_[0];
+		}
 		break;
 	}
 }
@@ -323,6 +363,8 @@ void Ability::AbilityHeel()
 	AbilityMissile = true;
 	AbilityDouble = true;
 	AbilityLaser = true;
+	AbilityOption = true;
+	AbilityHatena = true;
 }
 
 //復活した際のアビリティ表示のリセット

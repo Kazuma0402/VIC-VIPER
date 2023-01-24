@@ -28,7 +28,7 @@ void Stage::Initialize()
 	//‰ŠúˆÊ’u
 	trans1_.position_.x = 10.0f;
 	trans2_.position_.x = 11.95f;
-	trans3_.position_.x = 13.9f;
+	trans3_.position_.x = 13.95f;
 	trans4_.position_.x = 15.85f;
 }
 

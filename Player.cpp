@@ -360,3 +360,24 @@ void Player::ShotLaser()
 	double_ = false;
 }
 
+//六番目
+//機体の変更
+void Player::Change()
+{
+	//大きさ
+	transform_.scale_.x = 2.0f;
+	transform_.scale_.y = 2.0f;
+
+	//当たり判定
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.0f, 0, 0), 0.20f);
+	AddCollider(collision);
+
+	//ロード
+	hPict_ = Image::Load("Nezuko.png");
+	assert(hPict_ >= 0);
+
+	//ドロー
+	Image::SetTransform(hPict_, transform_);
+	Image::Draw(hPict_);
+}
+
