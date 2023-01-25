@@ -9,6 +9,8 @@ class Enemy : public GameObject
 
     int wavePoint;
 
+    int cnt = 0;
+
     //死んだ数
     int KillCount;
 public:
@@ -33,6 +35,10 @@ public:
     //当たり判定
     void OnCollision(GameObject* pTarget) override;
 
+    //スコア用
     void KillCountpuls();
+
+    //現在の位置の取得
+    void GetPosition(double *x, double *y);
 };
 

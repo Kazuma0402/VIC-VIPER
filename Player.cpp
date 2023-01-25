@@ -380,4 +380,3 @@ void Player::Change()
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 }
-

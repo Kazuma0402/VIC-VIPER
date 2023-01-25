@@ -62,12 +62,13 @@ void PlayScene::Update()
 		Image::SetTransform(hPict_[1], trans_);
 		Image::Draw(hPict_[1]);
 	}
+
 	//‚à‚µ“G‚ª‚¢‚È‚¯‚ê‚Î
 	if (FindObject("Enemy") == NULL)
 	{
 		Instantiate<Enemy>(this);
 		count++;
-
+		
 		if (count >= 5)
 		{
 			Instantiate<Item>(this);

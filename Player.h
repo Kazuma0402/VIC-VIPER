@@ -62,6 +62,7 @@ public:
     //弾がレーザーに変更
     void ShotLaser();
 
+    //機体が変身
     void Change();
 };
 

@@ -49,26 +49,6 @@ void Enemy::Update()
 {
 	//ˆÚ“®‘¬“x
 	transform_.position_.x -= 0.005f;
-	
-	//ˆÚ“®‚ÌØ‚è‘Ö‚¦w
-	if (wavePoint == 0)
-	{
-		transform_.position_.y -= 0.01f;
-
-		if (transform_.position_.y <= -0.5f)
-		{
-			wavePoint = 1;
-		}
-	}
-	if (wavePoint == 1)
-	{
-		transform_.position_.y += 0.01f;
-
-		if (transform_.position_.y >= 0.5f)
-		{
-			wavePoint = 0;
-		}
-	}
 
 	//ˆê’è‚ÌˆÊ’u‚æ‚èæ‚És‚­‚ÆÁ‚¦‚é
 	if (transform_.position_.x <= -1.00f)
@@ -93,7 +73,20 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
-	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "Missile" || pTarget->GetObjectName() == "Double")
+	if (pTarget->GetObjectName() == "Bullet")
+	{
+		//“G‚ªÁ‚¦‚é
+		KillMe();
+
+		//’e‚ªÁ‚¦‚é
+		pTarget->KillMe();
+
+		//“G‚ğ“|‚µ‚½‚çƒXƒRƒA‰ÁZ
+		Score* pScore = (Score*)FindObject("Score");
+		pScore->Addition();
+	}
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Missile")
 	{
 		//“G‚ªÁ‚¦‚é
 		KillMe();
@@ -106,7 +99,20 @@ void Enemy::OnCollision(GameObject* pTarget)
 		pScore->Addition();
 
 	}
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Double")
+	{
+		//“G‚ªÁ‚¦‚é
+		KillMe();
 
+		//’e‚ªÁ‚¦‚é
+		pTarget->KillMe();
+
+		//“G‚ğ“|‚µ‚½‚çƒXƒRƒA‰ÁZ
+		Score* pScore = (Score*)FindObject("Score");
+		pScore->Addition();
+
+	}
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
 	if (pTarget->GetObjectName() == "Laser")
 	{
@@ -137,3 +143,10 @@ void Enemy::KillCountpuls()
 	}
 }
 
+//ˆÊ’uæ“¾
+void Enemy::GetPosition(double *x, double *y)
+{
+	//Œ»İ‚ÌˆÊ’u‚Ìæ“¾
+	*x = this->transform_.position_.x;
+	*y = this->transform_.position_.y;	
+}

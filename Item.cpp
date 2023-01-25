@@ -24,14 +24,14 @@ void Item::Initialize()
 	//当たり判定（丸）
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
-
-
 }
 
 //更新
 void Item::Update()
 {
-	transform_.position_.x -= 0.005f;
+	//transform_.position_.x -= 0.005f;
+
+	GetEnemyPosition();
 }
 
 //描画
@@ -59,4 +59,19 @@ void Item::OnCollision(GameObject* pTarget)
 		Ability* pAbility = (Ability*)FindObject("Ability");
 		pAbility->Addition();
 	}
+}
+
+//敵の位置取得
+void Item::GetEnemyPosition()
+{
+	//位置取得用の変数
+	double tempx, tempy;
+
+	//敵の位置取得
+	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+	pEnemy->GetPosition(&tempx, &tempy);
+
+	//敵の位置を代入
+	transform_.position_.x = tempx;
+	transform_.position_.y = tempy;
 }
