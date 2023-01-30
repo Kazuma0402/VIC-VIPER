@@ -49,6 +49,9 @@ public:
     //当たり判定
     void OnCollision(GameObject* pTarget);
 
+    //位置の取得
+    void GetPosition(double *x, double *y);
+
     //↓アビリティの開放↓
     //スピードアップ
     void SpeedUp();

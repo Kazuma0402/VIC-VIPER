@@ -2,7 +2,7 @@
 #include "Engine/GameObject.h"
 
 //プレイヤーを管理するクラス
-class Enemy : public GameObject
+class Enemy2 : public GameObject
 {
     //画像
     int hPict_;
@@ -17,10 +17,10 @@ class Enemy : public GameObject
     int KillCount;
 public:
     //コンストラクタ
-    Enemy(GameObject* parent);
+    Enemy2(GameObject* parent);
 
     //デストラクタ
-    ~Enemy();
+    ~Enemy2();
 
     //初期化
     void Initialize() override;
@@ -39,5 +39,8 @@ public:
 
     //スコア用
     void KillCountpuls();
+
+    //プレイヤーの位置の取得
+    void GetPlayerPosition(double* x, double* y);
 };
 

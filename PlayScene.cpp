@@ -2,6 +2,7 @@
 #include "Stage.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Enemy2.h"
 #include "Score.h"
 #include "Ability.h"
 #include "Life.h"
@@ -34,6 +35,7 @@ void PlayScene::Initialize()
 	//•\Ž¦
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
+	//Instantiate<Enemy2>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);

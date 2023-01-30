@@ -27,8 +27,5 @@ public:
 
     //“–‚½‚è”»’è
     void OnCollision(GameObject* pTarget);
-
-    //“G‚ÌˆÊ’uŽæ“¾
-    void GetEnemyPosition();
 };
 

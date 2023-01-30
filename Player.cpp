@@ -321,8 +321,16 @@ void Player::OnCollision(GameObject* pTarget)
 	}
 }
 
-//アビリティの開放
+//位置取得
+void Player::GetPosition(double* x, double* y)
+{
+	//現在の位置の取得
+	*x = this->transform_.position_.x;
+	*y = this->transform_.position_.y;
+}
 
+
+//アビリティの解放
 //一番目
 //スピードアップ
 void Player::SpeedUp()

@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "Enemy2.h"
 #include "EnemyBullet.h"
 #include "Player.h"
 #include "Score.h"
@@ -9,33 +9,33 @@
 #include "Engine/SphereCollider.h"
 
 //コンストラクタ
-Enemy::Enemy(GameObject* parent)
-	:GameObject(parent, "Enemy"),hPict_(-1)
+Enemy2::Enemy2(GameObject* parent)
+	:GameObject(parent, "Enemy2"), hPict_(-1)
 {
 }
 
 //デストラクタ
-Enemy::~Enemy()
+Enemy2::~Enemy2()
 {
 }
 
 //初期化
-void Enemy::Initialize()
+void Enemy2::Initialize()
 {
 	//画像のロード
-	hPict_ = Image::Load("Enemy.png");
+	hPict_ = Image::Load("Enemy2.png");
 	assert(hPict_ >= 0);
 
 	//初期位置
 	transform_.position_.x = 1.0f;
 	transform_.position_.y = (float)(rand() % 180 - 90) / 100;
-	
+
 	//大きさ
 	transform_.scale_.x = 0.5f;
 	transform_.scale_.y = 0.5f;
 
 	//当たり判定（丸）
-	SphereCollider* collision = new SphereCollider(XMFLOAT3( 0.03f, 0.0f, 0.0f), 0.08f);
+	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
 
 	//ウェーブポイントの初期化
@@ -46,10 +46,28 @@ void Enemy::Initialize()
 }
 
 //更新
-void Enemy::Update()
+void Enemy2::Update()
 {
-	//移動
-	transform_.position_.x -= 0.005f;
+	//プレイヤーの位置の取得
+	GetPlayerPosition(&pos_x, &pos_y);
+
+	//プレイヤーへの追尾
+	if (transform_.position_.x > pos_x)
+	{
+		transform_.position_.x -= 0.005f;
+	}
+	if (transform_.position_.x < pos_x)
+	{
+		transform_.position_.x += 0.005f;
+	}
+	if (transform_.position_.y > pos_y)
+	{
+		transform_.position_.y -= 0.005f;
+	}
+	if (transform_.position_.y < pos_y)
+	{
+		transform_.position_.y += 0.005f;
+	}
 
 	//一定の位置より先に行くと消える
 	if (transform_.position_.x <= -1.00f)
@@ -59,19 +77,19 @@ void Enemy::Update()
 }
 
 //描画
-void Enemy::Draw()
+void Enemy2::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
 }
 
 //開放
-void Enemy::Release()
+void Enemy2::Release()
 {
 }
 
 //何かに当たった
-void Enemy::OnCollision(GameObject* pTarget)
+void Enemy2::OnCollision(GameObject* pTarget)
 {
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Bullet")
@@ -127,7 +145,7 @@ void Enemy::OnCollision(GameObject* pTarget)
 	}
 }
 
-void Enemy::KillCountpuls()
+void Enemy2::KillCountpuls()
 {
 	//キルカウントの加算
 	KillCount++;
@@ -142,4 +160,16 @@ void Enemy::KillCountpuls()
 		//キルカウントのリセット
 		KillCount == 0;
 	}
+}
+
+//プレイヤーの位置取得
+void Enemy2::GetPlayerPosition(double* x, double* y)
+{
+	double tempx, tempy;
+
+	Player* pPlayer = (Player*)FindObject("Player");
+	pPlayer->GetPosition(&tempx, &tempy);
+
+	*x = tempx;
+	*y = tempy;
 }
