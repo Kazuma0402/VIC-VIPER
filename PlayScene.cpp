@@ -35,7 +35,7 @@ void PlayScene::Initialize()
 	//表示
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
-	//Instantiate<Enemy2>(this);
+	Instantiate<Enemy2>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
@@ -76,6 +76,10 @@ void PlayScene::Update()
 			Instantiate<Item>(this);
 			count = 0;
 		}
+	}
+	if (FindObject("Enemy2") == NULL)
+	{
+		Instantiate<Enemy2>(this);
 	}
 
 	//もしプレイヤーがなければ

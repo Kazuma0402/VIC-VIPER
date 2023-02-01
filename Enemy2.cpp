@@ -27,8 +27,27 @@ void Enemy2::Initialize()
 	assert(hPict_ >= 0);
 
 	//初期位置
-	transform_.position_.x = 1.0f;
-	transform_.position_.y = (float)(rand() % 180 - 90) / 100;
+	int num;
+	num = rand() % 4;
+	switch (num)
+	{
+	case 0:	//右方向
+		transform_.position_.x = 1.0f;
+		transform_.position_.y = (float)(rand() % 180 - 100) / 100;
+		break;
+	case 1:	//左方向
+		transform_.position_.x = -1.0f;
+		transform_.position_.y = (float)(rand() % 180 - 100) / 100;
+		break;
+	case 2:	//上方向
+		transform_.position_.x = (float)(rand() % 180 - 100) / 100;
+		transform_.position_.y = 1.0f;
+		break;
+	case 3:	//下方向
+		transform_.position_.x = (float)(rand() % 180 - 100) / 100;
+		transform_.position_.y = -1.0f;
+		break;
+	}
 
 	//大きさ
 	transform_.scale_.x = 0.5f;
@@ -48,8 +67,12 @@ void Enemy2::Initialize()
 //更新
 void Enemy2::Update()
 {
-	//プレイヤーの位置の取得
-	GetPlayerPosition(&pos_x, &pos_y);
+	//もしプレイヤーがいるなら
+	if (FindObject("Player") != NULL)
+	{
+		//プレイヤーの位置の取得
+		GetPlayerPosition(&pos_x, &pos_y);
+	}
 
 	//プレイヤーへの追尾
 	if (transform_.position_.x > pos_x)
@@ -67,12 +90,6 @@ void Enemy2::Update()
 	if (transform_.position_.y < pos_y)
 	{
 		transform_.position_.y += 0.005f;
-	}
-
-	//一定の位置より先に行くと消える
-	if (transform_.position_.x <= -1.00f)
-	{
-		KillMe();
 	}
 }
 

@@ -319,6 +319,11 @@ void Player::OnCollision(GameObject* pTarget)
 		KillMe();
 		pTarget->KillMe();
 	}
+	if (pTarget->GetObjectName() == "Enemy2")
+	{
+		KillMe();
+		pTarget->KillMe();
+	}
 }
 
 //ˆÊ’uæ“¾
