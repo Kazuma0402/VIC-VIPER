@@ -1,5 +1,6 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include <vector>
 
 //プレイヤーを管理するクラス
 class Player : public GameObject
@@ -27,7 +28,8 @@ class Player : public GameObject
     bool double_;
     bool laser_;
 
-public:
+    int cnt;
+public: 
     //コンストラクタ
     Player(GameObject* parent);
 
@@ -68,4 +70,3 @@ public:
     //機体が変身
     void Change();
 };
-

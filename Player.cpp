@@ -51,6 +51,8 @@ void Player::Initialize()
 	missile_ = false;
 	double_ = false;
 	laser_ = false;
+
+	cnt = 0;
 }
 
 //çXêV
@@ -295,6 +297,64 @@ void Player::Update()
 				time4 = 0;
 			}
 		}
+	}
+
+	switch (cnt)
+	{
+	case 0: 
+	case 1:
+		if (Input::IsKeyUp(DIK_UP))
+		{
+			cnt++;
+		}
+		break;
+	case 2:
+	case 3:
+		if (Input::IsKeyUp(DIK_DOWN))
+		{
+			cnt++;
+		}
+		break;
+	case 4:
+		if (Input::IsKeyUp(DIK_LEFT))
+		{
+			cnt++;
+		}
+		break;
+	case 5:
+		if (Input::IsKeyUp(DIK_RIGHT))
+		{
+			cnt++;
+		}
+		break;
+	case 6:
+		if (Input::IsKeyUp(DIK_LEFT))
+		{
+			cnt++;
+		}
+		break;
+	case 7:
+		if (Input::IsKeyUp(DIK_RIGHT))
+		{
+			cnt++;
+		}
+		break;
+	case 8:
+		if (Input::IsKeyUp(DIK_RSHIFT))
+		{
+			
+			cnt++;
+		}
+		break;
+	case 9:
+		if (Input::IsKeyUp(DIK_RETURN))
+		{
+			ShotMissile();
+			ShotLaser();
+		}
+		break;
+	default:
+		cnt = 0;
 	}
 }
 

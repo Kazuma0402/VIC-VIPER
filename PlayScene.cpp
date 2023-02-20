@@ -65,22 +65,22 @@ void PlayScene::Update()
 		Image::Draw(hPict_[1]);
 	}
 
-	//‚à‚µ“G‚ª‚¢‚È‚¯‚ê‚Î
-	if (FindObject("Enemy") == NULL)
-	{
-		Instantiate<Enemy>(this);
-		count++;
-		
-		if (count >= 5)
-		{
-			Instantiate<Item>(this);
-			count = 0;
-		}
-	}
-	if (FindObject("Enemy2") == NULL)
-	{
-		Instantiate<Enemy2>(this);
-	}
+	////‚à‚µ“G‚ª‚¢‚È‚¯‚ê‚Î
+	//if (FindObject("Enemy") == NULL)
+	//{
+	//	Instantiate<Enemy>(this);
+	//	count++;
+	//	
+	//	if (count >= 5)
+	//	{
+	//		Instantiate<Item>(this);
+	//		count = 0;
+	//	}
+	//}
+	//if (FindObject("Enemy2") == NULL)
+	//{
+	//	Instantiate<Enemy2>(this);
+	//}
 
 	//‚à‚µƒvƒŒƒCƒ„[‚ª‚È‚¯‚ê‚Î
 	if (FindObject("Player") == NULL)

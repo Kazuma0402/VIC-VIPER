@@ -181,6 +181,7 @@
     <ClCompile Include="Life.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="Option.cpp" />
     <ClCompile Include="OptionScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayScene.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Life.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="Option.h" />
     <ClInclude Include="OptionScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayScene.h" />
