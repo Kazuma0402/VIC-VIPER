@@ -19,18 +19,33 @@
     <Filter Include="ヘッダー ファイル\Engine">
       <UniqueIdentifier>{a016c910-c09e-45cb-a8e3-a7a62a306acb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Ability">
+      <UniqueIdentifier>{b7e23ea8-e62f-4d9c-8a55-614f119e0187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Ability">
+      <UniqueIdentifier>{91023e6a-b7af-4495-9c87-9a4f6bba17c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{9e7faa14-5c9a-4a03-a38d-e8a720ecbb28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{d4188170-74e2-47ec-bc15-0683f88bed82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Display">
+      <UniqueIdentifier>{34a93056-ee1e-40fa-a197-467554d79e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{210da754-75e7-4ad7-8fe4-55684536fac0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{2d11c457-6a32-43ff-bd76-5b9293d0f848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Display">
+      <UniqueIdentifier>{091be41c-8d93-45ec-b788-e8267f9c8532}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TitleScene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Audio.cpp">
@@ -87,53 +102,65 @@
     <ClCompile Include="Engine\Transform.cpp">
       <Filter>ソース ファイル\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="KeyCommand.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Ability\Ability.cpp">
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBullet.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Ability\Double.cpp">
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
-    <ClCompile Include="ResultScene.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Ability\Laser.cpp">
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Ability\Missile.cpp">
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Ability\Option.cpp">
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
-    <ClCompile Include="Ability.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Display\Life.cpp">
+      <Filter>ソース ファイル\Display</Filter>
     </ClCompile>
-    <ClCompile Include="Life.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Display\Score.cpp">
+      <Filter>ソース ファイル\Display</Filter>
     </ClCompile>
-    <ClCompile Include="Boss.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Display\Stage.cpp">
+      <Filter>ソース ファイル\Display</Filter>
     </ClCompile>
-    <ClCompile Include="Missile.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Scene\OptionScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Double.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Scene\PlayScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Laser.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Scene\ResultScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Scene\TitleScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="OptionScene.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Object\Boss.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy2.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Object\Bullet.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Option.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="Object\Enemy.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Enemy2.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\EnemyBullet.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Item.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Player.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -145,15 +172,6 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="PlayScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TitleScene.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Transform.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
@@ -211,53 +229,65 @@
     <ClInclude Include="Engine\Texture.h">
       <Filter>ヘッダー ファイル\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="KeyCommand.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Ability\Ability.h">
+      <Filter>ヘッダー ファイル\Ability</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBullet.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Ability\Double.h">
+      <Filter>ヘッダー ファイル\Ability</Filter>
     </ClInclude>
-    <ClInclude Include="ResultScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Ability\Laser.h">
+      <Filter>ヘッダー ファイル\Ability</Filter>
     </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Ability\Missile.h">
+      <Filter>ヘッダー ファイル\Ability</Filter>
     </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Ability\Option.h">
+      <Filter>ヘッダー ファイル\Ability</Filter>
     </ClInclude>
-    <ClInclude Include="Ability.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Display\Life.h">
+      <Filter>ヘッダー ファイル\Display</Filter>
     </ClInclude>
-    <ClInclude Include="Life.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Display\Score.h">
+      <Filter>ヘッダー ファイル\Display</Filter>
     </ClInclude>
-    <ClInclude Include="Boss.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Display\Stage.h">
+      <Filter>ヘッダー ファイル\Display</Filter>
     </ClInclude>
-    <ClInclude Include="Missile.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Boss.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Double.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Bullet.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Laser.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Enemy.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Enemy2.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="OptionScene.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\EnemyBullet.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy2.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Item.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Option.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Object\Player.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\OptionScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\PlayScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\ResultScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\TitleScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

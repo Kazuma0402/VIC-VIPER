@@ -151,13 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Ability.cpp" />
-    <ClCompile Include="Boss.cpp" />
-    <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="Double.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Enemy2.cpp" />
-    <ClCompile Include="EnemyBullet.cpp" />
+    <ClCompile Include="Ability\Ability.cpp" />
+    <ClCompile Include="Ability\Double.cpp" />
+    <ClCompile Include="Ability\Laser.cpp" />
+    <ClCompile Include="Ability\Missile.cpp" />
+    <ClCompile Include="Ability\Option.cpp" />
+    <ClCompile Include="Display\Life.cpp" />
+    <ClCompile Include="Display\Score.cpp" />
+    <ClCompile Include="Display\Stage.cpp" />
     <ClCompile Include="Engine\Audio.cpp" />
     <ClCompile Include="Engine\BoxCollider.cpp" />
     <ClCompile Include="Engine\Camera.cpp" />
@@ -176,19 +177,19 @@
     <ClCompile Include="Engine\Sprite.cpp" />
     <ClCompile Include="Engine\Texture.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="Life.cpp" />
+    <ClCompile Include="KeyCommand.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Missile.cpp" />
-    <ClCompile Include="Option.cpp" />
-    <ClCompile Include="OptionScene.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayScene.cpp" />
-    <ClCompile Include="ResultScene.cpp" />
-    <ClCompile Include="Score.cpp" />
-    <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Object\Boss.cpp" />
+    <ClCompile Include="Object\Bullet.cpp" />
+    <ClCompile Include="Object\Enemy.cpp" />
+    <ClCompile Include="Object\Enemy2.cpp" />
+    <ClCompile Include="Object\EnemyBullet.cpp" />
+    <ClCompile Include="Object\Item.cpp" />
+    <ClCompile Include="Object\Player.cpp" />
+    <ClCompile Include="Scene\OptionScene.cpp" />
+    <ClCompile Include="Scene\PlayScene.cpp" />
+    <ClCompile Include="Scene\ResultScene.cpp" />
+    <ClCompile Include="Scene\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Simple2D.hlsl">
@@ -213,13 +214,14 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Ability.h" />
-    <ClInclude Include="Boss.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Double.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Enemy2.h" />
-    <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="Ability\Ability.h" />
+    <ClInclude Include="Ability\Double.h" />
+    <ClInclude Include="Ability\Laser.h" />
+    <ClInclude Include="Ability\Missile.h" />
+    <ClInclude Include="Ability\Option.h" />
+    <ClInclude Include="Display\Life.h" />
+    <ClInclude Include="Display\Score.h" />
+    <ClInclude Include="Display\Stage.h" />
     <ClInclude Include="Engine\Audio.h" />
     <ClInclude Include="Engine\BoxCollider.h" />
     <ClInclude Include="Engine\Camera.h" />
@@ -239,18 +241,18 @@
     <ClInclude Include="Engine\Sprite.h" />
     <ClInclude Include="Engine\Texture.h" />
     <ClInclude Include="Engine\Transform.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Laser.h" />
-    <ClInclude Include="Life.h" />
-    <ClInclude Include="Missile.h" />
-    <ClInclude Include="Option.h" />
-    <ClInclude Include="OptionScene.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayScene.h" />
-    <ClInclude Include="ResultScene.h" />
-    <ClInclude Include="Score.h" />
-    <ClInclude Include="Stage.h" />
-    <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="KeyCommand.h" />
+    <ClInclude Include="Object\Boss.h" />
+    <ClInclude Include="Object\Bullet.h" />
+    <ClInclude Include="Object\Enemy.h" />
+    <ClInclude Include="Object\Enemy2.h" />
+    <ClInclude Include="Object\EnemyBullet.h" />
+    <ClInclude Include="Object\Item.h" />
+    <ClInclude Include="Object\Player.h" />
+    <ClInclude Include="Scene\OptionScene.h" />
+    <ClInclude Include="Scene\PlayScene.h" />
+    <ClInclude Include="Scene\ResultScene.h" />
+    <ClInclude Include="Scene\TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
