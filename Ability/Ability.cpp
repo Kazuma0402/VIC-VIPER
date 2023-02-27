@@ -1,5 +1,7 @@
 #include "Ability.h"
 #include "../Object/Player.h"
+#include "Option.h"
+
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
 
@@ -72,7 +74,7 @@ void Ability::Initialize()
 	AbilityMissile = true;
 	AbilityDouble = true;
 	AbilityLaser = true;
-	AbilityOption = true;
+	AbilityOption = 4;
 	AbilityHatena = true;
 
 	//カウントの初期化
@@ -96,6 +98,7 @@ void Ability::Update()
 		//Lを押したらスピードアップ
 		if (Input::IsKeyDown(DIK_L))
 		{
+			//発動
 			Player* pPlayer = (Player*)FindObject("Player");
 			pPlayer->SpeedUp();
 
@@ -122,9 +125,13 @@ void Ability::Update()
 			//Lを押したらミサイルの発射可能
 			if (Input::IsKeyDown(DIK_L))
 			{
-				//ミサイルが打てるようにする
+				//ミサイルが撃てるようにする
 				Player* pPlayer = (Player*)FindObject("Player");
 				pPlayer->ShotMissile();
+
+				//ミサイルが撃てるようにする
+				Option* pOption = (Option*)FindObject("Option");
+				pOption->ShotMissile();
 
 				//countを戻す
 				count = 0;
@@ -157,9 +164,13 @@ void Ability::Update()
 			//Lを押したらミサイルの発射可能
 			if (Input::IsKeyDown(DIK_L))
 			{
-				//二方向に弾が打てるようにする
+				//二方向に弾が撃てるようにする
 				Player* pPlayer = (Player*)FindObject("Player");
 				pPlayer->ShotDouble();
+
+				//二方向に弾が撃てるようにする
+				Option* pOption = (Option*)FindObject("Option");
+				pOption->ShotDouble();
 
 				//countを戻す
 				count = 0;
@@ -211,9 +222,13 @@ void Ability::Update()
 			//Lを押したらミサイルの発射可能
 			if (Input::IsKeyDown(DIK_L))
 			{
-				//二方向に弾が打てるようにする
+				//レーザーが撃てるようにする
 				Player* pPlayer = (Player*)FindObject("Player");
 				pPlayer->ShotLaser();
+
+				//レーザーが撃てるようにする
+				Option* pOption = (Option*)FindObject("Option");
+				pOption->ShotLaser();
 
 				//countを戻す
 				count = 0;
@@ -260,6 +275,40 @@ void Ability::Update()
 		//該当アビリティの点灯
 		hPict_[4] = hPictSelect_[4];
 
+		if (AbilityOption >= 1)
+		{
+			//Lを押したらハテナ可能
+			if (Input::IsKeyDown(DIK_L))
+			{
+				//使用回数の減少
+				AbilityOption--;
+
+				//オプションの表示
+				Option* pOption = (Option*)FindObject("Option");
+				pOption->AddOption();
+
+				//countを戻す
+				count = 0;
+
+				//アビリティが使えないのであれば
+				if (AbilityHatena <= 0)
+				{
+					//アビリティの表記の変更
+					hPict_[4] = hPictNull_[0];
+				}
+				else
+				{
+					//アビリティの表記の変更
+					hPict_[4] = Image::Load("OPTION.png");
+					assert(hPict_[4] >= 0);
+				}
+			}
+		}
+		else
+		{
+			//アビリティの表記の変更
+			hPict_[5] = hPictNull_[1];
+		}
 		//一個前のアビリティの使用回数があれば表示
 		if (AbilityLaser == true)
 		{
@@ -307,7 +356,7 @@ void Ability::Update()
 		}
 
 		//一個前のアビリティの使用回数があれば表示
-		if (AbilityOption == true)
+		if (AbilityOption >= 1)
 		{
 			//ひとつ前の点灯を戻す
 			hPict_[4] = Image::Load("Option.png");
@@ -363,8 +412,12 @@ void Ability::AbilityHeel()
 	AbilityMissile = true;
 	AbilityDouble = true;
 	AbilityLaser = true;
-	AbilityOption = true;
+	AbilityOption = 4;
 	AbilityHatena = true;
+
+	//オプションの初期化
+	Option* pOption = (Option*)FindObject("Option");
+	pOption->CountReset();
 }
 
 //復活した際のアビリティ表示のリセット

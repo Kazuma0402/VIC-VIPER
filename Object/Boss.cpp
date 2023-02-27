@@ -45,6 +45,28 @@ void Boss::Update()
 	{
 		KillMe();
 	}
+
+
+
+	/*int u = 0;
+	if (u == 0)
+	{
+		transform.position.y += 0.1;
+
+		if (transform.position.y <= 2.0)
+		{
+			u = 1;
+		}
+	}
+	if (u == 1)
+	{
+		transform.position.y -= 0.1;
+
+		if (transform.position.y >= 0.0)
+		{
+			u = 1;
+		}
+	}*/
 }
 
 //•`‰æ

@@ -1,6 +1,7 @@
 #include "Enemy2.h"
 #include "EnemyBullet.h"
 #include "Player.h"
+
 #include "../Display/Score.h"
 #include "../Scene/PlayScene.h"
 #include "../Engine/Image.h"
@@ -23,7 +24,7 @@ Enemy2::~Enemy2()
 void Enemy2::Initialize()
 {
 	//‰æ‘œ‚Ìƒ[ƒh
-	hPict_ = Image::Load("Enemy2.png");
+	hPict_ = Image::Load("Enemy.png");
 	assert(hPict_ >= 0);
 
 	//‰ŠúˆÊ’u

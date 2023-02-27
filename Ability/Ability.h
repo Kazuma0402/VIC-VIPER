@@ -16,7 +16,7 @@ class Ability : public GameObject
     bool AbilityMissile;       //ミサイルの判定
     bool AbilityDouble;        //ダブルショットの判定
     bool AbilityLaser;         //レーザーの判定
-    bool AbilityOption;         //レーザーの判定
+    int AbilityOption;         //レーザーの判定
     bool AbilityHatena;         //レーザーの判定
 public:
     //コンストラクタ

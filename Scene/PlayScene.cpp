@@ -7,6 +7,7 @@
 #include "../Ability/Ability.h"
 #include "../Display/Life.h"
 #include "../Object/Item.h"
+#include "../Ability/Option.h"
 
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
@@ -35,11 +36,12 @@ void PlayScene::Initialize()
 	//表示
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
-	Instantiate<Enemy2>(this);
+	//Instantiate<Enemy2>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 	Instantiate<Life>(this);
+	Instantiate<Option>(this);
 }
 
 //更新
@@ -65,22 +67,29 @@ void PlayScene::Update()
 		Image::Draw(hPict_[1]);
 	}
 
-	////もし敵がいなければ
-	//if (FindObject("Enemy") == NULL)
-	//{
-	//	Instantiate<Enemy>(this);
-	//	count++;
-	//	
-	//	if (count >= 5)
-	//	{
-	//		Instantiate<Item>(this);
-	//		count = 0;
-	//	}
-	//}
-	//if (FindObject("Enemy2") == NULL)
-	//{
-	//	Instantiate<Enemy2>(this);
-	//}
+	//もし敵がいなければ
+	if (FindObject("Enemy") == NULL)
+	{
+		Instantiate<Enemy>(this);
+		count++;
+		
+		if (count >= 5)
+		{
+			Instantiate<Item>(this);
+			count = 0;
+		}
+	}
+	/*if (FindObject("Enemy2") == NULL)
+	{
+		Instantiate<Enemy2>(this);
+		count++;
+
+		if (count >= 5)
+		{
+			Instantiate<Item>(this);
+			count = 0;
+		}
+	}*/
 
 	//もしプレイヤーがなければ
 	if (FindObject("Player") == NULL)
@@ -88,6 +97,10 @@ void PlayScene::Update()
 		//残機判定に行く
 		Life* pLife = (Life*)FindObject("Life");
 		pLife->Stock();
+
+		//配列の初期化
+		Player* pPlayer = (Player*)FindObject("Player");
+		pPlayer->ResetPosition();
 	}
 
 	//ESCキーで強制終了

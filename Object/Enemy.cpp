@@ -28,7 +28,7 @@ void Enemy::Initialize()
 
 	//‰ŠúˆÊ’u
 	transform_.position_.x = 1.0f;
-	transform_.position_.y = (float)(rand() % 180 - 110) / 100;
+	//transform_.position_.y = (float)(rand() % 180 - 110) / 100;
 	
 	//‘å‚«‚³
 	transform_.scale_.x = 0.5f;

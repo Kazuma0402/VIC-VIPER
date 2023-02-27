@@ -7,6 +7,9 @@ class Player : public GameObject
     //画像
     int hPict_;
 
+    int hPicts_;
+    Transform t_;
+
     //機体のスピード
     float speed;
 
@@ -27,7 +30,15 @@ class Player : public GameObject
     bool double_;
     bool laser_;
 
+    //コナミコマンド用（仮）
     int cnt;
+
+    //移動しているかしていないか
+    bool angle;
+
+    //座標用配列
+    double cx[81];
+    double cy[81];
 public: 
     //コンストラクタ
     Player(GameObject* parent);
@@ -52,6 +63,18 @@ public:
 
     //位置の取得
     void GetPosition(double *x, double *y);
+
+    //自機に昔の位置(20個前)の取得
+    void GetOldPosition20(double *x, double *y);
+    //自機に昔の位置(40個前)の取得
+    void GetOldPosition40(double* x, double* y);
+    //自機に昔の位置(60個前)の取得
+    void GetOldPosition60(double* x, double* y);
+    //自機に昔の位置(80個前)の取得
+    void GetOldPosition80(double* x, double* y);
+
+    //死んだ時に座標記録の配列を初期化にする
+    void ResetPosition();
 
     //↓アビリティの開放↓
     //スピードアップ

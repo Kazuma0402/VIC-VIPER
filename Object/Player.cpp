@@ -3,6 +3,7 @@
 #include "../Ability/Missile.h"
 #include "../Ability/Double.h"
 #include "../Ability/Laser.h"
+#include "../Ability/Option.h"
 
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
@@ -52,7 +53,25 @@ void Player::Initialize()
 	double_ = false;
 	laser_ = false;
 
+	//コナミコマンド用（仮）
 	cnt = 0;
+
+	angle = false;
+
+	//座標の初期化
+	for (int i = 0; i < 81; i++)
+	{
+		cx[i] = 0;
+		cy[i] = 0;
+	}	
+
+	//ロード
+	hPicts_ = Image::Load("POINT.png");
+	assert(hPicts_ >= 0);
+
+	//プレイヤーの大きさ
+	t_.scale_.x = 0.5f;
+	t_.scale_.y = 0.5f;
 }
 
 //更新
@@ -65,6 +84,8 @@ void Player::Update()
 
 		//レーザーの出る位置の補正
 		trans_.position_.y += speed;
+
+		angle = true;
 	}
 	if (Input::IsKey(DIK_S))
 	{
@@ -72,6 +93,8 @@ void Player::Update()
 
 		//レーザーの出る位置の補正
 		trans_.position_.y -= speed;
+
+		angle = true;
 	}
 	if (Input::IsKey(DIK_D))
 	{
@@ -79,6 +102,8 @@ void Player::Update()
 
 		//レーザーの出る位置の補正
 		trans_.position_.x += speed;
+
+		angle = true;
 	}
 	if (Input::IsKey(DIK_A))
 	{
@@ -86,6 +111,8 @@ void Player::Update()
 
 		//レーザーの出る位置の補正
 		trans_.position_.x -= speed;
+
+		angle = true;
 	}
 
 	//画面外に出ない
@@ -247,8 +274,7 @@ void Player::Update()
 
 				time = 0;
 			}
-		}
-		
+		}		
 	}
 
 	//ミサイルの発射
@@ -298,6 +324,25 @@ void Player::Update()
 			}
 		}
 	}
+
+	//プレイヤーが移動したら座標の記録を更新
+	if (angle != false)
+	{
+		//座標を記録
+		for (int i = 79; i >= 0; i--)
+		{
+			cx[i + 1] = cx[i];
+			cy[i + 1] = cy[i];
+		}
+		cx[0] = this->transform_.position_.x;
+		cy[0] = this->transform_.position_.y;
+
+		angle = false;
+	}
+
+	//常にプレイヤーの20個前の座標を移動
+	t_.position_.x = cx[20];
+	t_.position_.y = cy[20];
 
 	//コナミコマンド（仮）
 	switch (cnt)
@@ -352,6 +397,13 @@ void Player::Update()
 		{
 			ShotMissile();
 			ShotLaser();
+			Option* pOption = (Option*)FindObject("Option");
+			for (int i = 0; i < 2; i++)
+			{
+				pOption->AddOption();
+			}
+			pOption->ShotMissile();
+			pOption->ShotLaser();
 		}
 		break;
 	default:
@@ -364,6 +416,9 @@ void Player::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
+
+	/*Image::SetTransform(hPicts_, t_);
+	Image::Draw(hPicts_);*/
 }
 
 //開放
@@ -395,6 +450,45 @@ void Player::GetPosition(double* x, double* y)
 	*y = this->transform_.position_.y;
 }
 
+//昔の位置を取得
+void Player::GetOldPosition20(double* x, double* y)
+{
+	//位置の取得
+	*x = cx[20];
+	*y = cy[20];
+}
+// 昔の位置を取得
+void Player::GetOldPosition40(double* x, double* y)
+{
+	//位置の取得
+	*x = cx[40];
+	*y = cy[40];
+}
+// 昔の位置を取得
+void Player::GetOldPosition60(double* x, double* y)
+{
+	//位置の取得
+	*x = cx[60];
+	*y = cy[60];
+}
+// 昔の位置を取得
+void Player::GetOldPosition80(double* x, double* y)
+{
+	//位置の取得
+	*x = cx[80];
+	*y = cy[80];
+}
+
+//死んだときに座標記録の配列を初期化
+void Player::ResetPosition()
+{
+	//座標の初期化
+	for (int i = 0; i < 81; i++)
+	{
+		cx[i] = 0;
+		cy[i] = 0;
+	}
+}
 
 //アビリティの解放
 //一番目

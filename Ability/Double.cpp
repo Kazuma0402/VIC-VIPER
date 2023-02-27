@@ -8,7 +8,6 @@ Double::Double(GameObject* parent)
 	:GameObject(parent, "Double"), hPict_(-1)
 {
 }
-
 //デストラクタ
 Double::~Double()
 {

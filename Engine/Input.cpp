@@ -18,7 +18,7 @@ namespace Input
 	LPDIRECTINPUTDEVICE8	pMouseDevice_;	//デバイスオブジェクト
 	DIMOUSESTATE mouseState_;				//マウスの状態
 	DIMOUSESTATE prevMouseState_;			//前フレームのマウスの状態
-	POINT mousePos_;							//マウスカーソルの位置
+	POINT mousePos_;						//マウスカーソルの位置
 
 	//コントローラー
 	const int MAX_PAD_NUM = 4;
