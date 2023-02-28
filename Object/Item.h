@@ -6,6 +6,7 @@ class Item : public GameObject
 {
     //画像
     int hPict_;
+
 public:
     //コンストラクタ
     Item(GameObject* parent);
@@ -27,5 +28,8 @@ public:
 
     //当たり判定
     void OnCollision(GameObject* pTarget);
+
+    //位置の取得
+    void GetPosition();
 };
 

@@ -30,6 +30,9 @@ void Item::Initialize()
 void Item::Update()
 {
 	transform_.position_.x -= 0.005f;
+
+	//“G‚ÌŽ€‚ñ‚¾ˆÊ’u‚ÌŽæ“¾
+	GetPosition();	
 }
 
 //•`‰æ
@@ -57,4 +60,16 @@ void Item::OnCollision(GameObject* pTarget)
 		Ability* pAbility = (Ability*)FindObject("Ability");
 		pAbility->Addition();
 	}
+}
+
+//ˆÊ’u‚ÌŽæ“¾
+void Item::GetPosition()
+{
+	double tempx, tempy;
+
+	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
+	pEnemy->SendOldPosition(&tempx, &tempy);
+
+	transform_.position_.x = tempx;
+	transform_.position_.y = tempy;
 }

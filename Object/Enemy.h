@@ -10,11 +10,8 @@ class Enemy : public GameObject
     //折り返し地点
     int wavePoint;
 
-    //プレイヤーの位置を保存
+    //位置を保存
     double pos_x, pos_y;
-
-    //死んだ数
-    int KillCount;
 public:
     //コンストラクタ
     Enemy(GameObject* parent);
@@ -37,7 +34,10 @@ public:
     //当たり判定
     void OnCollision(GameObject* pTarget) override;
 
-    //スコア用
-    void KillCountpuls();
+    //位置の取得
+    void GetPosition(double* x, double* y);
+
+    //死んだ位置をアイテムへ送る
+    void SendOldPosition(double* x, double* y);
 };
 

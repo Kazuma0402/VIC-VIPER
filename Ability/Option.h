@@ -76,9 +76,6 @@ public:
     //オプションの表示
     void AddOption();
 
-    //プレイヤーが死んだ時のリセット
-    void CountReset();
-
     //プレイヤーが死んだときにオプションも死ぬ
     void KillOption();
 

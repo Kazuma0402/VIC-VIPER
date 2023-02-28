@@ -39,9 +39,6 @@ void Enemy::Initialize()
 
 	//ウェーブポイントの初期化
 	wavePoint = 0;
-
-	//キルカウントの初期化
-	KillCount = 0;
 }
 
 //更新
@@ -73,8 +70,11 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//当たったときの処理
-	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "OptionBullet")
+	if (pTarget->GetObjectName() == "Bullet")
 	{
+		//死んだ位置の保存
+		GetPosition(&pos_x, &pos_y);
+
 		//敵が消える
 		KillMe();
 
@@ -88,6 +88,9 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Missile")
 	{
+		//死んだ位置の保存
+		GetPosition(&pos_x, &pos_y);
+
 		//敵が消える
 		KillMe();
 
@@ -102,6 +105,9 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Double")
 	{
+		//死んだ位置の保存
+		GetPosition(&pos_x, &pos_y);
+
 		//敵が消える
 		KillMe();
 
@@ -116,6 +122,9 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Laser")
 	{
+		//死んだ位置の保存
+		GetPosition(&pos_x, &pos_y);
+
 		//敵が消える
 		KillMe();
 
@@ -126,19 +135,17 @@ void Enemy::OnCollision(GameObject* pTarget)
 	}
 }
 
-void Enemy::KillCountpuls()
+//位置取得
+void Enemy::GetPosition(double* x, double* y)
 {
-	//キルカウントの加算
-	KillCount++;
+	//現在の位置の取得
+	*x = this->transform_.position_.x;
+	*y = this->transform_.position_.y;
+}
 
-	//切るカウントが一定数以上ならアイテムの表示
-	if (KillCount >= 5)
-	{
-		//アイテムの表示
-		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
-		pPlayScene->AppearanceItem();
-
-		//キルカウントのリセット
-		KillCount == 0;
-	}
+//死んだ位置をアイテムへ送る
+void Enemy::SendOldPosition(double* x, double* y)
+{
+	*x = pos_x;
+	*y = pos_y;
 }
