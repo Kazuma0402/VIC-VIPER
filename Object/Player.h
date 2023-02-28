@@ -73,9 +73,6 @@ public:
     //自機に昔の位置(80個前)の取得
     void GetOldPosition80(double* x, double* y);
 
-    //死んだ時に座標記録の配列を初期化にする
-    void ResetPosition();
-
     //↓アビリティの開放↓
     //スピードアップ
     void SpeedUp();

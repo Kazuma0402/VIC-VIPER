@@ -1,5 +1,7 @@
 #include "Life.h"
 #include "../Ability/Ability.h"
+#include "../Ability/Option.h"
+
 #include "../Engine/Image.h"
 #include "../Engine/SceneManager.h"
 #include "../Scene/PlayScene.h"
@@ -67,8 +69,10 @@ void Life::Stock()
 
 		con++;
 
-		//プレイヤーの表示
+		//PlaySceneのインスタンス呼び出し
 		PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+
+		//プレイヤーの表示
 		pPlayScene->AppearancePlayer();
 
 		//-----アビリティクラスについて-----

@@ -48,16 +48,33 @@ void Option::Initialize()
 
 	//レーザーの発射位置の補正
 	trans_.position_.x = 0.45f;
+
+	alive = false;
 }
 
 //更新
 void Option::Update()
 {
-	//常にプレイヤーの昔の位置を更新
-	GetPlayerPosition20();
-	GetPlayerPosition40();
-	GetPlayerPosition60();
-	GetPlayerPosition80();
+	//オプションが表示されいるなら座標の更新可能
+	if (FindObject("Option") != NULL)
+	{
+		alive = true;
+	}
+	else
+	{
+		alive = false;
+		cnt = 0;
+	}
+
+	//オプションが表示されている間だけ座標の更新
+	if(alive == true)
+	{
+		//常にプレイヤーの昔の位置を更新
+		GetPlayerPosition20();
+		GetPlayerPosition40();
+		GetPlayerPosition60();
+		GetPlayerPosition80();
+	}
 
 	//位置の更新
 	pos1_.position_.x = cx[0];
@@ -298,6 +315,10 @@ void Option::Update()
 //描画
 void Option::Draw()
 {
+	if (cnt == 0)
+	{
+		Image::SetTransform(hPict_[0], pos1_);
+	}
 	if (cnt >= 1)
 	{
 		Image::SetTransform(hPict_[0], pos1_);
@@ -373,10 +394,11 @@ void Option::AddOption()
 	cnt++;
 }
 
-//プレイヤーが死んだときのリセット
-void Option::CountReset()
+//死ぬ処理
+void Option::KillOption()
 {
-	cnt = 0;
+	KillMe();
+	alive = false;
 }
 
 //二番目

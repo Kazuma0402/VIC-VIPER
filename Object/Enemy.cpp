@@ -1,5 +1,4 @@
 #include "Enemy.h"
-#include "EnemyBullet.h"
 #include "Player.h"
 #include "../Display/Score.h"
 #include "../Scene/PlayScene.h"
@@ -74,7 +73,7 @@ void Enemy::Release()
 void Enemy::OnCollision(GameObject* pTarget)
 {
 	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
-	if (pTarget->GetObjectName() == "Bullet")
+	if (pTarget->GetObjectName() == "Bullet" || pTarget->GetObjectName() == "OptionBullet")
 	{
 		//“G‚ªÁ‚¦‚é
 		KillMe();

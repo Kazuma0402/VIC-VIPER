@@ -147,9 +147,6 @@
     <ClCompile Include="Object\Enemy2.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Object\EnemyBullet.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Item.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
@@ -157,7 +154,7 @@
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="Ability\Double.cpp">
-      <Filter>ソース ファイル\Display</Filter>
+      <Filter>ソース ファイル\Ability</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,9 +257,6 @@
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\Enemy2.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Object\EnemyBullet.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="Object\Item.h">

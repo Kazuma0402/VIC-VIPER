@@ -64,14 +64,6 @@ void Player::Initialize()
 		cx[i] = 0;
 		cy[i] = 0;
 	}	
-
-	//ロード
-	hPicts_ = Image::Load("POINT.png");
-	assert(hPicts_ >= 0);
-
-	//プレイヤーの大きさ
-	t_.scale_.x = 0.5f;
-	t_.scale_.y = 0.5f;
 }
 
 //更新
@@ -340,10 +332,6 @@ void Player::Update()
 		angle = false;
 	}
 
-	//常にプレイヤーの20個前の座標を移動
-	t_.position_.x = cx[20];
-	t_.position_.y = cy[20];
-
 	//コナミコマンド（仮）
 	switch (cnt)
 	{
@@ -416,9 +404,6 @@ void Player::Draw()
 {
 	Image::SetTransform(hPict_, transform_);
 	Image::Draw(hPict_);
-
-	/*Image::SetTransform(hPicts_, t_);
-	Image::Draw(hPicts_);*/
 }
 
 //開放
@@ -477,17 +462,6 @@ void Player::GetOldPosition80(double* x, double* y)
 	//位置の取得
 	*x = cx[80];
 	*y = cy[80];
-}
-
-//死んだときに座標記録の配列を初期化
-void Player::ResetPosition()
-{
-	//座標の初期化
-	for (int i = 0; i < 81; i++)
-	{
-		cx[i] = 0;
-		cy[i] = 0;
-	}
 }
 
 //アビリティの解放

@@ -35,13 +35,14 @@ void PlayScene::Initialize()
 	
 	//表示
 	Instantiate<Player>(this);
+	Instantiate<Option>(this);
 	Instantiate<Enemy>(this);
 	//Instantiate<Enemy2>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 	Instantiate<Life>(this);
-	Instantiate<Option>(this);
+
 }
 
 //更新
@@ -81,8 +82,13 @@ void PlayScene::Update()
 	}
 	/*if (FindObject("Enemy2") == NULL)
 	{
-		Instantiate<Enemy2>(this);
-		count++;
+		time++;
+		
+		if (time >= 60)
+		{
+			Instantiate<Enemy2>(this);
+			count++;
+		}	
 
 		if (count >= 5)
 		{
@@ -98,9 +104,12 @@ void PlayScene::Update()
 		Life* pLife = (Life*)FindObject("Life");
 		pLife->Stock();
 
-		//配列の初期化
-		Player* pPlayer = (Player*)FindObject("Player");
-		pPlayer->ResetPosition();
+		if (FindObject("Option") != NULL)
+		{
+			//OptionをKill
+			Option* pOption = (Option*)FindObject("Option");
+			pOption->KillOption();
+		}	
 	}
 
 	//ESCキーで強制終了
@@ -131,6 +140,12 @@ void PlayScene::Release()
 void PlayScene::AppearancePlayer()
 {
 	Instantiate<Player>(this);
+}
+
+//Optionの表示
+void PlayScene::AppearanceOption()
+{
+	Instantiate<Option>(this);
 }
 
 //アイテムの表示

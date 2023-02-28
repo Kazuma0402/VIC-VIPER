@@ -33,6 +33,9 @@ public:
 	//プレイヤーの表示
 	void AppearancePlayer();
 
+	//オプションの表示
+	void AppearanceOption();
+
 	//アイテムの表示
 	void AppearanceItem();
 };

@@ -1,6 +1,7 @@
 #include "Ability.h"
-#include "../Object/Player.h"
 #include "Option.h"
+#include "../Object/Player.h"
+#include "../Scene/PlayScene.h"
 
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
@@ -284,6 +285,10 @@ void Ability::Update()
 				AbilityOption--;
 
 				//オプションの表示
+				PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+				pPlayScene->AppearanceOption();
+
+				//オプションの表示
 				Option* pOption = (Option*)FindObject("Option");
 				pOption->AddOption();
 
@@ -414,10 +419,6 @@ void Ability::AbilityHeel()
 	AbilityLaser = true;
 	AbilityOption = 4;
 	AbilityHatena = true;
-
-	//オプションの初期化
-	Option* pOption = (Option*)FindObject("Option");
-	pOption->CountReset();
 }
 
 //復活した際のアビリティ表示のリセット

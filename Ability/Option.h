@@ -8,6 +8,9 @@ class Option : public GameObject
     //画像用
     int hPict_[4];
 
+    //生きているかの判定
+    bool alive;
+
     //今出ているオプションの数
     int cnt;
 
@@ -76,6 +79,10 @@ public:
     //プレイヤーが死んだ時のリセット
     void CountReset();
 
+    //プレイヤーが死んだときにオプションも死ぬ
+    void KillOption();
+
+    //↓アビリティ
     //ミサイルの発射
     void ShotMissile();
 
