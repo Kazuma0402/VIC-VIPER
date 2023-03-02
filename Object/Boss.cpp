@@ -1,4 +1,5 @@
 #include "Boss.h"
+#include "EnemyBullet.h"
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
 #include "../Display/Score.h"
@@ -22,9 +23,8 @@ void Boss::Initialize()
 	assert(hPict_ >= 0);
 
 	//‰ŠúˆÊ’u
-	transform_.position_.x = 1.0f;
+	transform_.position_.x = 50.00f;
 	transform_.position_.y = 0.4f;
-
 	//‘å‚«‚³
 	transform_.scale_.x = 0.5f;
 	transform_.scale_.y = 0.5f;
@@ -33,40 +33,62 @@ void Boss::Initialize()
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
 
+	//‘Ì—Í‚Ì‰Šú‰»
+	hp = 100;
+
+	move = false;
+
+	wavePoint = false;
+
+	time = 0;
 }
 
 //XV
 void Boss::Update()
 {
-	//ˆÚ“®‘¬“x
-	transform_.position_.x -= 0.01f;
-
-	if (transform_.position_.x <= -1.00f)
+	if (transform_.position_.x >= 0.4f)
 	{
-		KillMe();
+		//ˆÚ“®‘¬“x
+		transform_.position_.x -= 0.005f;
 	}
-
-
-
-	/*int u = 0;
-	if (u == 0)
+	else if (transform_.position_.x <= 0.4f)
 	{
-		transform.position.y += 0.1;
+		move = true;
+	}
+	
+	//ˆÚ“®‚ÌØ‚è‘Ö‚¦
+	if (move == true && wavePoint == false)
+	{
+		transform_.position_.y += 0.005f;
 
-		if (transform.position.y <= 2.0)
+		if (transform_.position_.y >= 0.70f)
 		{
-			u = 1;
+			wavePoint = true;
 		}
 	}
-	if (u == 1)
+	else if (move == true && wavePoint == true)
 	{
-		transform.position.y -= 0.1;
+		transform_.position_.y -= 0.005f;
 
-		if (transform.position.y >= 0.0)
+		if (transform_.position_.y <= -0.70f)
 		{
-			u = 1;
+			wavePoint = false;
 		}
-	}*/
+	}
+
+	//if (move == true)
+	//{
+	//	time++;
+
+	//	if (time >= 120)
+	//	{
+	//		EnemyBullet* pEnemyBullet = Instantiate<EnemyBullet>(GetParent());
+	//		pEnemyBullet->SetPosition(transform_.position_);
+
+	//		time = 0;
+	//	}
+	//}
+	
 }
 
 //•`‰æ
@@ -88,13 +110,56 @@ void Boss::OnCollision(GameObject* pTarget)
 	if (pTarget->GetObjectName() == "Bullet")
 	{
 		//“G‚ªÁ‚¦‚é
-		KillMe();
+		hp--;
 
 		//’e‚ªÁ‚¦‚é
 		pTarget->KillMe();
 
-		//“G‚ğ“|‚µ‚½‚çƒXƒRƒA‰ÁZ
-		Score* pScore = (Score*)FindObject("Score");
-		pScore->Addition();
+		if (hp <= 0)
+		{
+			KillMe();
+		}
+	}
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Missile")
+	{
+		//“G‚ªÁ‚¦‚é
+		hp--;
+
+		//’e‚ªÁ‚¦‚é
+		pTarget->KillMe();
+
+		if (hp <= 0)
+		{
+			KillMe();
+		}
+	}
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Double")
+	{
+		//“G‚ªÁ‚¦‚é
+		hp--;
+
+		//’e‚ªÁ‚¦‚é
+		pTarget->KillMe();
+
+		if (hp <= 0)
+		{
+			KillMe();
+		}
+	}
+	//“–‚½‚Á‚½‚Æ‚«‚Ìˆ—
+	if (pTarget->GetObjectName() == "Laser")
+	{
+		//“G‚ªÁ‚¦‚é
+		hp -= 3;
+
+		//’e‚ªÁ‚¦‚é
+		pTarget->KillMe();
+
+		if (hp <= 0)
+		{
+			KillMe();
+		}
 	}
 }

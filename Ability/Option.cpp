@@ -430,3 +430,12 @@ void Option::ShotLaser()
 	//ダブルとの併用をできなくする
 	double_ = false;
 }
+
+//アビリティの回復
+void Option::AbilityHeel()
+{
+	missile_ = false;
+	double_ = false;
+	laser_ = false;
+
+}

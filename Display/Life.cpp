@@ -86,6 +86,10 @@ void Life::Stock()
 
 		//アビリティ表示のリセット
 		pAbility->AbilityReset();
+
+		//オプション側のアビリティの回復
+		Option* pOption = (Option*)FindObject("Option");
+		pOption->AbilityHeel();
 	}
 	//残機がないなら結果画面
 	else

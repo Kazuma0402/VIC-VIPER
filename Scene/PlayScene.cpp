@@ -3,6 +3,7 @@
 #include "../Object/Player.h"
 #include "../Object/Enemy.h"
 #include "../Object/Enemy2.h"
+#include "../Object/Boss.h"
 #include "../Display/Score.h"
 #include "../Ability/Ability.h"
 #include "../Display/Life.h"
@@ -37,12 +38,16 @@ void PlayScene::Initialize()
 	Instantiate<Player>(this);
 	Instantiate<Option>(this);
 	Instantiate<Enemy>(this);
-	//Instantiate<Enemy2>(this);
+	Instantiate<Enemy2>(this);
+	Instantiate<Boss>(this);
 	Instantiate<Stage>(this);
 	Instantiate<Score>(this);
 	Instantiate<Ability>(this);
 	Instantiate<Life>(this);
 
+	time = 0;
+	time2 = 0;
+	timeCount = 0;
 }
 
 //更新
@@ -68,34 +73,34 @@ void PlayScene::Update()
 		Image::Draw(hPict_[1]);
 	}
 
+	time2++;
+	if (time2 >= 60)
+	{
+		timeCount++;
+		time2 = 0;
+	}
+
 	//もし敵がいなければ
-	if (FindObject("Enemy") == NULL)
+	if (FindObject("Enemy") == NULL && timeCount <= 80)
 	{
 		Instantiate<Enemy>(this);
-		count++;
-		
-		if (count >= 5)
-		{
-			Instantiate<Item>(this);
-			count = 0;
-		}
 	}
-	/*if (FindObject("Enemy2") == NULL)
+	if (FindObject("Enemy2") == NULL && timeCount <= 80)
 	{
 		time++;
 		
 		if (time >= 60)
 		{
 			Instantiate<Enemy2>(this);
-			count++;
+			time = 0;
 		}	
-
-		if (count >= 5)
-		{
-			Instantiate<Item>(this);
-			count = 0;
-		}
-	}*/
+	}
+	if (FindObject("Boss") == NULL)
+	{
+		//ゲーム結果画面への遷移
+		SceneManager* pSceneManager = (SceneManager*)FindObject("SceneManager");
+		pSceneManager->ChangeScene(SCENE_ID_CLEAR);
+	}
 
 	//もしプレイヤーがなければ
 	if (FindObject("Player") == NULL)

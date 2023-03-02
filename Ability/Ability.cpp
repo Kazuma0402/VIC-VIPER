@@ -414,6 +414,7 @@ void Ability::CountReset()
 //復活した際のアビリティ使用の復活
 void Ability::AbilityHeel()
 {
+
 	AbilityMissile = true;
 	AbilityDouble = true;
 	AbilityLaser = true;

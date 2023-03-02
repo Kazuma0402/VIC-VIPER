@@ -24,15 +24,15 @@ void Item::Initialize()
 	//“–‚½‚è”»’èiŠÛj
 	SphereCollider* collision = new SphereCollider(XMFLOAT3(0.03f, 0.0f, 0.0f), 0.08f);
 	AddCollider(collision);
+
+	//“G‚ÌŽ€‚ñ‚¾ˆÊ’u‚ÌŽæ“¾
+	GetPosition();
 }
 
 //XV
 void Item::Update()
 {
 	transform_.position_.x -= 0.005f;
-
-	//“G‚ÌŽ€‚ñ‚¾ˆÊ’u‚ÌŽæ“¾
-	GetPosition();	
 }
 
 //•`‰æ
@@ -68,8 +68,9 @@ void Item::GetPosition()
 	double tempx, tempy;
 
 	Enemy* pEnemy = (Enemy*)FindObject("Enemy");
-	pEnemy->SendOldPosition(&tempx, &tempy);
+	pEnemy->GetSavePosition(&tempx, &tempy);
 
 	transform_.position_.x = tempx;
 	transform_.position_.y = tempy;
+
 }

@@ -6,7 +6,6 @@ class Item : public GameObject
 {
     //画像
     int hPict_;
-
 public:
     //コンストラクタ
     Item(GameObject* parent);

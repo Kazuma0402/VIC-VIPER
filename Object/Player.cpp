@@ -425,6 +425,15 @@ void Player::OnCollision(GameObject* pTarget)
 		KillMe();
 		pTarget->KillMe();
 	}
+	if (pTarget->GetObjectName() == "EnemyBullet")
+	{
+		KillMe();
+		pTarget->KillMe();
+	}
+	if (pTarget->GetObjectName() == "Boss")
+	{
+		KillMe();
+	}
 }
 
 //ˆÊ’uŽæ“¾

@@ -10,8 +10,13 @@ class Enemy : public GameObject
     //折り返し地点
     int wavePoint;
 
-    //位置を保存
+    //死んだ位置の取得用
     double pos_x, pos_y;
+
+    //死んだ位置を保存
+    double tempx, tempy;
+
+    int num;
 public:
     //コンストラクタ
     Enemy(GameObject* parent);
@@ -37,7 +42,6 @@ public:
     //位置の取得
     void GetPosition(double* x, double* y);
 
-    //死んだ位置をアイテムへ送る
-    void SendOldPosition(double* x, double* y);
+    void GetSavePosition(double* x, double* y);
 };
 

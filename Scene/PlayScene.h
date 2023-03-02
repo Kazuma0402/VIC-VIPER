@@ -7,8 +7,11 @@ class PlayScene : public GameObject
 	//画像用の配列
 	int hPict_[2];
 
+	//敵の表示クールタイム
 	int time = 0;
-	int count = 0;
+
+	int time2;
+	int timeCount;
 
 	//画像の描画位置用
 	Transform trans_;

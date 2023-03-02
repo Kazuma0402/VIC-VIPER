@@ -9,6 +9,7 @@ enum SCENE_ID
 	SCENE_ID_OPTION,
 	SCENE_ID_PLAY,
 	SCENE_ID_RESULT,
+	SCENE_ID_CLEAR,
 };
 
 //-----------------------------------------------------------

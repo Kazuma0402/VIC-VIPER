@@ -18,7 +18,7 @@ EnemyBullet::~EnemyBullet()
 //‰Šú‰»
 void EnemyBullet::Initialize()
 {
-	hPict_ = Image::Load("Bullet.png");
+	hPict_ = Image::Load("EnemyBullet.png");
 	assert(hPict_ >= 0);
 
 	//“–‚½‚è”»’è
@@ -29,7 +29,7 @@ void EnemyBullet::Initialize()
 //XV
 void EnemyBullet::Update()
 {
-	transform_.position_.x -= 0.0007f;
+	transform_.position_.x -= 0.06f;
 
 	if (transform_.position_.x <= -0.95f)
 	{

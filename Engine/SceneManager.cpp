@@ -3,6 +3,7 @@
 #include "../Scene/OptionScene.h"
 #include "../Scene/PlayScene.h"
 #include "../Scene/ResultScene.h"
+#include "../Scene/GameClearScene.h"
 #include "Model.h"
 #include "Image.h"
 #include "Audio.h"
@@ -44,6 +45,7 @@ void SceneManager::Update()
 		case SCENE_ID_OPTION: Instantiate<OptionScene>(this); break;
 		case SCENE_ID_PLAY: Instantiate<PlayScene>(this); break;
 		case SCENE_ID_RESULT: Instantiate<ResultScene>(this); break;
+		case SCENE_ID_CLEAR: Instantiate<GameClearScene>(this); break;
 		}
 		Audio::Initialize();
 		currentSceneID_ = nextSceneID_;

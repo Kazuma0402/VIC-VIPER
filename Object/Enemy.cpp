@@ -1,7 +1,9 @@
 #include "Enemy.h"
 #include "Player.h"
+#include "Item.h"
 #include "../Display/Score.h"
 #include "../Scene/PlayScene.h"
+
 #include "../Engine/Image.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
@@ -27,7 +29,7 @@ void Enemy::Initialize()
 
 	//初期位置
 	transform_.position_.x = 1.0f;
-	//transform_.position_.y = (float)(rand() % 180 - 110) / 100;
+	transform_.position_.y = (rand() % 160 - 80.0f) / 100;
 	
 	//大きさ
 	transform_.scale_.x = 0.5f;
@@ -39,6 +41,8 @@ void Enemy::Initialize()
 
 	//ウェーブポイントの初期化
 	wavePoint = 0;
+
+	num = rand() % 5;
 }
 
 //更新
@@ -72,9 +76,20 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Bullet")
 	{
-		//死んだ位置の保存
+		//敵の死んだ位置を取得
 		GetPosition(&pos_x, &pos_y);
 
+		//取得した位置を保存
+		tempx = pos_x;
+		tempy = pos_y;
+
+		//確率でアイテムの表示
+		if (num == 0)
+		{
+			PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+			pPlayScene->AppearanceItem();
+		}
+			
 		//敵が消える
 		KillMe();
 
@@ -88,8 +103,19 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Missile")
 	{
-		//死んだ位置の保存
+		//敵の死んだ位置を取得
 		GetPosition(&pos_x, &pos_y);
+
+		//取得した位置を保存
+		tempx = pos_x;
+		tempy = pos_y;
+
+		//確率でアイテムの表示
+		if (num == 0)
+		{
+			PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+			pPlayScene->AppearanceItem();
+		}
 
 		//敵が消える
 		KillMe();
@@ -105,8 +131,19 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Double")
 	{
-		//死んだ位置の保存
+		//敵の死んだ位置を取得
 		GetPosition(&pos_x, &pos_y);
+
+		//取得した位置を保存
+		tempx = pos_x;
+		tempy = pos_y;
+
+		//確率でアイテムの表示
+		if (num == 0)
+		{
+			PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+			pPlayScene->AppearanceItem();
+		}
 
 		//敵が消える
 		KillMe();
@@ -122,8 +159,19 @@ void Enemy::OnCollision(GameObject* pTarget)
 	//当たったときの処理
 	if (pTarget->GetObjectName() == "Laser")
 	{
-		//死んだ位置の保存
+		//敵の死んだ位置を取得
 		GetPosition(&pos_x, &pos_y);
+
+		//取得した位置を保存
+		tempx = pos_x;
+		tempy = pos_y;
+
+		//確率でアイテムの表示
+		if (num == 0)
+		{
+			PlayScene* pPlayScene = (PlayScene*)FindObject("PlayScene");
+			pPlayScene->AppearanceItem();
+		}
 
 		//敵が消える
 		KillMe();
@@ -135,7 +183,7 @@ void Enemy::OnCollision(GameObject* pTarget)
 	}
 }
 
-//位置取得
+//死んだ位置取得
 void Enemy::GetPosition(double* x, double* y)
 {
 	//現在の位置の取得
@@ -143,9 +191,9 @@ void Enemy::GetPosition(double* x, double* y)
 	*y = this->transform_.position_.y;
 }
 
-//死んだ位置をアイテムへ送る
-void Enemy::SendOldPosition(double* x, double* y)
+//保存した位置を取得
+void Enemy::GetSavePosition(double* x, double* y)
 {
-	*x = pos_x;
-	*y = pos_y;
+	*x = tempx;
+	*y = tempy;
 }

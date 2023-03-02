@@ -88,4 +88,7 @@ public:
 
     //弾がレーザーに変更
     void ShotLaser();
+
+    //アビリティの回復
+    void AbilityHeel();
 };
